@@ -110,3 +110,43 @@ function handleInputChange(event) {
   noFramesInput.addEventListener("input", handleInputChange);
   animationSpeedInput.addEventListener("input", handleInputChange);
 
+
+
+
+// image processing
+
+var imageUpload = document.getElementById("imageUpload");
+
+imageUpload.addEventListener("change", handleImageUpload);
+
+function handleImageUpload(event) {
+  var file = event.target.files[0];
+  
+  // Process the image file
+  processImage(file);
+}
+
+
+
+function processImage(file) {
+  var reader = new FileReader();
+
+  reader.onload = function(event) {
+    var imageDataURL = event.target.result;
+    
+    // Use the image data URL as needed (e.g., display or manipulate the image)
+    displayUploadedImage(imageDataURL);
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function displayUploadedImage(imageDataURL) {
+  	var imgElement = document.getElementById("animationFrames");
+  	imgElement.src = imageDataURL;
+
+	var animationPreviewContainer = document.getElementById("animationPreview");
+	animationPreviewContainer.style.backgroundImage = "url(" + imageDataURL + ")";  
+}
+
+
