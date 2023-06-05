@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+	<link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+
+
+
+	<title>Animaticss — Generate CSS code for frame animations</title>
+</head>
+<body>
+
+	
+	<header>
+		<div class="logo">Animaticss</div>
+	</header>
+
+	<main>
+		
+		<section class="preview">
+			
+			<div class="container">
+				<div id="animationPreview"></div>
+
+				<div class="frames">
+					<img src="assets/demo-1.png" alt="">
+
+					<div id="currentFrame">&nbsp;</div>
+				</div>
+			</div>
+
+		</section>
+
+		<section class="input">
+			
+			<div>
+				<input type="range" id="noFrames" name="noFrames" min="2" max="50" value="10">
+				<label for="noFrames">Number of frames</label>
+			</div>
+
+			<div>
+				<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40" value="8">
+				<label for="animationSpeed">Animation speed</label>
+			</div>
+
+		</section>
+
+		<section class="output">
+			
+			output goes here
+
+		</section>
+
+	</main>
+
+	<footer>
+		<p>Designed and built by Sandro Pereira.</p>
+	</footer>
+
+
+
+
+	<script src="script.js"></script>
+</body>
+</html>

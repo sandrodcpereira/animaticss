@@ -1,0 +1,46 @@
+.container {
+	border: 1px solid purple;
+	padding: 24px;
+	max-width: 400px;
+	background-color: lightgray;
+}
+
+#animationPreview {
+	width: 350px;
+	height: 350px;
+	border: 1px solid green;
+	background-size: cover;
+	animation: preview 1s steps(10) infinite;
+	background-image: url('assets/demo-1.png');
+}
+
+@keyframes preview {
+  from {background-position-x: 0%;}
+  to {background-position-x: calc(100% - 350px);}
+}
+
+
+.frames {
+	border: 1px solid blue;
+	width: 100%;
+	position: relative;
+}
+
+.frames #currentFrame {
+	border: 2px solid black;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 10%;
+	animation: currentFrame 1s steps(10) infinite;
+}
+
+@keyframes currentFrame {
+  from {left: 0%;}
+  to {left: calc(100%);}
+}
+
+.frames img {
+	width: 100%;
+}
