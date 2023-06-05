@@ -1,21 +1,19 @@
-
-
 var animationDemo = [
-  {
-    noFrames: 2,
-    animationSpeed: 20,
-    animationFrames: "assets/demo-1.png"
-  },
-  {
-    noFrames: 50,
-    animationSpeed: 40,
-    animationFrames: "assets/demo-2.png"
-  },
-  {
-    noFrames: 25,
-    animationSpeed: 2,
-    animationFrames: "assets/demo-3.png"
-  },
+	{
+    	noFrames: 10,
+    	animationSpeed: 9,
+   		animationFrames: "assets/demo-1.png"
+	},
+	{
+    	noFrames: 24,
+    	animationSpeed: 20,
+    	animationFrames: "assets/demo-2.png"
+	},
+	{
+    	noFrames: 22,
+    	animationSpeed: 19,
+    	animationFrames: "assets/demo-3.png"
+	},
 ];
 
 var noFrames;
@@ -23,32 +21,37 @@ var animationSpeed;
 var animationSpeedAdjusted;
 var animationFrames;
 
-// Function to pick a random group and assign values to variables
-function setRandomDemoValues() {
-  // Randomly select an index from the animationDemo array
-  var randomIndex = Math.floor(Math.random() * animationDemo.length);
-  var randomDemo = animationDemo[randomIndex];
+// Select demo on pageload
 
-  // Assign values from the random group to variables
-  noFrames = randomDemo.noFrames;
-  animationSpeed = randomDemo.animationSpeed;
-  animationFrames = randomDemo.animationFrames;
-  animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
+function pickRandomDemoOnLoad() {
+	var randomIndex = Math.floor(Math.random() * animationDemo.length);
+	var randomDemo = animationDemo[randomIndex];
 
-  // Update the inputs with the values
+	noFrames = randomDemo.noFrames;
+	animationSpeed = randomDemo.animationSpeed;
+	animationFrames = randomDemo.animationFrames;
+	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
+
   document.getElementById("noFrames").value = noFrames;
   document.getElementById("animationSpeed").value = animationSpeed;
 }
 
-// Execute the function on page load
 document.addEventListener("DOMContentLoaded", function() {
-  setRandomDemoValues();
-  noFramesUpdate();
-  animationSpeedUpdate();
+	pickRandomDemoOnLoad();
+	noFramesUpdate();
+	animationSpeedUpdate();
+	updateAnimationFrames();
 });
 
 
-// Animation updates
+
+
+// Update preview based on changes to values
+
+var animationPreview = document.getElementById("animationPreview");
+var currentFrame = document.getElementById("currentFrame");
+var frameCounter = document.getElementById("frameCounter");
+var speedCounter = document.getElementById("speedCounter");
 
 function noFramesUpdate() {
 	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
@@ -56,27 +59,30 @@ function noFramesUpdate() {
 
 	var frameWidthPercentage = 100 / noFrames;
     currentFrame.style.width = frameWidthPercentage + "%";
-
-    var animationPreview = document.getElementById("animationPreview");
-    var animationFrame = document.getElementById("currentFrame");
     
     animationPreview.style.animation = animationPreviewUpdate;
-    animationFrame.style.animation = animationFrameUpdate;
+    currentFrame.style.animation = animationFrameUpdate;
 }
-
 
 function animationSpeedUpdate() {
 	var speedPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
 	var speedFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
 
-	var speedPreview = document.getElementById("animationPreview");
-    var speedFrame = document.getElementById("currentFrame");
-
-    speedPreview.style.animation = speedPreviewUpdate;
-    speedFrame.style.animation = speedFrameUpdate;
+    animationPreview.style.animation = speedPreviewUpdate;
+    currentFrame.style.animation = speedFrameUpdate;
 }
 
 
+// Update animation image source
+
+function updateAnimationFrames() {
+	var animationFramesContainer = document.getElementById("animationFrames");
+	animationFramesContainer.src = animationFrames;
+
+	var animationPreviewContainer = document.getElementById("animationPreview");
+	animationPreviewContainer.style.backgroundImage = "url(" + animationFrames + ")";
+
+}
 
 
  // Update variables on input change
