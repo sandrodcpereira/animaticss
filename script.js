@@ -21,11 +21,12 @@ var animationSpeed;
 var animationSpeedAdjusted;
 
 var sourceImg;
-var sourceWidth = 10000;
-var sourceHeight = 1000;
+
 
 var previewWidth;
 var previewHeight;
+
+
 
 
 var animationPreview = document.getElementById("animationPreview");
@@ -33,10 +34,18 @@ var noFramesInput = document.getElementById("noFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
 
 
+var sourceWidth;
+var sourceHeight;
+
+
+
+
+
+
 
 // Page load actions
 
-function pickRandomDemoOnLoad() {
+function pickRandomDemo() {
 	var randomIndex = Math.floor(Math.random() * animationDemo.length);
 	var randomDemo = animationDemo[randomIndex];
 
@@ -49,7 +58,7 @@ function pickRandomDemoOnLoad() {
 	animationSpeedInput.value = animationSpeed;
 }
 
-function updateFramesOnLoad() {
+function updateSources() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
 
@@ -57,15 +66,35 @@ function updateFramesOnLoad() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-	pickRandomDemoOnLoad();
-	updateFramesOnLoad();
-	noFramesUpdate();
-	animationSpeedUpdate();
-	resizeAnimationPreview();
-
-	updateAnimationKeyframes();
+	pickRandomDemo();				// fetch demo
+	updateSources();				// update image assets
 	
+
+
+
+	var img = new Image();
+	img.src = sourceImg;
+
+	img.onload = function() {
+	  // Store the width and height in variables
+	  var imageWidth = this.naturalWidth;
+	  var imageHeight = this.naturalHeight;
+
+	  // Use the width and height variables as needed
+	  console.log("Image width: " + imageWidth);
+	  console.log("Image height: " + imageHeight);
+	};
+
+
+
+
+	noFramesUpdate();				// update number of frames from array
+	animationSpeedUpdate();			// update animation speed from array
+
+
 });
+
+
 
 
 
@@ -85,6 +114,9 @@ function noFramesUpdate() {
     
     animationPreview.style.animation = animationPreviewUpdate;
     currentFrame.style.animation = animationFrameUpdate;
+
+    //updateAnimationKeyframes();		// update the CSS keyframes to the correct value
+	//resizeAnimationPreview();		// resizes the animation preview window
 }
 
 function animationSpeedUpdate() {
@@ -109,9 +141,7 @@ function handleInputChange(event) {
     	noFrames = inputValue;
     	console.log("noFrames changed. New value:", noFrames);
     	noFramesUpdate();
-    	resizeAnimationPreview();
 
-    	updateAnimationKeyframes();
 
     } else if (inputId === "animationSpeed") {
     	animationSpeed = inputValue;
