@@ -43,7 +43,7 @@ var sourceHeight;
 
 
 
-// Page load actions
+// Picks a random demo out of the array defined above
 
 function pickRandomDemo() {
 	var randomIndex = Math.floor(Math.random() * animationDemo.length);
@@ -58,7 +58,9 @@ function pickRandomDemo() {
 	animationSpeedInput.value = animationSpeed;
 }
 
-function updateSources() {
+// Updates the images from the local available demos
+
+function updateSourceFromDemo() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
 
@@ -68,7 +70,7 @@ function updateSources() {
 document.addEventListener("DOMContentLoaded", function() {
 	
 	pickRandomDemo();				// fetch demo
-	updateSources();				// update image assets
+	updateSourceFromDemo();				// update image assets
 	calculateSourceDimensions();	// caculate image asset dimensions
 
 	noFramesUpdate();				// update number of frames from array
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-// This function calculates the image source dimensions for use in all those functions down below.
+// Calculates the image source dimensions for use in all those functions down below.
 
 function calculateSourceDimensions() {
 	var img = new Image();
@@ -97,7 +99,7 @@ function calculateSourceDimensions() {
 }
 
 
-// The main function. This makes all the necessary changes and runs all the necessary functions every time there's a change in the values.
+// Makes all the changes and calls all the functions when the values are updated.
 
 var currentFrame = document.getElementById("currentFrame");
 var frameCounter = document.getElementById("frameCounter");
@@ -115,7 +117,6 @@ function noFramesUpdate() {
 
     resizeAnimationPreview();		// resizes the animation preview window
     updateAnimationKeyframes();		// update the CSS keyframes to the correct value
-	
 }
 
 function animationSpeedUpdate() {
@@ -155,7 +156,7 @@ animationSpeedInput.addEventListener("input", handleInputChange);
 
 
 
-// This function handles the local image upload and recalculates the image source dimensions by running that respective function.
+// Handles the local image upload 
 
 var imageUpload = document.getElementById("imageUpload");
 
@@ -170,22 +171,26 @@ function processImage(file) {
   var reader = new FileReader();
   reader.onload = function(event) {
     var imageDataURL = event.target.result;  
-    displayUploadedImage(imageDataURL);
+    updateSourceFromUpload(imageDataURL);
   };
 
   reader.readAsDataURL(file);
 }
 
-function displayUploadedImage(imageDataURL) {
+function updateSourceFromUpload(imageDataURL) {
   	var imgElement = document.getElementById("sourceImg");
   	imgElement.src = imageDataURL;
 	animationPreview.style.backgroundImage = "url(" + imageDataURL + ")";  
+	sourceImg = imageDataURL;
 
 	calculateSourceDimensions();
+	setTimeout(resizeAnimationPreview, 50);
+	setTimeout(updateAnimationKeyframes, 50);
+	
 }
 
 
-// This function resizes the animation preview window to match the size of each individual frame. This means dividing the width of the source image by the number of frames. There's some additional logic to add some max dimensions to keep things in check.
+// Resizes the animation preview window to match the size of each individual frame
 
 function resizeAnimationPreview() {
 
@@ -210,7 +215,7 @@ function resizeAnimationPreview() {
 	animationPreview.style.height = previewHeight + "px";
 }
 
-// This function updates the CSS keyframe animations to account for the size of the preview window.
+// Updates CSS keyframe logic to account for the preview window size
 
 function updateAnimationKeyframes() {
   var styleSheets = document.styleSheets;
