@@ -1,5 +1,5 @@
 
-/* section - preview */
+/* PREVIEW SECTION */
 
 .preview {
 	
@@ -58,3 +58,11 @@
 .frames img {
 	width: 100%;
 }
+
+
+/* INPUT SECTION */
+
+#animationSpeed {
+	direction: rtl;
+}
+

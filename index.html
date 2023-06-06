@@ -18,6 +18,11 @@
 		<div class="logo">Animaticss</div>
 	</header>
 
+	<nav>
+		<a href="#TODO">How to use</a>
+		<a href="#TODO">View repository</a>
+	</nav>
+
 	<main>
 		
 		<section class="preview">
@@ -39,15 +44,19 @@
 		<section class="input">
 			
 			<div>
-				<input type="range" id="noFrames" name="noFrames" min="2" max="50" value="10">
-				<label for="noFrames">Number of frames</label>
-				<p id="framesCounter">Number of Frames</p>
+				<label for="noFrames">Number of frames in the strip</label>
+
+				<input type="number" id="noFrames" name="noFrames" min="2" max="128">
+				
+				<p>Pick the correct number of frames in your animation for it to play correctly.</p>
 			</div>
 
 			<div>
-				<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40" value="8">
 				<label for="animationSpeed">Animation speed</label>
-				<p id="speedCounter">Animation Speed</p>
+
+				<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40">
+				
+				<p id="speedCounter">Drag the handle until your animation looks just the way you imagined it.</p>
 			</div>
 
 		</section>

@@ -41,6 +41,25 @@ var sourceHeight;
 
 
 
+noFramesInput.addEventListener("keydown", function(event) {
+  // Check if Shift key is pressed
+  if (event.shiftKey) {
+    // Increase or decrease value by 10
+    if (event.key === "ArrowUp") {
+      noFramesInput.stepUp(9);
+    } else if (event.key === "ArrowDown") {
+      noFramesInput.stepDown(9);
+    }
+  }
+});
+
+noFramesInput.addEventListener("keyup", function(event) {
+  // Reset the input's step value to 1 when Shift key is released
+  if (!event.shiftKey) {
+    noFramesInput.step = 1;
+  }
+});
+
 
 
 // Picks a random demo out of the array defined above
