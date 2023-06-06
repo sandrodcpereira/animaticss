@@ -66,40 +66,38 @@ function updateSources() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+	
 	pickRandomDemo();				// fetch demo
 	updateSources();				// update image assets
-	
+	calculateSourceDimensions();	// caculate image asset dimensions
+
+	noFramesUpdate();				// update number of frames from array
+	animationSpeedUpdate();			// update animation speed from array
+
+	setTimeout(resizeAnimationPreview, 50);
+	setTimeout(updateAnimationKeyframes, 50);
+});
 
 
+// This function calculates the image source dimensions for use in all those functions down below.
 
+function calculateSourceDimensions() {
 	var img = new Image();
 	img.src = sourceImg;
 
 	img.onload = function() {
 	  // Store the width and height in variables
-	  var imageWidth = this.naturalWidth;
-	  var imageHeight = this.naturalHeight;
+	  sourceWidth = this.naturalWidth;
+	  sourceHeight = this.naturalHeight;
 
 	  // Use the width and height variables as needed
-	  console.log("Image width: " + imageWidth);
-	  console.log("Image height: " + imageHeight);
+	  console.log("Image width: " + sourceWidth);
+	  console.log("Image height: " + sourceHeight);
 	};
+}
 
 
-
-
-	noFramesUpdate();				// update number of frames from array
-	animationSpeedUpdate();			// update animation speed from array
-
-
-});
-
-
-
-
-
-
-// Update preview based on changes to values
+// The main function. This makes all the necessary changes and runs all the necessary functions every time there's a change in the values.
 
 var currentFrame = document.getElementById("currentFrame");
 var frameCounter = document.getElementById("frameCounter");
@@ -115,8 +113,9 @@ function noFramesUpdate() {
     animationPreview.style.animation = animationPreviewUpdate;
     currentFrame.style.animation = animationFrameUpdate;
 
-    //updateAnimationKeyframes();		// update the CSS keyframes to the correct value
-	//resizeAnimationPreview();		// resizes the animation preview window
+    resizeAnimationPreview();		// resizes the animation preview window
+    updateAnimationKeyframes();		// update the CSS keyframes to the correct value
+	
 }
 
 function animationSpeedUpdate() {
@@ -130,8 +129,7 @@ function animationSpeedUpdate() {
 
 
 
-
-// Update variables on input change
+// Runs all the necessary functions when the value of the inputs change.
 
 function handleInputChange(event) {
     var inputId = event.target.id;
@@ -152,14 +150,12 @@ function handleInputChange(event) {
     }
 }
 
-
 noFramesInput.addEventListener("input", handleInputChange);
 animationSpeedInput.addEventListener("input", handleInputChange);
 
 
 
-
-// image upload processing
+// This function handles the local image upload and recalculates the image source dimensions by running that respective function.
 
 var imageUpload = document.getElementById("imageUpload");
 
@@ -167,16 +163,13 @@ imageUpload.addEventListener("change", handleImageUpload);
 
 function handleImageUpload(event) {
   var file = event.target.files[0];
-  
     processImage(file);
 }
 
 function processImage(file) {
   var reader = new FileReader();
-
   reader.onload = function(event) {
-    var imageDataURL = event.target.result;
-    
+    var imageDataURL = event.target.result;  
     displayUploadedImage(imageDataURL);
   };
 
@@ -186,18 +179,13 @@ function processImage(file) {
 function displayUploadedImage(imageDataURL) {
   	var imgElement = document.getElementById("sourceImg");
   	imgElement.src = imageDataURL;
-
 	animationPreview.style.backgroundImage = "url(" + imageDataURL + ")";  
+
+	calculateSourceDimensions();
 }
 
 
-// aspect ratio calculation
-
-
-
-
-
-
+// This function resizes the animation preview window to match the size of each individual frame. This means dividing the width of the source image by the number of frames. There's some additional logic to add some max dimensions to keep things in check.
 
 function resizeAnimationPreview() {
 
@@ -222,37 +210,25 @@ function resizeAnimationPreview() {
 	animationPreview.style.height = previewHeight + "px";
 }
 
+// This function updates the CSS keyframe animations to account for the size of the preview window.
 
-
-
-// test
-
-// Function to update the @keyframes rule
 function updateAnimationKeyframes() {
-  // Get the style sheets
   var styleSheets = document.styleSheets;
 
-  // Loop through the style sheets
   for (var i = 0; i < styleSheets.length; i++) {
     var styleSheet = styleSheets[i];
 
-    // Check if the style sheet is a CSSStyleSheet
     if (styleSheet instanceof CSSStyleSheet) {
-      // Loop through the CSS rules
       var rules = styleSheet.cssRules || styleSheet.rules;
       for (var j = 0; j < rules.length; j++) {
         var rule = rules[j];
 
-        // Check if the rule is a keyframes rule and matches the name "preview"
         if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
-          // Loop through the keyframes
           var keyframes = rule.cssRules;
           for (var k = 0; k < keyframes.length; k++) {
             var keyframe = keyframes[k];
 
-            // Check if the keyframe rule contains the property "background-position-x"
             if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
-              // Update the value of the "background-position-x" property
               keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
             }
           }

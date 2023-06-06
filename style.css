@@ -19,12 +19,9 @@
 }
 
 #animationPreview {
-	/*width: 100%;
-	height: 100%;
-	max-width: 480px;
-	max-height: 480px;*/
+	/*width: 320px;
+	height: 320px;*/
 
-	border: 1px solid green;
 	background-size: cover;
 	animation: preview 1s steps(10) infinite;
 	background-image: url('assets/demo-1.png');
