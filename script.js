@@ -21,7 +21,10 @@ var animationSpeed;
 var animationSpeedAdjusted;
 var animationFrames;
 
-// Select demo on pageload
+var framesWidth;
+var framesHeight;
+
+// Page load actions
 
 function pickRandomDemoOnLoad() {
 	var randomIndex = Math.floor(Math.random() * animationDemo.length);
@@ -32,15 +35,37 @@ function pickRandomDemoOnLoad() {
 	animationFrames = randomDemo.animationFrames;
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 
-  document.getElementById("noFrames").value = noFrames;
-  document.getElementById("animationSpeed").value = animationSpeed;
+	document.getElementById("noFrames").value = noFrames;
+	document.getElementById("animationSpeed").value = animationSpeed;
+}
+
+function updateFramesOnLoad() {
+	var animationFramesContainer = document.getElementById("animationFrames");
+	animationFramesContainer.src = animationFrames;
+
+	var animationPreviewContainer = document.getElementById("animationPreview");
+	animationPreviewContainer.style.backgroundImage = "url(" + animationFrames + ")";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 	pickRandomDemoOnLoad();
+	updateFramesOnLoad();
 	noFramesUpdate();
 	animationSpeedUpdate();
-	updateAnimationFrames();
+	
+	
+	getImageDimensions(animationFrames, function(width, height) {
+	  // Store the width and height in framesWidth and framesHeight variables
+	  const framesWidth = width;
+	  const framesHeight = height;
+
+	  // Use the width and height as needed
+	  console.log("Width:", framesWidth);
+	  console.log("Height:", framesHeight);
+	});
+
+	resizeAnimationPreview();
+	
 });
 
 
@@ -73,16 +98,7 @@ function animationSpeedUpdate() {
 }
 
 
-// Update animation image source
 
-function updateAnimationFrames() {
-	var animationFramesContainer = document.getElementById("animationFrames");
-	animationFramesContainer.src = animationFrames;
-
-	var animationPreviewContainer = document.getElementById("animationPreview");
-	animationPreviewContainer.style.backgroundImage = "url(" + animationFrames + ")";
-
-}
 
 
  // Update variables on input change
@@ -95,12 +111,14 @@ function handleInputChange(event) {
     	noFrames = inputValue;
     	console.log("noFrames changed. New value:", noFrames);
     	noFramesUpdate();
+    	resizeAnimationPreview();
 
     } else if (inputId === "animationSpeed") {
     	animationSpeed = inputValue;
     	animationSpeedAdjusted = inputValue * 0.1;
     	console.log("animationSpeed changed. New value:", animationSpeed);
     	animationSpeedUpdate();
+    	resizeAnimationPreview();
     }
   }
 
@@ -126,8 +144,6 @@ function handleImageUpload(event) {
   processImage(file);
 }
 
-
-
 function processImage(file) {
   var reader = new FileReader();
 
@@ -147,6 +163,43 @@ function displayUploadedImage(imageDataURL) {
 
 	var animationPreviewContainer = document.getElementById("animationPreview");
 	animationPreviewContainer.style.backgroundImage = "url(" + imageDataURL + ")";  
+}
+
+
+function getImageDimensions(url, callback) {
+  const img = new Image();
+  img.onload = function() {
+    const width = img.naturalWidth;
+    const height = img.naturalHeight;
+    callback(width, height);
+  };
+  img.src = url;
+}
+
+
+
+function resizeAnimationPreview() {
+  // Get the required values
+  var framesWidth = 4000;
+  var noFrames = noFrames;
+  var framesHeight = 300;
+
+
+  // Calculate the width based on framesWidth and noFrames
+  var width = framesWidth / noFrames;
+  
+  // Check if the width exceeds the maximum width of 480px
+  if (width > 320) {
+    // Scale down the dimensions proportionally
+    var scaleFactor = 320 / width;
+    width *= scaleFactor;
+    framesHeight *= scaleFactor;
+  }
+  
+  // Set the width and height of #animationPreview
+  var animationPreview = document.getElementById("animationPreview");
+  animationPreview.style.width = width + "px";
+  animationPreview.style.height = framesHeight + "px";
 }
 
 
