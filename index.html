@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 	<link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
 
 	<title>Animaticss — Generate CSS code for frame animations</title>
@@ -82,42 +83,42 @@
 
 		</section>
 
-
-
-
-
-
-
-
-
-
-
-
 		<section class="output">
 
 			<div class="helper">
 				4. Copy the code!
 			</div>
 			
-			<div class="container">
-				<p>&nbsp;</p>
-			</div>
+			
+				<pre class="container"><code class="language-css">.animation-container {
+	width: [sourceWidth / noFrames];
+	height: [sourceHeight];
+	animation: preview [animationSpeed] steps([noFrames]) infinite;
+}
+
+@keyframes preview {
+	from {background-position-x: 0}
+	to {background-position-x: [sourceWidth - noFrames];}
+}				</code></pre>
+
+			
 
 		</section>
 
 	</main>
 
-	<img src="assets/s-logo.svg" alt="" style="height: 32px; width: 32px; margin: 0 auto;">
+	
 
 	<footer>
 		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
-		<p>•</p>
+		<p class="mobileHidden">•</p>
 		<p><a href="https://github.com/sandrodcpereira/animaticss" target="_blank">Visit the repository</a></p>
 	</footer>
 
-
+	<img src="assets/s-logo.svg" alt="" style="height: 32px; width: 32px; margin: 0 auto;">
 
 
 	<script src="script.js"></script>
+	<script src="prod/prism.js"></script>
 </body>
 </html>

@@ -30,6 +30,74 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 .tk-ohno-blazeface { font-family: "ohno-blazeface",sans-serif; }
 
 
+/* CODE HIGHLIGHT */
+
+/* PrismJS 1.29.0
+https://prismjs.com/download.html#themes=prism-twilight&languages=css */
+.token.block-comment,
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+    color: #999;
+}
+.token.punctuation {
+    color: #ccc;
+}
+.token.attr-name,
+.token.deleted,
+.token.namespace,
+.token.tag {
+    color: #e2777a;
+}
+.token.function-name {
+    color: #6196cc;
+}
+.token.boolean,
+.token.function,
+.token.number {
+    color: #f08d49;
+}
+.token.class-name,
+.token.constant,
+.token.property,
+.token.symbol {
+    color: #f8c555;
+}
+.token.atrule,
+.token.builtin,
+.token.important,
+.token.keyword,
+.token.selector {
+    color: #cc99cd;
+}
+.token.attr-value,
+.token.char,
+.token.regex,
+.token.string,
+.token.variable {
+    color: #7ec699;
+}
+.token.entity,
+.token.operator,
+.token.url {
+    color: #67cdcc;
+}
+.token.bold,
+.token.important {
+    font-weight: 700;
+}
+.token.italic {
+    font-style: italic;
+}
+.token.entity {
+    cursor: help;
+}
+.token.inserted {
+    color: green;
+}
+
+
 /* LAYOUT */
 
 :root {
@@ -41,6 +109,8 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 
   box-sizing: border-box;
 }
+
+
 
 body {
 	background: var(--background);
@@ -54,6 +124,8 @@ body {
 	font-style: normal;
 	color: var(--dark);
 }
+
+p {margin: 0;}
 
 main {
 	display: flex;
@@ -73,7 +145,10 @@ section {
 	
 }
 
-section > div {
+
+
+
+section > div, section > pre {
 	background: var(--light);
 	padding: 16px;
 	border-radius: 8px;
@@ -81,11 +156,11 @@ section > div {
 	align-items: center;
 }
 
-section > div.helper {
+section > .helper {
 	flex-basis: 25%
 }
 
-section > div.container {
+section > .container {
 	flex-basis: 75%
 }
 
@@ -165,7 +240,7 @@ input[type=button] {
 	border: none;
 	width: 40px;
 	height: 40px;
-	border-radius: 4px;
+	border-radius: 8px;
 	background: var(--mid);
 	color: transparent;
 	background-position: center center;
@@ -189,9 +264,10 @@ input[type=file] {
 	background: var(--mid);
 	border-radius: 8px;
 	position: relative;
-	height: 40px;
+	height: 32px;
 	overflow: hidden;
 	display: flex;
+	border: 4px solid var(--mid);
 }
 
 .source #currentFrame {
@@ -235,6 +311,29 @@ label {
 /* OUTPUT SECTION */
 
 section.output .container {
+	text-align: left;
+	font-size: 13px;
+	font-family: "source-code-pro", monospace;
+	font-weight: 400;
+	font-style: normal;
 	background: var(--dark);
+	color: var(--light);
+	border: none;
+}
+
+pre {
+	margin: 0;
+	white-space: pre-wrap; 
+}
+
+
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 700px) {
+	section, footer {flex-direction: column;}
+	body {padding: 24px;}
+	.mobileHidden {display: none;}
 }
 
