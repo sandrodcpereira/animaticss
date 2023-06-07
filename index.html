@@ -24,7 +24,8 @@
 		<section class="preview">
 			
 			<div class="helper">
-				1. Upload your image or refresh to check out all the built-in animations.
+				<p>1. Upload your image or refresh to check out all the built-in animations.</p>
+				<!--p>Need to stitch your animation frames together? <a href="#TODO">Click here.</a></p-->
 			</div>
 
 			<div class="container">
@@ -57,7 +58,7 @@
 		<section class="input frames">
 			
 			<div class="helper">
-				2. Pick the correct number of frames in your animation for it to play correctly.
+				2. Adjust the number of frames until it plays correctly.
 			</div>
 
 			<div class="container">
@@ -71,7 +72,7 @@
 		<section class="input speed">
 			
 			<div class="helper">
-				3. Drag the handle until your animation looks just the way you wanted it.
+				3. Tweak the speed until it feels right.
 			</div>
 
 			<div class="container">
@@ -86,11 +87,11 @@
 		<section class="output">
 
 			<div class="helper">
-				4. Copy the code!
+				4. Copy the code and add it to your CSS file!
 			</div>
 			
-			
-				<pre class="container"><code class="language-css">.animation-container {
+				<div class="container">
+					<pre><code class="language-css">.animation-container {
 	width: [sourceWidth / noFrames];
 	height: [sourceHeight];
 	animation: preview [animationSpeed] steps([noFrames]) infinite;
@@ -99,8 +100,12 @@
 @keyframes preview {
 	from {background-position-x: 0}
 	to {background-position-x: [sourceWidth - noFrames];}
-}				</code></pre>
+}					</code></pre>
 
+					<div class="toolbar">
+						<input type="button" value="copyCode">
+					</div>
+				</div>
 			
 
 		</section>

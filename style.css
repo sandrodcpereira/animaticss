@@ -125,6 +125,8 @@ body {
 	color: var(--dark);
 }
 
+a, a:visited {color: var(--dark)}
+
 p {margin: 0;}
 
 main {
@@ -157,11 +159,17 @@ section > div, section > pre {
 }
 
 section > .helper {
-	flex-basis: 25%
+	text-align: left;
+	flex-basis: 30%;
+	flex-direction: column;
+	gap: 8px;
+	font-size: 11px;
+	align-items: flex-start;
+	justify-content: center;
 }
 
 section > .container {
-	flex-basis: 75%
+	flex-basis: 70%;
 }
 
 section.input > .container {
@@ -169,11 +177,6 @@ section.input > .container {
 	justify-content: space-between;
 }
 
-section > .helper {
-	font-size: 11px;
-	align-items: left;
-	text-align: left;
-}
 
 
 
@@ -319,11 +322,19 @@ section.output .container {
 	background: var(--dark);
 	color: var(--light);
 	border: none;
+	flex-direction: column;
+	align-items: start;
+	gap: 16px;
+}
+
+section.output .toolbar {
+
 }
 
 pre {
 	margin: 0;
 	white-space: pre-wrap; 
+	width: 100%;
 }
 
 

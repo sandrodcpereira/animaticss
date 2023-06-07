@@ -22,24 +22,17 @@ var animationSpeedAdjusted;
 
 var sourceImg;
 
-
 var previewWidth;
 var previewHeight;
-
-
-
 
 var animationPreview = document.getElementById("animationPreview");
 var noFramesInput = document.getElementById("noFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
 
-
 var sourceWidth;
 var sourceHeight;
 
-
-
-
+// Allows shift+up or down to move 10 frames instread of just 1
 
 noFramesInput.addEventListener("keydown", function(event) {
   // Check if Shift key is pressed
@@ -98,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	setTimeout(resizeAnimationPreview, 50);
 	setTimeout(updateAnimationKeyframes, 50);
 });
+
 
 
 // Calculates the image source dimensions for use in all those functions down below.
