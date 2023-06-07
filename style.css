@@ -45,7 +45,14 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 body {
 	background: var(--background);
 	text-align: center;
-	padding: 32px;
+	padding: 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	font-family: erbaum, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: var(--dark);
 }
 
 main {
@@ -60,7 +67,6 @@ main {
 section {
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
 	padding: 0px;
 	gap: 16px;
 	align-items: stretch;
@@ -76,23 +82,44 @@ section > div {
 }
 
 section > div.helper {
-	flex-basis: 30%
+	flex-basis: 25%
 }
 
 section > div.container {
-	flex-basis: 70%
+	flex-basis: 75%
 }
 
+section.input > .container {
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+section > .helper {
+	font-size: 11px;
+	align-items: left;
+	text-align: left;
+}
+
+
+
+
+/* FOOTER */
+
+footer {
+	font-size: 11px;
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	margin: 0 auto;
+
+}
 
 
 
 
 /* PREVIEW SECTION */
 
-.preview {
-	
 
-}
 
 .preview .container {
 
@@ -101,52 +128,117 @@ section > div.container {
 	align-items: center;
 	padding: 16px;
 	gap: 16px;
+	height: 424px;
+}
+
+.animationContainer {
+	flex: none;
+	order: 0;
+	align-self: stretch;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+    justify-content: center;
 }
 
 #animationPreview {
-	/*width: 320px;
-	height: 320px;*/
-
 	background-size: cover;
 	animation: preview 1s steps(10) infinite;
 	background-image: url('assets/demo-1.png');
 	background-position-x: 0%;
-
 }
 
 @keyframes preview {
   to {background-position-x: calc(100% - 240px);}
 }
 
+.toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	padding: 0px;
+	gap: 8px;
+	isolation: isolate;
+}
+
+input[type=button] {
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 8px;
+	background: var(--mid);
+	color: transparent;
+	background-position: center center;
+	background-size: 24px;
+	background-repeat: no-repeat;
+
+}
+
+input[value=darkBackground] {background-image: url(assets/icon-moon.svg)}
+input[value=uploadSource]	{background-image: url(assets/icon-upload.svg)}
+input[value=refresh] 		{background-image: url(assets/icon-renew.svg)}
+
+
+input[type=file] {
+	display: none;
+}
+
+
+
+/* input[type=file] {
+	display: none;
+} */
 
 .source {
 	width: 100%;
+	background: var(--mid);
+	border-radius: 8px;
 	position: relative;
+	height: 40px;
+	overflow: hidden;
 }
 
-.souce #currentFrame {
-	border: 2px solid black;
+.source #currentFrame {
+	border: 1px solid var(--accent);
+	border-radius: 8px;
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 100%;
+	height: calc(100% - 2px);
 	width: 10%;
 	animation: currentFrame 1s steps(10) infinite;
 }
 
 @keyframes currentFrame {
   from {left: 0%;}
-  to {left: calc(100%);}
+  to {left: calc(99%);}
 }
 
 .source img {
-	width: 100%;
+
+	max-width: 100%;
 }
 
 
 /* INPUT SECTION */
 
+label {
+	font-family: 'Erbaum';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	text-transform: uppercase;
+}
+
 #animationSpeed {
 	direction: rtl;
+}
+
+
+/* OUTPUT SECTION */
+
+section.output .container {
+	background: var(--dark);
 }
 

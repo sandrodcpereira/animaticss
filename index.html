@@ -13,7 +13,9 @@
 
 	
 	<header>
-		<div class="logo">Animaticss</div>
+		<!--div class="logo">Animaticss</div-->
+
+		<img src="assets/animatics-logo.svg" alt="" style="height: 48px; width: 258px; margin: 0 auto;">
 	</header>
 
 	<main>
@@ -25,15 +27,28 @@
 			</div>
 
 			<div class="container">
-				<div id="animationPreview"></div>
-
-				<div class="source">
-					<img id="sourceImg" src="assets/demo-1.png" alt="">
-
-					<div id="currentFrame">&nbsp;</div>
+				
+				<div class="animationContainer">
+					<div id="animationPreview"></div>
 				</div>
 
-				<input type="file" id="imageUpload" />
+				<div class="toolbar">
+					<input type="button" value="darkBackground">
+
+					<div class="source">
+						<img id="sourceImg" src="assets/demo-1.png" alt="">
+
+						<div id="currentFrame">&nbsp;</div>
+					</div>
+
+					<input type="button" value="uploadSource">
+
+					<input type="file" id="imageUpload" size="40" />
+
+					<!--label for="imageUpload" class="custom-file-upload">Custom Upload</label-->
+
+					<input type="button" value="refresh">
+				</div>
 			</div>
 
 		</section>
@@ -45,11 +60,9 @@
 			</div>
 
 			<div class="container">
-				<div>
-					<label for="noFrames">Number of frames in the strip</label>
+				<label for="noFrames">Number of frames</label>
 
-					<input type="number" id="noFrames" name="noFrames" min="2" max="128">
-				</div>
+				<input type="number" id="noFrames" name="noFrames" min="2" max="128">
 			</div>
 
 		</section>
@@ -57,16 +70,14 @@
 		<section class="input speed">
 			
 			<div class="helper">
-				3. Drag the handle until your animation looks just the way you imagined it.
+				3. Drag the handle until your animation looks just the way you wanted it.
 			</div>
 
 			<div class="container">
-				<div>
-					<label for="animationSpeed">Animation speed</label>
+				<label for="animationSpeed">Animation speed</label>
 
-					<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40">
-					
-				</div>
+				<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40">
+
 			</div>
 
 		</section>
@@ -89,15 +100,19 @@
 			</div>
 			
 			<div class="container">
-				<p>CODE</p>
+				<p>&nbsp;</p>
 			</div>
 
 		</section>
 
 	</main>
 
+	<img src="assets/s-logo.svg" alt="" style="height: 32px; width: 32px; margin: 0 auto;">
+
 	<footer>
-		<p>Designed and built by Sandro Pereira.</p>
+		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
+		<p>•</p>
+		<p><a href="https://github.com/sandrodcpereira/animaticss" target="_blank">Visit the repository</a></p>
 	</footer>
 
 
