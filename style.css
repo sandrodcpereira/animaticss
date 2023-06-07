@@ -252,10 +252,18 @@ input[type=button] {
 
 }
 
-input[value=darkBackground] {background-image: url(assets/icon-moon.svg)}
 input[value=uploadSource]	{background-image: url(assets/icon-upload.svg)}
 input[value=refresh] 		{background-image: url(assets/icon-renew.svg)}
+input[value=darkBackground] {
+	background-image: url(assets/icon-background.svg);
+	background-position: left center;
+	background-size: 80px;
+	transition: background-position .2s cubic-bezier(0.51, 1.66, 0.68, 0.97);
+}
 
+input[value=darkBackground].dark {
+	background-position: right center;
+}
 
 input[type=file] {
 	display: none;

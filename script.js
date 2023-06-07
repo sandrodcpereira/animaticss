@@ -29,6 +29,11 @@ var animationPreview = document.getElementById("animationPreview");
 var noFramesInput = document.getElementById("noFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
 
+var imageUploadAlias = document.getElementById("imageUploadAlias");
+var refreshButton = document.getElementById("refreshButton");
+var imageUpload = document.getElementById("imageUpload");
+
+
 var sourceWidth;
 var sourceHeight;
 
@@ -81,6 +86,11 @@ function updateSourceFromDemo() {
 
 document.addEventListener("DOMContentLoaded", function() {
 	
+	pickNewDemo();
+});
+
+
+function pickNewDemo() {
 	pickRandomDemo();				// fetch demo
 	updateSourceFromDemo();				// update image assets
 	calculateSourceDimensions();	// caculate image asset dimensions
@@ -90,9 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	setTimeout(resizeAnimationPreview, 50);
 	setTimeout(updateAnimationKeyframes, 50);
-});
-
-
+} 
 
 // Calculates the image source dimensions for use in all those functions down below.
 
@@ -169,7 +177,6 @@ animationSpeedInput.addEventListener("input", handleInputChange);
 
 // Handles the local image upload 
 
-var imageUpload = document.getElementById("imageUpload");
 
 imageUpload.addEventListener("change", handleImageUpload);
 
@@ -255,6 +262,24 @@ function updateAnimationKeyframes() {
 }
 
 
+
+// Actions
+
+
+refreshButton.addEventListener("click", pickNewDemo);
+
+imageUploadAlias.addEventListener("click", function() {
+  imageUpload.click();
+});
+
+
+var darkBackground = document.getElementById("darkBackground");
+
+// Add a click event listener to #darkBackground
+darkBackground.addEventListener("click", function() {
+  // Toggle the 'dark' class on #darkBackground
+  darkBackground.classList.toggle("dark");
+});
 
 
 
