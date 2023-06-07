@@ -127,7 +127,7 @@ function noFramesUpdate() {
 	var animationFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
 
 	var frameWidthPercentage = 100 / noFrames;
-    currentFrame.style.width = frameWidthPercentage + "%";
+    currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)";
     
     animationPreview.style.animation = animationPreviewUpdate;
     currentFrame.style.animation = animationFrameUpdate;

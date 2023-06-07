@@ -59,7 +59,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	padding: 0px;
-	gap: 16px;
+	gap: 8px;
 	margin: 0 auto;
 	max-width: 832px;
 }
@@ -68,7 +68,7 @@ section {
 	display: flex;
 	flex-direction: row;
 	padding: 0px;
-	gap: 16px;
+	gap: 8px;
 	align-items: stretch;
 	
 }
@@ -122,7 +122,6 @@ footer {
 
 
 .preview .container {
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -166,7 +165,7 @@ input[type=button] {
 	border: none;
 	width: 40px;
 	height: 40px;
-	border-radius: 8px;
+	border-radius: 4px;
 	background: var(--mid);
 	color: transparent;
 	background-position: center center;
@@ -185,11 +184,6 @@ input[type=file] {
 }
 
 
-
-/* input[type=file] {
-	display: none;
-} */
-
 .source {
 	width: 100%;
 	background: var(--mid);
@@ -197,27 +191,29 @@ input[type=file] {
 	position: relative;
 	height: 40px;
 	overflow: hidden;
+	display: flex;
 }
 
 .source #currentFrame {
-	border: 1px solid var(--accent);
+	border: 2px solid var(--accent);
 	border-radius: 8px;
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: calc(100% - 2px);
+	height: calc(100% - 4px);
 	width: 10%;
 	animation: currentFrame 1s steps(10) infinite;
 }
 
 @keyframes currentFrame {
   from {left: 0%;}
-  to {left: calc(99%);}
+  to {left: calc(100%);}
 }
 
 .source img {
-
+	margin: auto;
 	max-width: 100%;
+
 }
 
 
