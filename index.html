@@ -16,19 +16,18 @@
 		<div class="logo">Animaticss</div>
 	</header>
 
-	<nav>
-		<a href="#TODO">How to use</a>
-		<a href="#TODO">View repository</a>
-	</nav>
-
 	<main>
 		
 		<section class="preview">
 			
+			<div class="helper">
+				1. Upload your image
+			</div>
+
 			<div class="container">
 				<div id="animationPreview"></div>
 
-				<div class="frames">
+				<div class="source">
 					<img id="sourceImg" src="assets/demo-1.png" alt="">
 
 					<div id="currentFrame">&nbsp;</div>
@@ -39,29 +38,59 @@
 
 		</section>
 
-		<section class="input">
+		<section class="input frames">
 			
-			<div>
-				<label for="noFrames">Number of frames in the strip</label>
-
-				<input type="number" id="noFrames" name="noFrames" min="2" max="128">
-				
-				<p>Pick the correct number of frames in your animation for it to play correctly.</p>
+			<div class="helper">
+				2. Pick the correct number of frames in your animation for it to play correctly.
 			</div>
 
-			<div>
-				<label for="animationSpeed">Animation speed</label>
+			<div class="container">
+				<div>
+					<label for="noFrames">Number of frames in the strip</label>
 
-				<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40">
-				
-				<p>Drag the handle until your animation looks just the way you imagined it.</p>
+					<input type="number" id="noFrames" name="noFrames" min="2" max="128">
+				</div>
 			</div>
 
 		</section>
 
-		<section class="output">
+		<section class="input speed">
 			
-			output goes here
+			<div class="helper">
+				3. Drag the handle until your animation looks just the way you imagined it.
+			</div>
+
+			<div class="container">
+				<div>
+					<label for="animationSpeed">Animation speed</label>
+
+					<input type="range" id="animationSpeed" name="animationSpeed" min="2" max="40">
+					
+				</div>
+			</div>
+
+		</section>
+
+
+
+
+
+
+
+
+
+
+
+
+		<section class="output">
+
+			<div class="helper">
+				4. Copy the code!
+			</div>
+			
+			<div class="container">
+				<p>CODE</p>
+			</div>
 
 		</section>
 

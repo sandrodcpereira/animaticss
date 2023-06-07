@@ -29,6 +29,64 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 .tk-erbaum { font-family: "erbaum",sans-serif; }
 .tk-ohno-blazeface { font-family: "ohno-blazeface",sans-serif; }
 
+
+/* LAYOUT */
+
+:root {
+  --background: #E2DFD8;
+  --light: 		#D8D2C4;
+  --mid:		#C5C2B3;
+  --dark:		#1B1D44;
+  --accent: 	#F72E1C;
+
+  box-sizing: border-box;
+}
+
+body {
+	background: var(--background);
+	text-align: center;
+	padding: 32px;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	padding: 0px;
+	gap: 16px;
+	margin: 0 auto;
+	max-width: 832px;
+}
+
+section {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0px;
+	gap: 16px;
+	align-items: stretch;
+	
+}
+
+section > div {
+	background: var(--light);
+	padding: 16px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+}
+
+section > div.helper {
+	flex-basis: 30%
+}
+
+section > div.container {
+	flex-basis: 70%
+}
+
+
+
+
+
 /* PREVIEW SECTION */
 
 .preview {
@@ -36,10 +94,7 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 
 }
 
-.container {
-	border: 1px solid purple;
-	padding: 24px;
-	background-color: lightgray;
+.preview .container {
 
 	display: flex;
 	flex-direction: column;
@@ -64,13 +119,12 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 }
 
 
-.frames {
-	border: 1px solid blue;
+.source {
 	width: 100%;
 	position: relative;
 }
 
-.frames #currentFrame {
+.souce #currentFrame {
 	border: 2px solid black;
 	position: absolute;
 	top: 0;
@@ -85,7 +139,7 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
   to {left: calc(100%);}
 }
 
-.frames img {
+.source img {
 	width: 100%;
 }
 
