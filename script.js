@@ -121,8 +121,6 @@ function calculateSourceDimensions() {
 // Makes all the changes and calls all the functions when the values are updated.
 
 var currentFrame = document.getElementById("currentFrame");
-var frameCounter = document.getElementById("frameCounter");
-var speedCounter = document.getElementById("speedCounter");
 
 function noFramesUpdate() {
 	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
