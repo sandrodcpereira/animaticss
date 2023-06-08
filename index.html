@@ -14,10 +14,11 @@
 
 	
 	<header>
-		<!--div class="logo">Animaticss</div-->
-
-		<img src="assets/animatics-logo.svg" alt="" style="height: 48px; width: 258px; margin: 0 auto;">
+		<div class="logo">&nbsp;</div>
 	</header>
+
+	<h1>Quicky preview and generate code for <a href="#TODO">frame animations on the web</a>.</h1>
+
 
 	<main>
 		
@@ -25,12 +26,13 @@
 			
 			<div class="helper">
 				<p>1. Upload your image or refresh to check out all the built-in animations.</p>
+				<p>Images to be animated with Animaticss should contain all frames stacked in a horizontal strip.</p>
 				<!--p>Need to stitch your animation frames together? <a href="#TODO">Click here.</a></p-->
 			</div>
 
-			<div class="container">
+			<div class="container" id="animationWindow">
 				
-				<div class="animationContainer">
+				<div id="animationContainer">
 					<div id="animationPreview"></div>
 				</div>
 
@@ -87,19 +89,21 @@
 		<section class="output">
 
 			<div class="helper">
-				4. Copy the code and add it to your CSS file!
+				4. Copy the code (don't forget to replace the image path) and add it to your CSS file!
 			</div>
 			
 				<div class="container">
 					<pre><code class="language-css">.animation-container {
 	width: [sourceWidth / noFrames];
 	height: [sourceHeight];
+	background-image: url([sourceImg]);
+	background-size: cover;
 	animation: preview [animationSpeed] steps([noFrames]) infinite;
 }
 
 @keyframes preview {
 	from {background-position-x: 0}
-	to {background-position-x: [sourceWidth - noFrames];}
+	to {background-position-x: [sourceWidth - frameWidth];}
 }					</code></pre>
 
 					<div class="toolbar">
@@ -114,14 +118,24 @@
 
 	
 
-	<footer>
-		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
+	<nav>
+		<p><a href="#TODO">Why frame animation in CSS?</a></p>
 		<p class="mobileHidden">•</p>
-		<p><a href="https://github.com/sandrodcpereira/animaticss" target="_blank">Visit the repository</a></p>
-	</footer>
+		<p><a href="#TODO">View on GitHub</a></p>
+		<p class="mobileHidden">•</p>
+		<p><a href="#TODO">Credits</a></p>
+		<p class="mobileHidden">•</p>
+		<p><a href="#TODO">Buy me a coffee</a></p>
+	</nav>
 
 	<img src="assets/s-logo.svg" alt="" style="height: 32px; width: 32px; margin: 0 auto;">
+		
 
+	<footer>
+		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
+	</footer>
+
+	
 
 	<script src="script.js"></script>
 	<script src="prod/prism.js"></script>

@@ -26,6 +26,7 @@ var previewWidth;
 var previewHeight;
 
 var animationPreview = document.getElementById("animationPreview");
+var animationWindow = document.getElementById("animationWindow");
 var noFramesInput = document.getElementById("noFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
 
@@ -85,7 +86,6 @@ function updateSourceFromDemo() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-	
 	pickNewDemo();
 });
 
@@ -275,10 +275,9 @@ imageUploadAlias.addEventListener("click", function() {
 
 var darkBackground = document.getElementById("darkBackground");
 
-// Add a click event listener to #darkBackground
 darkBackground.addEventListener("click", function() {
-  // Toggle the 'dark' class on #darkBackground
   darkBackground.classList.toggle("dark");
+  animationWindow.classList.toggle("dark");
 });
 
 
