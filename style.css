@@ -359,6 +359,8 @@ label {
 	direction: rtl;
 }
 
+/* frame selector */
+
 input[type="radio"] {
 	opacity: 0;
 	width: 0;
@@ -429,10 +431,10 @@ input[type="radio"] {
 	height: 40px;
 	display: inline-block;
 	cursor: pointer;
-	font-family: ohno-blazeface, sans-serif;
+	font-family: 'Erbaum', sans-serif;
 	font-style: normal;
-	line-height: 38px;
-	font-weight: 200;
+	line-height: 40px;
+	font-weight: 800;
 	font-size: 24px;
 	color: var(--dark);
 	scroll-snap-align: start;

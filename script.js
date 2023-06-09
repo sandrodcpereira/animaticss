@@ -306,3 +306,67 @@ function noFramesScrollToSelection() {
 	frameInput.scrollLeft = scrollOffset;
 }
 
+
+var nextFrameButton = document.getElementById('nextFrame');
+nextFrameButton.addEventListener('click', selectNextRadioButton);
+
+
+function selectNextRadioButton() {
+  var selectFrames = document.getElementById('selectFrames');
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
+  
+  for (var i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      // Uncheck the current radio button
+      radioButtons[i].checked = false;
+      
+      // Select the next radio button (loop back to the beginning if reached the end)
+      var nextIndex = (i + 1) % radioButtons.length;
+      radioButtons[nextIndex].checked = true;
+            
+      break;
+    }
+  }
+  noFramesScrollToSelection();
+  storeSelectedNoFrames();
+  resizeAnimationPreview();
+	noFramesUpdate();	
+	updateAnimationKeyframes();
+}
+
+var prevFrameButton = document.getElementById('prevFrame');
+prevFrameButton.addEventListener('click', selectPreviousRadioButton);
+
+function selectPreviousRadioButton() {
+  var selectFrames = document.getElementById('selectFrames');
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
+  
+  for (var i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      // Uncheck the current radio button
+      radioButtons[i].checked = false;
+      
+      // Select the previous radio button (loop back to the end if reached the beginning)
+      var prevIndex = (i - 1 + radioButtons.length) % radioButtons.length;
+      radioButtons[prevIndex].checked = true;
+      
+      break;
+    }
+  }
+  noFramesScrollToSelection();
+  storeSelectedNoFrames();
+  resizeAnimationPreview();
+	noFramesUpdate();	
+	updateAnimationKeyframes();
+}
+
+
+function storeSelectedNoFrames() {
+  var selectFrames = document.getElementById('selectFrames');
+  var selectedRadioButton = selectFrames.querySelector('input[type="radio"]:checked');
+
+  if (selectedRadioButton) {
+    noFrames = selectedRadioButton.value;
+  }
+}
+
