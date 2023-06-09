@@ -126,27 +126,28 @@ function animationSpeedUpdate() {
 
 // Runs all the necessary functions when the value of the inputs change.
 
-function handleInputChange(event) {
-    var inputId = event.target.id;
-    var inputValue = event.target.value;
+function handleSpeedChange(event) {
+	var inputId = event.target.id;
+  var inputValue = event.target.value;
 
-    if (inputId === "noFrames") {
-    	noFrames = inputValue;
-    	console.log("noFrames changed. New value:", noFrames);
-    	noFramesUpdate();
-
-
-    } else if (inputId === "animationSpeed") {
-    	animationSpeed = inputValue;
-    	animationSpeedAdjusted = inputValue * 0.1;
-    	console.log("animationSpeed changed. New value:", animationSpeed);
-    	animationSpeedUpdate();
-    	resizeAnimationPreview();
-    }
+	animationSpeed = inputValue;
+	animationSpeedAdjusted = inputValue * 0.1;
+	console.log("animationSpeed changed. New value:", animationSpeed);
+	animationSpeedUpdate();
+	resizeAnimationPreview();
 }
 
-noFramesInput.addEventListener("input", handleInputChange);
-animationSpeedInput.addEventListener("input", handleInputChange);
+function handleNoFramesChange(event) {
+	var inputId = event.target.id;
+  var inputValue = event.target.value;
+
+  noFrames = inputValue;
+	console.log("noFrames changed. New value:", noFrames);
+	noFramesUpdate();
+}
+
+noFramesInput.addEventListener("input", handleNoFramesChange);
+animationSpeedInput.addEventListener("input", handleSpeedChange);
 
 
 
