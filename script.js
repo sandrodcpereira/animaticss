@@ -265,7 +265,6 @@ function updateAnimationKeyframes() {
 
 // Actions
 
-
 refreshButton.addEventListener("click", pickNewDemo);
 
 imageUploadAlias.addEventListener("click", function() {

@@ -196,16 +196,11 @@ section > .helper {
 
 section > .container {
 	flex-basis: 70%;
-	transition: background .2s ease .2s;
 }
 
 section.input > .container {
 	flex-direction: row;
 	justify-content: space-between;
-}
-
-section > .container.dark {
-	/*background: var(--dark);*/
 }
 
 
@@ -264,8 +259,8 @@ nav {
 }
 
 @keyframes preview {
-  to {background-position-x: calc(100% - 240px);
-  }
+  to {background-position-x: calc(100% - 240px);}
+}
 
 
 .toolbar {
