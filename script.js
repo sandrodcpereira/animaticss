@@ -26,7 +26,6 @@ var previewWidth;
 var previewHeight;
 
 var animationPreview = document.getElementById("animationPreview");
-var animationWindow = document.getElementById("animationWindow");
 var noFramesInput = document.getElementById("noFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
 
@@ -34,30 +33,8 @@ var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
 
-
 var sourceWidth;
 var sourceHeight;
-
-// Allows shift+up or down to move 10 frames instread of just 1
-
-noFramesInput.addEventListener("keydown", function(event) {
-  // Check if Shift key is pressed
-  if (event.shiftKey) {
-    // Increase or decrease value by 10
-    if (event.key === "ArrowUp") {
-      noFramesInput.stepUp(9);
-    } else if (event.key === "ArrowDown") {
-      noFramesInput.stepDown(9);
-    }
-  }
-});
-
-noFramesInput.addEventListener("keyup", function(event) {
-  // Reset the input's step value to 1 when Shift key is released
-  if (!event.shiftKey) {
-    noFramesInput.step = 1;
-  }
-});
 
 
 
@@ -75,6 +52,7 @@ function pickRandomDemo() {
 	noFramesInput.value = noFrames;
 	animationSpeedInput.value = animationSpeed;
 }
+
 
 // Updates the images from the local available demos
 
@@ -119,7 +97,6 @@ function calculateSourceDimensions() {
 	};
 }
 
-
 // Makes all the changes and calls all the functions when the values are updated.
 
 var currentFrame = document.getElementById("currentFrame");
@@ -145,8 +122,6 @@ function animationSpeedUpdate() {
     animationPreview.style.animation = speedPreviewUpdate;
     currentFrame.style.animation = speedFrameUpdate;
 }
-
-
 
 
 // Runs all the necessary functions when the value of the inputs change.
@@ -177,7 +152,6 @@ animationSpeedInput.addEventListener("input", handleInputChange);
 
 // Handles the local image upload 
 
-
 imageUpload.addEventListener("change", handleImageUpload);
 
 function handleImageUpload(event) {
@@ -204,7 +178,6 @@ function updateSourceFromUpload(imageDataURL) {
 	calculateSourceDimensions();
 	setTimeout(resizeAnimationPreview, 50);
 	setTimeout(updateAnimationKeyframes, 50);
-	
 }
 
 
@@ -276,7 +249,6 @@ var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
-  animationWindow.classList.toggle("dark");
 });
 
 
