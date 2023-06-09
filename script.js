@@ -18,12 +18,11 @@ var animationDemo = [
 
 var noFrames;
 var possibleNoFrames;
-
 var animationSpeed;
 var animationSpeedAdjusted;
-
 var sourceImg;
-
+var sourceWidth;
+var sourceHeight;
 var previewWidth;
 var previewHeight;
 
@@ -35,27 +34,26 @@ var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
 
-var sourceWidth;
-var sourceHeight;
+document.addEventListener("DOMContentLoaded", function() {
+	pickNewDemo();
+});
+
+async function pickNewDemo() {
+	await pickRandomDemo();
+	await updateSourceFromDemo();
+	await noFramesUpdate();
+	await handleNewSource();
+	await animationSpeedUpdate();
+} 
 
 async function handleNewSource() {
   await calculateSourceDimensions();
+  await new Promise((resolve) => setTimeout(resolve, 200));
   await resizeAnimationPreview();
-  await updateAnimationKeyframes();
+	await updateAnimationKeyframes();
   await findPossibleNoFrames();
   await generateRadioButtons();
 }
-
-async function pickNewDemo() {
-	await pickRandomDemo();							// fetch demo
-	await noFramesUpdate();				// update number of frames from array
-	await animationSpeedUpdate();			// update animation speed from array;
-	await handleNewSource();
-} 
-
-
-
-// Picks a random demo out of the array defined above
 
 function pickRandomDemo() {
 	var randomIndex = Math.floor(Math.random() * animationDemo.length);
@@ -65,21 +63,15 @@ function pickRandomDemo() {
 	sourceImg = randomDemo.sourceImg;
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 	animationSpeedInput.value = animationSpeed;
-
-	updateSourceFromDemo();
+	console.log("1. Picking a random demo...");
 }
 
 function updateSourceFromDemo() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
 	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
+	console.log("2. Demo picked. Now processing...");
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-	pickNewDemo();
-});
-
-
 
 // checks for new frames selected on radio button
 
@@ -89,12 +81,24 @@ selectFrames.addEventListener("change", function(event) {
   if (selectedRadioButton.checked) {
     noFrames = selectedRadioButton.value;
     console.log(noFrames);
-    noFramesUpdate();
+    
+    resizeAnimationPreview();
+		noFramesUpdate();	
+		updateAnimationKeyframes();
   }
 });
 
+function noFramesUpdate() {
+	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	var animationFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	var frameWidthPercentage = 100 / noFrames;
 
+	animationPreview.style.animation = animationPreviewUpdate; 								// updates number of steps
+  currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)"; 	// updates current frame width
+  currentFrame.style.animation = animationFrameUpdate;											// updates current frame steps
 
+  console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
+}
 
 // Calculates the image source dimensions for use in all those functions down below.
 
@@ -108,30 +112,55 @@ function calculateSourceDimensions() {
 	  sourceHeight = this.naturalHeight;
 
 	  // Use the width and height variables as needed
-	  console.log("Image width: " + sourceWidth);
-	  console.log("Image height: " + sourceHeight);
+	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
 	};
 }
 
 // Makes all the changes and calls all the functions when the values are updated.
 
+function resizeAnimationPreview() {
+	previewWidth = sourceWidth / noFrames;
+	previewHeight = sourceHeight;
 
-function noFramesUpdate() {
-	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
-	var animationFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	if (previewWidth > 320) {
+		var scaleFactor = 320 / previewWidth;
+		previewWidth *= scaleFactor;
+		previewHeight *= scaleFactor;
+	}
+	if (previewHeight > 320) {
+    	var scaleFactor = 320 / previewHeight;
+    	previewWidth *= scaleFactor;
+    	previewHeight *= scaleFactor;
+	}
 
-	var frameWidthPercentage = 100 / noFrames;
-    currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)";
-    
-    animationPreview.style.animation = animationPreviewUpdate;
-    currentFrame.style.animation = animationFrameUpdate;
+	animationPreview.style.width = previewWidth + "px"; 		// sets preview width
+	animationPreview.style.height = previewHeight + "px";		// sets preview height
 
-    noFramesProcessing();		// resizes the animation preview window
+	console.log("5. Resized the animation preview window to match the number of steps.")
 }
 
-function noFramesProcessing() {
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
+function updateAnimationKeyframes() {
+  var styleSheets = document.styleSheets;
+  for (var i = 0; i < styleSheets.length; i++) {
+    var styleSheet = styleSheets[i];
+    if (styleSheet instanceof CSSStyleSheet) {
+      var rules = styleSheet.cssRules || styleSheet.rules;
+      for (var j = 0; j < rules.length; j++) {
+        var rule = rules[j];
+        if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
+          var keyframes = rule.cssRules;
+          for (var k = 0; k < keyframes.length; k++) {
+            var keyframe = keyframes[k];
+            if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
+              keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }
 
 
@@ -143,7 +172,6 @@ function animationSpeedUpdate() {
     currentFrame.style.animation = speedFrameUpdate;
 }
 
-
 // Runs all the necessary functions when the value of the inputs change.
 
 function handleSpeedChange(event) {
@@ -154,40 +182,9 @@ function handleSpeedChange(event) {
 	animationSpeedAdjusted = inputValue * 0.1;
 	console.log("animationSpeed changed. New value:", animationSpeed);
 	animationSpeedUpdate();
-	resizeAnimationPreview();
 }
 
 animationSpeedInput.addEventListener("input", handleSpeedChange);
-
-
-/*function handleNoFramesChange(event) {
-
-	for (var i = 0; i < radioButtons.length; i++) {
-    radioButtons[i].addEventListener("click", function(event) {
-      // Store the selected value in the noFrames variable
-      noFrames = event.target.value;
-      
-      // Use the selected value as needed
-      console.log("Selected noFrames:", noFrames);
-    });
-  }
-
-
-
-
-	//var inputId = event.target.id;
-  //var inputValue = event.target.value;
-
-  //noFrames = inputValue;
-	console.log("noFrames changed. New value:", noFrames);
-	noFramesUpdate();
-}
-
-selectFramesInput.addEventListener("input", handleNoFramesChange);*/
-
-
-
-
 
 // Handles the local image upload 
 
@@ -217,63 +214,6 @@ function updateSourceFromUpload(imageDataURL) {
 	handleNewSource();
 }
 
-
-
-// Resizes the animation preview window to match the size of each individual frame
-
-function resizeAnimationPreview() {
-
-	previewWidth = sourceWidth / noFrames;
-	previewHeight = sourceHeight;
-
-
-	if (previewWidth > 320) {
-
-		var scaleFactor = 320 / previewWidth;
-		previewWidth *= scaleFactor;
-		previewHeight *= scaleFactor;
-	}
-
-	if (previewHeight > 320) {
-    	var scaleFactor = 320 / previewHeight;
-    	previewWidth *= scaleFactor;
-    	previewHeight *= scaleFactor;
-	}
-
-	animationPreview.style.width = previewWidth + "px";
-	animationPreview.style.height = previewHeight + "px";
-}
-
-// Updates CSS keyframe logic to account for the preview window size
-
-function updateAnimationKeyframes() {
-  var styleSheets = document.styleSheets;
-
-  for (var i = 0; i < styleSheets.length; i++) {
-    var styleSheet = styleSheets[i];
-
-    if (styleSheet instanceof CSSStyleSheet) {
-      var rules = styleSheet.cssRules || styleSheet.rules;
-      for (var j = 0; j < rules.length; j++) {
-        var rule = rules[j];
-
-        if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
-          var keyframes = rule.cssRules;
-          for (var k = 0; k < keyframes.length; k++) {
-            var keyframe = keyframes[k];
-
-            if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
-              keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-
-
 // Actions
 
 refreshButton.addEventListener("click", pickNewDemo);
@@ -282,17 +222,13 @@ imageUploadAlias.addEventListener("click", function() {
   imageUpload.click();
 });
 
-
 var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
 });
 
-
 // Calculating possible options for noFrames
-
-
 
 function findPossibleNoFrames() {
   possibleNoFrames = [];
@@ -335,9 +271,11 @@ function generateRadioButtons() {
     
       selectFrames.appendChild(label);
     }
+
+    // Select the radio button with the value matching noFrames
+    var selectedRadioButton = selectFrames.querySelector("input[type='radio'][value='" + noFrames + "']");
+    if (selectedRadioButton) {
+      selectedRadioButton.checked = true;
+    }
   }
 }
-
-
-
-
