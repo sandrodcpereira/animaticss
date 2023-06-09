@@ -132,6 +132,7 @@ h1 {
 }
 
 a, a:visited {color: var(--dark)}
+a:hover {color: var(--accent)}
 
 p {margin: 0;}
 
@@ -146,12 +147,12 @@ p {margin: 0;}
 }
 
 .logo:hover {
-	animation: logoHover .8s steps(8) 1;
+	animation: logoHover .8s steps(9) 1;
 }
 
 @keyframes logoHover {
-	from 	{background-position-x: left;}
-	to 		{background-position-x: right;}
+	from 	{background-position-x: 0px;}
+	to 		{background-position-x: calc(100% - 260px);}
 }
 
 main {
@@ -263,8 +264,9 @@ nav {
 }
 
 @keyframes preview {
-  to {background-position-x: calc(100% - 240px);}
-}
+  to {background-position-x: calc(100% - 240px);
+  }
+
 
 .toolbar {
 	display: flex;
