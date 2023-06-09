@@ -137,6 +137,9 @@ function handleSpeedChange(event) {
 	resizeAnimationPreview();
 }
 
+animationSpeedInput.addEventListener("input", handleSpeedChange);
+
+
 function handleNoFramesChange(event) {
 	var inputId = event.target.id;
   var inputValue = event.target.value;
@@ -147,9 +150,6 @@ function handleNoFramesChange(event) {
 }
 
 noFramesInput.addEventListener("input", handleNoFramesChange);
-animationSpeedInput.addEventListener("input", handleSpeedChange);
-
-
 
 
 
@@ -276,10 +276,8 @@ function findPossibleNoFrames() {
 function generateRadioButtons() {
   var selectFrames = document.getElementById("selectFrames");
   
-  // Clear existing radio buttons
   selectFrames.innerHTML = "";
   
-  // Create radio buttons
   for (var i = 0; i < possibleNoFrames.length; i++) {
     var radioButton = document.createElement("input");
     radioButton.type = "radio";
@@ -287,16 +285,15 @@ function generateRadioButtons() {
     radioButton.value = possibleNoFrames[i];
     radioButton.id = possibleNoFrames[i];
     
-    // Append the radio button to the radio group
     selectFrames.appendChild(radioButton);
     
-    // Create a label for the radio button
     var label = document.createElement("label");
     label.textContent = possibleNoFrames[i];
     label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
     
-    // Append the label to the radio group
     selectFrames.appendChild(label);
+
+
     
   }
 }
