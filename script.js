@@ -28,9 +28,60 @@ var previewWidth;
 var previewHeight;
 
 var animationPreview = document.getElementById("animationPreview");
-
+var currentFrame = document.getElementById("currentFrame");
 var selectFrames = document.getElementById("selectFrames");
+var animationSpeedInput = document.getElementById("animationSpeed");
+var imageUploadAlias = document.getElementById("imageUploadAlias");
+var refreshButton = document.getElementById("refreshButton");
+var imageUpload = document.getElementById("imageUpload");
 
+var sourceWidth;
+var sourceHeight;
+
+async function handleNewSource() {
+  await calculateSourceDimensions();
+  await resizeAnimationPreview();
+  await updateAnimationKeyframes();
+  await findPossibleNoFrames();
+  await generateRadioButtons();
+}
+
+async function pickNewDemo() {
+	await pickRandomDemo();							// fetch demo
+	await noFramesUpdate();				// update number of frames from array
+	await animationSpeedUpdate();			// update animation speed from array;
+	await handleNewSource();
+} 
+
+
+
+// Picks a random demo out of the array defined above
+
+function pickRandomDemo() {
+	var randomIndex = Math.floor(Math.random() * animationDemo.length);
+	var randomDemo = animationDemo[randomIndex];
+	noFrames = randomDemo.noFrames;
+	animationSpeed = randomDemo.animationSpeed;
+	sourceImg = randomDemo.sourceImg;
+	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
+	animationSpeedInput.value = animationSpeed;
+
+	updateSourceFromDemo();
+}
+
+function updateSourceFromDemo() {
+	var sourceImgContainer = document.getElementById("sourceImg");
+	sourceImgContainer.src = sourceImg;
+	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+	pickNewDemo();
+});
+
+
+
+// checks for new frames selected on radio button
 
 selectFrames.addEventListener("change", function(event) {
   var selectedRadioButton = event.target;
@@ -41,71 +92,6 @@ selectFrames.addEventListener("change", function(event) {
     noFramesUpdate();
   }
 });
-
-function handleNewSource() {
-	calculateSourceDimensions();
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
-	setTimeout(findPossibleNoFrames, 150);
-	setTimeout(generateRadioButtons, 200);
-}
-
-
-
-
-
-var animationSpeedInput = document.getElementById("animationSpeed");
-
-var imageUploadAlias = document.getElementById("imageUploadAlias");
-var refreshButton = document.getElementById("refreshButton");
-var imageUpload = document.getElementById("imageUpload");
-
-var sourceWidth;
-var sourceHeight;
-
-
-
-// Picks a random demo out of the array defined above
-
-function pickRandomDemo() {
-	var randomIndex = Math.floor(Math.random() * animationDemo.length);
-	var randomDemo = animationDemo[randomIndex];
-
-	noFrames = randomDemo.noFrames;
-	animationSpeed = randomDemo.animationSpeed;
-	sourceImg = randomDemo.sourceImg;
-	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
-
-	//noFramesInput.value = noFrames;
-	animationSpeedInput.value = animationSpeed;
-}
-
-
-// Updates the images from the local available demos
-
-function updateSourceFromDemo() {
-	var sourceImgContainer = document.getElementById("sourceImg");
-	sourceImgContainer.src = sourceImg;
-
-	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-	pickNewDemo();
-});
-
-
-function pickNewDemo() {
-	pickRandomDemo();				// fetch demo
-	updateSourceFromDemo();				// update image assets
-	handleNewSource();
-
-	noFramesUpdate();				// update number of frames from array
-	animationSpeedUpdate();			// update animation speed from array;
-
-	setTimeout(findPossibleNoFrames, 150);
-	setTimeout(generateRadioButtons, 200);
-} 
 
 
 
@@ -129,7 +115,6 @@ function calculateSourceDimensions() {
 
 // Makes all the changes and calls all the functions when the values are updated.
 
-var currentFrame = document.getElementById("currentFrame");
 
 function noFramesUpdate() {
 	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
