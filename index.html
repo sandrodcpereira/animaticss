@@ -65,8 +65,12 @@
 
 				<!--input type="number" id="noFrames" name="noFrames" min="2" max="128"-->
 
-				<div id="selectFrames">
+				<div class="frameInput">
+					<div class="back">Back</div>
+					<div id="selectFrames">
 					
+					</div>
+					<div class="next">Next</div>
 				</div>
 			</div>
 
@@ -108,7 +112,7 @@
 					<pre><code class="language-css">.animation-container {
 	width: [sourceWidth / noFrames];
 	height: [sourceHeight];
-	background-image: url(your-image.png);
+	background-image: url('your-image.png');
 	background-size: cover;
 	animation: preview [animationSpeed] steps([noFrames]) infinite;
 }

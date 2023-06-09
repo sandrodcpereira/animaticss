@@ -359,6 +359,34 @@ label {
 	direction: rtl;
 }
 
+input[type="radio"] {
+	opacity: 0;
+	width: 0;
+}
+
+#selectFrames {
+	background: var(--background);
+
+}
+
+#selectFrames:focus-within {
+	border: 2px solid green;
+}
+
+#selectFrames label {
+	display: inline-block;
+	border: 1px solid red;
+	padding: 8px;
+	cursor: pointer;
+	font-family: 'ohno-blazeface', serif;
+	font-weight: 200;
+	font-size: 24px;
+}
+
+input[type="radio"]:checked+label {
+  color: var(--accent);
+}
+
 
 /* OUTPUT SECTION */
 

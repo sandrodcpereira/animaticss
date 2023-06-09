@@ -214,7 +214,7 @@ function updateSourceFromUpload(imageDataURL) {
 	handleNewSource();
 }
 
-// Actions
+// toolbar
 
 refreshButton.addEventListener("click", pickNewDemo);
 
@@ -228,7 +228,7 @@ darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
 });
 
-// Calculating possible options for noFrames
+// calculate integer options for noFrames, generate radio button
 
 function findPossibleNoFrames() {
   possibleNoFrames = [];
@@ -236,12 +236,12 @@ function findPossibleNoFrames() {
   for (var i = 2; i <= 64; i++) {
     var result = sourceWidth / i;
     
-    if (Number.isInteger(result)) {
-      possibleNoFrames.push(i);
+  	if (Number.isInteger(result)) {
+    	possibleNoFrames.push(i);
     }
   }
   
-   return possibleNoFrames;
+  return possibleNoFrames;
 }
 
 function generateRadioButtons() {
@@ -279,3 +279,5 @@ function generateRadioButtons() {
     }
   }
 }
+
+
