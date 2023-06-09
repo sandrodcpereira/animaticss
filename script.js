@@ -292,9 +292,19 @@ function generateRadioButtons() {
     label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
     
     selectFrames.appendChild(label);
-
-
-    
   }
+
+  var radioButtons = document.querySelectorAll("#selectFrames input[type='radio']");
+
+  for (var i = 0; i < radioButtons.length; i++) {
+	  if (radioButtons[i].value == noFrames) {
+	    radioButtons[i].checked = true;
+	    break; // Stop the loop after finding the matching radio button
+	  }
+	}
 }
+
+
+
+
 
