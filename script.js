@@ -150,6 +150,8 @@ animationSpeedInput.addEventListener("input", handleInputChange);
 
 
 
+
+
 // Handles the local image upload 
 
 imageUpload.addEventListener("change", handleImageUpload);
@@ -252,6 +254,49 @@ darkBackground.addEventListener("click", function() {
 });
 
 
+// Calculating possible options for noFrames
 
+var possibleNoFrames;
 
+function findPossibleNoFrames() {
+  possibleNoFrames = [];
+  
+  for (var i = 2; i <= 64; i++) {
+    var result = sourceWidth / i;
+    
+    if (Number.isInteger(result)) {
+      possibleNoFrames.push(i);
+    }
+  }
+  
+  return possibleNoFrames;
+}
+
+function generateRadioButtons() {
+  var selectFrames = document.getElementById("selectFrames");
+  
+  // Clear existing radio buttons
+  selectFrames.innerHTML = "";
+  
+  // Create radio buttons
+  for (var i = 0; i < possibleNoFrames.length; i++) {
+    var radioButton = document.createElement("input");
+    radioButton.type = "radio";
+    radioButton.name = "noFrames";
+    radioButton.value = possibleNoFrames[i];
+    radioButton.id = possibleNoFrames[i];
+    
+    // Append the radio button to the radio group
+    selectFrames.appendChild(radioButton);
+    
+    // Create a label for the radio button
+    var label = document.createElement("label");
+    label.textContent = possibleNoFrames[i];
+    label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
+    
+    // Append the label to the radio group
+    selectFrames.appendChild(label);
+    
+  }
+}
 
