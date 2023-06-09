@@ -53,6 +53,7 @@ async function handleNewSource() {
 	await updateAnimationKeyframes();
   await findPossibleNoFrames();
   await generateRadioButtons();
+  await noFramesScrollToSelection();
 }
 
 function pickRandomDemo() {
@@ -85,6 +86,8 @@ selectFrames.addEventListener("change", function(event) {
     resizeAnimationPreview();
 		noFramesUpdate();	
 		updateAnimationKeyframes();
+
+		noFramesScrollToSelection();
   }
 });
 
@@ -280,4 +283,26 @@ function generateRadioButtons() {
   }
 }
 
+// Frames input logic
+
+function noFramesScrollToSelection() {
+	var element = document.getElementById('frameInput');
+	//element.scrollLeft += 100; // Scroll right by 100 pixels
+
+
+	var radioButtons = document.querySelectorAll('#selectFrames input[type="radio"]');
+	var radioButtonCount = radioButtons.length;
+
+	var checkedIndex = -1;
+	for (var i = 0; i < radioButtonCount; i++) {
+	  if (radioButtons[i].checked) {
+	    checkedIndex = i;
+	    break;
+	  }
+	}
+
+	var scrollOffset = checkedIndex * 40;
+	var frameInput = document.getElementById('frameInput');
+	frameInput.scrollLeft = scrollOffset;
+}
 

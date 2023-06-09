@@ -106,6 +106,7 @@ https://prismjs.com/download.html#themes=prism-twilight&languages=css */
   --mid:		#C5C2B3;
   --dark:		#1B1D44;
   --accent: 	#F72E1C;
+  --focus:		#1C81F7;
 
   box-sizing: border-box;
 }
@@ -262,7 +263,6 @@ nav {
   to {background-position-x: calc(100% - 240px);}
 }
 
-
 .toolbar {
 	display: flex;
 	flex-direction: row;
@@ -364,26 +364,83 @@ input[type="radio"] {
 	width: 0;
 }
 
-#selectFrames {
-	background: var(--background);
+#frameInput {
+	display: flex;
+	flex-direction: row;
+	width: 40px;
+	height: 40px;
+	padding: 0 40px;
+	border-radius: 8px;
+	overflow: hidden;
+	position: relative;
+	scroll-behavior: smooth;
 
 }
 
-#selectFrames:focus-within {
-	border: 2px solid green;
+#frameInput:focus-within, *:focus {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+
+#selectFrames {
+	display: flex;
+}
+
+.input.frames > .container {
+	position: relative;
+}
+
+.frameControls {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background: var(--light);
+	border-radius: 10px;
+	right: 16px;
+	top: 16px;
+	z-index: 10;
+	background-position: center center;
+	background-size: 24px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	user-select: none;
+}
+
+.frameControls:hover {
+	transform: scale(1.1);
+}
+
+.frameControls:active {
+	transform: scale(0.95);
+}
+
+.frameControls#prevFrame {
+	right: 96px;
+	background-image: url(assets/icon-arrow-left.svg);
+}
+
+.frameControls#nextFrame {
+	background-image: url(assets/icon-arrow-right.svg);
 }
 
 #selectFrames label {
+	width: 40px;
+	height: 40px;
 	display: inline-block;
-	border: 1px solid red;
-	padding: 8px;
 	cursor: pointer;
-	font-family: 'ohno-blazeface', serif;
+	font-family: ohno-blazeface, sans-serif;
+	font-style: normal;
+	line-height: 38px;
 	font-weight: 200;
 	font-size: 24px;
+	color: var(--dark);
+	scroll-snap-align: start;
+  	flex-shrink: 0;
+  	user-select: none;
 }
 
-input[type="radio"]:checked+label {
+#selectFrames input[type="radio"]:checked+label {
   color: var(--accent);
 }
 
