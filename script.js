@@ -17,6 +17,8 @@ var animationDemo = [
 ];
 
 var noFrames;
+var possibleNoFrames;
+
 var animationSpeed;
 var animationSpeedAdjusted;
 
@@ -26,7 +28,32 @@ var previewWidth;
 var previewHeight;
 
 var animationPreview = document.getElementById("animationPreview");
-var noFramesInput = document.getElementById("noFrames");
+
+var selectFrames = document.getElementById("selectFrames");
+
+
+selectFrames.addEventListener("change", function(event) {
+  var selectedRadioButton = event.target;
+
+  if (selectedRadioButton.checked) {
+    noFrames = selectedRadioButton.value;
+    console.log(noFrames);
+    noFramesUpdate();
+  }
+});
+
+function handleNewSource() {
+	calculateSourceDimensions();
+	setTimeout(resizeAnimationPreview, 50);
+	setTimeout(updateAnimationKeyframes, 50);
+	setTimeout(findPossibleNoFrames, 150);
+	setTimeout(generateRadioButtons, 200);
+}
+
+
+
+
+
 var animationSpeedInput = document.getElementById("animationSpeed");
 
 var imageUploadAlias = document.getElementById("imageUploadAlias");
@@ -49,7 +76,7 @@ function pickRandomDemo() {
 	sourceImg = randomDemo.sourceImg;
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 
-	noFramesInput.value = noFrames;
+	//noFramesInput.value = noFrames;
 	animationSpeedInput.value = animationSpeed;
 }
 
@@ -71,14 +98,17 @@ document.addEventListener("DOMContentLoaded", function() {
 function pickNewDemo() {
 	pickRandomDemo();				// fetch demo
 	updateSourceFromDemo();				// update image assets
-	calculateSourceDimensions();	// caculate image asset dimensions
+	handleNewSource();
 
 	noFramesUpdate();				// update number of frames from array
-	animationSpeedUpdate();			// update animation speed from array
+	animationSpeedUpdate();			// update animation speed from array;
 
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
+	setTimeout(findPossibleNoFrames, 150);
+	setTimeout(generateRadioButtons, 200);
 } 
+
+
+
 
 // Calculates the image source dimensions for use in all those functions down below.
 
@@ -111,9 +141,14 @@ function noFramesUpdate() {
     animationPreview.style.animation = animationPreviewUpdate;
     currentFrame.style.animation = animationFrameUpdate;
 
-    resizeAnimationPreview();		// resizes the animation preview window
-    updateAnimationKeyframes();		// update the CSS keyframes to the correct value
+    noFramesProcessing();		// resizes the animation preview window
 }
+
+function noFramesProcessing() {
+	setTimeout(resizeAnimationPreview, 50);
+	setTimeout(updateAnimationKeyframes, 50);
+}
+
 
 function animationSpeedUpdate() {
 	var speedPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
@@ -140,16 +175,32 @@ function handleSpeedChange(event) {
 animationSpeedInput.addEventListener("input", handleSpeedChange);
 
 
-function handleNoFramesChange(event) {
-	var inputId = event.target.id;
-  var inputValue = event.target.value;
+/*function handleNoFramesChange(event) {
 
-  noFrames = inputValue;
+	for (var i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].addEventListener("click", function(event) {
+      // Store the selected value in the noFrames variable
+      noFrames = event.target.value;
+      
+      // Use the selected value as needed
+      console.log("Selected noFrames:", noFrames);
+    });
+  }
+
+
+
+
+	//var inputId = event.target.id;
+  //var inputValue = event.target.value;
+
+  //noFrames = inputValue;
 	console.log("noFrames changed. New value:", noFrames);
 	noFramesUpdate();
 }
 
-noFramesInput.addEventListener("input", handleNoFramesChange);
+selectFramesInput.addEventListener("input", handleNoFramesChange);*/
+
+
 
 
 
@@ -178,10 +229,9 @@ function updateSourceFromUpload(imageDataURL) {
 	animationPreview.style.backgroundImage = "url(" + imageDataURL + ")";  
 	sourceImg = imageDataURL;
 
-	calculateSourceDimensions();
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
+	handleNewSource();
 }
+
 
 
 // Resizes the animation preview window to match the size of each individual frame
@@ -257,7 +307,7 @@ darkBackground.addEventListener("click", function() {
 
 // Calculating possible options for noFrames
 
-var possibleNoFrames;
+
 
 function findPossibleNoFrames() {
   possibleNoFrames = [];
@@ -270,40 +320,38 @@ function findPossibleNoFrames() {
     }
   }
   
-  return possibleNoFrames;
+   return possibleNoFrames;
 }
 
 function generateRadioButtons() {
   var selectFrames = document.getElementById("selectFrames");
+  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
   
   selectFrames.innerHTML = "";
-  
-  for (var i = 0; i < possibleNoFrames.length; i++) {
-    var radioButton = document.createElement("input");
-    radioButton.type = "radio";
-    radioButton.name = "noFrames";
-    radioButton.value = possibleNoFrames[i];
-    radioButton.id = possibleNoFrames[i];
+
+  if (possibleNoFrames.length === 0) {
+    var messageElement = document.createElement("p");
+    messageElement.textContent = "Oops, can't split this image into equal sized frames...";
+    selectFrames.appendChild(messageElement);
+
+  } else {
+    for (var i = 0; i < possibleNoFrames.length; i++) {
+      var radioButton = document.createElement("input");
+      radioButton.type = "radio";
+      radioButton.name = "noFrames";
+      radioButton.value = possibleNoFrames[i];
+      radioButton.id = possibleNoFrames[i];
+      
+      selectFrames.appendChild(radioButton);
+      
+      var label = document.createElement("label");
+      label.textContent = possibleNoFrames[i];
+      label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
     
-    selectFrames.appendChild(radioButton);
-    
-    var label = document.createElement("label");
-    label.textContent = possibleNoFrames[i];
-    label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
-    
-    selectFrames.appendChild(label);
+      selectFrames.appendChild(label);
+    }
   }
-
-  var radioButtons = document.querySelectorAll("#selectFrames input[type='radio']");
-
-  for (var i = 0; i < radioButtons.length; i++) {
-	  if (radioButtons[i].value == noFrames) {
-	    radioButtons[i].checked = true;
-	    break; // Stop the loop after finding the matching radio button
-	  }
-	}
 }
-
 
 
 
