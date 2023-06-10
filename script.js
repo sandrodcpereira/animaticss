@@ -250,13 +250,17 @@ function findPossibleNoFrames() {
 function generateRadioButtons() {
   var selectFrames = document.getElementById("selectFrames");
   var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
-  
+  var noFramesContainer = document.getElementById("noFramesContainer");
+
   selectFrames.innerHTML = "";
 
+
+
   if (possibleNoFrames.length === 0) {
+
     var messageElement = document.createElement("p");
     messageElement.textContent = "Oops, can't split this image into equal sized frames...";
-    selectFrames.appendChild(messageElement);
+    noFramesContainer.appendChild(messageElement);
 
   } else {
     for (var i = 0; i < possibleNoFrames.length; i++) {
@@ -265,14 +269,21 @@ function generateRadioButtons() {
       radioButton.name = "noFrames";
       radioButton.value = possibleNoFrames[i];
       radioButton.id = possibleNoFrames[i];
-      
+      var messageElement = noFramesContainer.querySelector("#noFramesContainer > p");
+
+      if (messageElement) {
+		    noFramesContainer.removeChild(messageElement);
+		  }
+
       selectFrames.appendChild(radioButton);
       
       var label = document.createElement("label");
       label.textContent = possibleNoFrames[i];
       label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
     
-      selectFrames.appendChild(label);
+      
+    	selectFrames.appendChild(label);
+
     }
 
     // Select the radio button with the value matching noFrames

@@ -488,6 +488,21 @@ input[type="radio"] {
   color: var(--accent);
 }
 
+#noFramesContainer > p {
+    position: absolute;
+    z-index: 20;
+    background: var(--light);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    padding: 16px;
+    font-size: 13px;
+    justify-content: center;
+}
 
 /* OUTPUT SECTION */
 
