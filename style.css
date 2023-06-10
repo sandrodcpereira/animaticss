@@ -260,6 +260,7 @@ nav {
 	animation: preview 1s steps(10) infinite;
 	background-image: url('assets/demo-1.png');
 	background-position-x: 0%;
+	transition: height .2s ease, width .2s ease;
 }
 
 @keyframes preview {
@@ -404,9 +405,6 @@ input[type="radio"] {
 	opacity: 0;
 	width: 0;
 }
-
-
-
 
 #frameInput {
 	display: flex;
