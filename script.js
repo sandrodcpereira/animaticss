@@ -259,7 +259,6 @@ function findPossibleNoFrames() {
 }
 
 function generateRadioButtons() {
-  var selectFrames = document.getElementById("selectFrames");
   var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
   var noFramesContainer = document.getElementById("noFramesContainer");
 
@@ -336,7 +335,6 @@ nextFrameButton.addEventListener('click', selectNextRadioButton);
 
 
 function selectNextRadioButton() {
-  var selectFrames = document.getElementById('selectFrames');
   var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
   
   for (var i = 0; i < radioButtons.length; i++) {
@@ -362,7 +360,6 @@ var prevFrameButton = document.getElementById('prevFrame');
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
 
 function selectPreviousRadioButton() {
-  var selectFrames = document.getElementById('selectFrames');
   var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
   
   for (var i = 0; i < radioButtons.length; i++) {
@@ -386,7 +383,6 @@ function selectPreviousRadioButton() {
 
 
 function storeSelectedNoFrames() {
-  var selectFrames = document.getElementById('selectFrames');
   var selectedRadioButton = selectFrames.querySelector('input[type="radio"]:checked');
 
   if (selectedRadioButton) {
