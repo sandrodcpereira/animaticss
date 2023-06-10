@@ -215,6 +215,17 @@ function updateSourceFromUpload(imageDataURL) {
 	sourceImg = imageDataURL;
 
 	handleNewSource();
+	resetNoFrames();
+}
+
+function resetNoFrames() {
+  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
+  
+  if (radioButtons.length > 0) {
+    var firstRadioButton = radioButtons[0];
+    firstRadioButton.checked = true;
+    noFrames = firstRadioButton.value;
+  }
 }
 
 // toolbar
@@ -295,6 +306,8 @@ function generateRadioButtons() {
 }
 
 // Frames input logic
+
+
 
 function noFramesScrollToSelection() {
 	var element = document.getElementById('frameInput');
