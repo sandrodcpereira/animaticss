@@ -188,7 +188,7 @@ function handleSpeedChange(event) {
   var inputValue = event.target.value;
 
 	animationSpeed = inputValue;
-	animationSpeedAdjusted = (inputValue * 0.1).toFixed(1);
+	animationSpeedAdjusted = inputValue * 0.1;
 	console.log("animationSpeed changed. New value:", animationSpeed);
 	animationSpeedUpdate();
 }
@@ -231,6 +231,8 @@ function resetNoFrames() {
     var firstRadioButton = radioButtons[0];
     firstRadioButton.checked = true;
     noFrames = firstRadioButton.value;
+
+    updateCodeSnippet();
   }
 }
 
@@ -395,12 +397,34 @@ function updateCodeSnippet() {
   var sourceWidthPerFrame = sourceWidth / noFrames;
   var backgroundPositionValue = sourceWidth - sourceWidthPerFrame;
 
-  document.getElementById("replaceWidth").textContent = sourceWidthPerFrame + "px";
+  document.getElementById("replaceWidth").textContent = sourceWidthPerFrame.toFixed(0) + "px";
   document.getElementById("replaceHeight").textContent = sourceHeight + "px";
-  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted + "s";
+  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted.toFixed(1) + "s";
   document.getElementById("replaceFrames").textContent = noFrames;
-  document.getElementById("replaceBackgroundPosition").textContent = backgroundPositionValue + "px";
+  document.getElementById("replaceBackgroundPosition").textContent = backgroundPositionValue.toFixed(0) + "px";
 }
+
+
+function copyCodeSnippet() {
+  var codeSnippetContainer = document.getElementById("codeSnippet");
+  var codeSnippetText = codeSnippetContainer.textContent || codeSnippetContainer.innerText;
+
+  // Create a temporary textarea element
+  var textarea = document.createElement("textarea");
+  textarea.value = codeSnippetText;
+  document.body.appendChild(textarea);
+
+  // Select and copy the text from the textarea
+  textarea.select();
+  document.execCommand("copy");
+
+  // Remove the temporary textarea
+  document.body.removeChild(textarea);
+}
+
+// Add click event listener to the "Copy Code" button
+var copyCodeButton = document.getElementById("copyCode");
+copyCodeButton.addEventListener("click", copyCodeSnippet);
 
 
 
