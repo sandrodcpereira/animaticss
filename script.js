@@ -33,6 +33,8 @@ var animationSpeedInput = document.getElementById("animationSpeed");
 var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
+var frameInput = document.getElementById('frameInput');
+
 
 document.addEventListener("DOMContentLoaded", function() {
 	pickNewDemo();
@@ -240,7 +242,9 @@ var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
+
 });
+
 
 // calculate integer options for noFrames, generate radio button
 
@@ -309,7 +313,7 @@ function generateRadioButtons() {
 
 
 function noFramesScrollToSelection() {
-	var element = document.getElementById('frameInput');
+	//var element = document.getElementById('frameInput');
 	//element.scrollLeft += 100; // Scroll right by 100 pixels
 
 
@@ -325,7 +329,6 @@ function noFramesScrollToSelection() {
 	}
 
 	var scrollOffset = checkedIndex * 40;
-	var frameInput = document.getElementById('frameInput');
 	frameInput.scrollLeft = scrollOffset;
 }
 

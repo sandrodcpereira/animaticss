@@ -132,13 +132,28 @@ h1 {
 	margin: 0;
 }
 
+h2, h3, p {margin: 0;}
+
 a, a:visited {
 	color: var(--dark);
 	border-radius: 2px;
 }
 a:hover {color: var(--accent)}
 
-p {margin: 0;}
+
+input[type=button].link {
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+	border-radius: 2px;
+}
+
+input[type=button].link:hover {
+	color: var(--accent)
+}
+
 
 .logo {
 	width: 260px;
@@ -228,10 +243,6 @@ nav {
 }
 
 
-
-
-
-
 /* PREVIEW SECTION */
 
 
@@ -278,7 +289,7 @@ nav {
 	width: 100%;
 }
 
-input[type=button] {
+input[type=button].icon {
 	border: none;
 	width: 40px;
 	height: 40px;
@@ -291,18 +302,18 @@ input[type=button] {
 	transition: transform .1s cubic-bezier(0.51, 1.66, 0.68, 0.97);
 }
 
-input[type=button]:hover {
+input[type=button].icon:hover {
 	transform: scale(1.1);
 }
 
-input[type=button]:active {
+input[type=button].icon:active {
 	transform: scale(0.95);
 }
 
-input[value=uploadSource]	{background-image: url(assets/icon-upload.svg)}
-input[value=refresh] 		{background-image: url(assets/icon-renew.svg)}
-input[value=copyCode] 		{background-image: url(assets/icon-copy.svg)}
-input[value=darkBackground] {
+input[value=uploadSource].icon	{background-image: url(assets/icon-upload.svg)}
+input[value=refresh].icon 		{background-image: url(assets/icon-renew.svg)}
+input[value=copyCode].icon 		{background-image: url(assets/icon-copy.svg)}
+input[value=darkBackground].icon {
 	background-image: url(assets/icon-background.svg);
 	background-position: left center;
 	background-size: 80px;
@@ -316,7 +327,6 @@ input[value=darkBackground].dark {
 input[type=file] {
 	display: none;
 }
-
 
 .source {
 	background: var(--mid);
@@ -352,7 +362,7 @@ input[type=file] {
 
 /* INPUT SECTION */
 
-label {
+label, .label {
 	font-family: 'Erbaum';
 	font-style: normal;
 	font-weight: 400;
@@ -416,8 +426,22 @@ input[type="radio"] {
 	overflow: hidden;
 	position: relative;
 	scroll-behavior: smooth;
-
+	transition: margin .2s ease, width .2s ease;
 }
+
+/*
+#frameInput.open {
+	overflow: auto;
+	width: 256px;
+	background: var(--background);
+	padding: 0;
+}
+
+#frameInput.open #selectFrames label {
+	width: initial;
+	padding: 0 8px;
+}
+*/
 
 #frameInput:focus-within, *:focus {
 	outline: 2px solid var(--focus);
@@ -428,6 +452,8 @@ input[type="radio"] {
 #selectFrames {
 	display: flex;
 }
+
+
 
 .input.frames > .container {
 	position: relative;
@@ -441,7 +467,6 @@ input[type="radio"] {
 	border-radius: 10px;
 	right: 16px;
 	top: 16px;
-	z-index: 10;
 	background-position: center center;
 	background-size: 24px;
 	background-repeat: no-repeat;
@@ -529,6 +554,51 @@ pre {
 }
 
 
+/* MODAL STYLES */
+
+.modal {
+	display: none;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(27, 29, 68, 0.4);
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.modal > div {
+	background: var(--light);
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 32px;
+	border-radius: 8px;
+	box-sizing: border-box;
+	text-align: left;
+	overflow: scroll;
+	max-height: 100%;
+	font-size: 14px;
+	line-height: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.modal header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+
+
+
 
 
 /* MEDIA QUERIES */
@@ -538,4 +608,8 @@ pre {
 	body {padding: 24px;}
 	.mobileHidden {display: none;}
 }
+
+
+
+
 
