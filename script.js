@@ -393,3 +393,55 @@ function storeSelectedNoFrames() {
   }
 }
 
+// Modal behaviour
+
+
+
+
+var whyModal = document.getElementById("whyModal");
+var creditsModal = document.getElementById("creditsModal");
+
+var creditsModalTrigger = document.getElementById("creditsModalTrigger");
+var whyModalTrigger = document.querySelectorAll(".whyModalTrigger");
+
+var creditsModalClose = document.getElementById("creditsModalClose");
+var whyModalClose = document.getElementById("whyModalClose");
+
+
+
+creditsModalTrigger.addEventListener("click", function() {
+  creditsModal.classList.add("open");
+  document.body.style.overflow = 'hidden';
+});
+
+whyModalTrigger.forEach(function(trigger) {
+  trigger.addEventListener("click", function() {
+    whyModal.classList.add("open");
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+
+creditsModalClose.addEventListener("click", function() {
+  creditsModal.classList.remove("open");
+  document.body.style.overflow = 'initial';
+});
+
+
+whyModalClose.addEventListener("click", function() {
+  whyModal.classList.remove("open");
+  document.body.style.overflow = 'initial';
+});
+
+window.onclick = function(event) {
+  if (event.target == whyModal) {
+    whyModal.classList.remove("open");
+  	document.body.style.overflow = 'initial';
+  };
+  if (event.target == creditsModal) {
+    creditsModal.classList.remove("open");
+  	document.body.style.overflow = 'initial';
+  }
+}
+
+

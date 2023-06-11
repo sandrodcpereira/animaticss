@@ -313,6 +313,7 @@ input[type=button].icon:active {
 input[value=uploadSource].icon	{background-image: url(assets/icon-upload.svg)}
 input[value=refresh].icon 		{background-image: url(assets/icon-renew.svg)}
 input[value=copyCode].icon 		{background-image: url(assets/icon-copy.svg)}
+input[value=closeModal].icon 		{background-image: url(assets/icon-close.svg)}
 input[value=darkBackground].icon {
 	background-image: url(assets/icon-background.svg);
 	background-position: left center;
@@ -448,12 +449,9 @@ input[type="radio"] {
 	outline-offset: 2px;
 }
 
-
 #selectFrames {
 	display: flex;
 }
-
-
 
 .input.frames > .container {
 	position: relative;
@@ -553,21 +551,31 @@ pre {
 	width: 100%;
 }
 
-
 /* MODAL STYLES */
 
 .modal {
-	display: none;
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(27, 29, 68, 0.4);
-  align-items: center;
-  padding: 24px;
-  box-sizing: border-box;
+	display: flex;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(27, 29, 68, 0.4);
+	align-items: center;
+	padding: 0 24px 24px 24px;
+	box-sizing: border-box;
+
+	pointer-events: none;
+	opacity: 0;
+
+	transition: padding .1s ease, opacity .1s ease;
+}
+
+.modal.open {
+	padding: 24px;
+	pointer-events: initial;
+	opacity: 1;
 }
 
 .modal > div {

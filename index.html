@@ -12,16 +12,13 @@
 </head>
 <body>
 
-	
 	<header>
 		<div class="logo">&nbsp;</div>
 	</header>
 
-	<h1>Quicky preview and generate code for <input type="button" class="link" id="whyModalTrigger" value="frame animations on the web">.</h1>
+	<h1>Quicky preview and generate code for <input type="button" class="link whyModalTrigger" value="frame animations on the web">.</h1>
 
-
-	<main>
-		
+	<main>	
 		<section class="preview">
 			
 			<div class="helper">
@@ -63,8 +60,6 @@
 			<div class="container" id="noFramesContainer">
 
 				<span class="label">Number of frames</span>
-
-
 				
 				<div id="frameInput">
 					
@@ -119,25 +114,20 @@
 						<input type="button" class="icon" value="copyCode">
 					</div>
 				</div>
-			
-
 		</section>
-
 	</main>
-
-	
 
 	<nav>
 		<!--p><a href="#TODO">Why frame animation in CSS?</a></p-->
 
-		<input type="button" class="link" id="whyModalTrigger" value="Why frame animation in CSS?">
+		<input type="button" class="link whyModalTrigger" value="Why frame animation in CSS?">
 
 		<p class="mobileHidden">•</p>
 		<p><a target="_blank" href="https://github.com/sandrodcpereira/animaticss">View on GitHub</a></p>
 		<p class="mobileHidden">•</p>
 		<!--p><a href="#TODO">Credits</a></p-->
 
-		<input type="button" class="link" id="creditModalTrigger" value="Credits">
+		<input type="button" class="link" id="creditsModalTrigger" value="Credits">
 
 		<p class="mobileHidden">•</p>
 		<p><a target="_blank" href="https://www.buymeacoffee.com/sandro.design">Buy me a coffee</a></p>
@@ -150,57 +140,41 @@
 		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
 	</footer>
 
-	<div id="modalWhy" class="modal">
+	<div id="whyModal" class="modal">
 	  	<div>
 		    <header>
 				<h2>Frame animations?</h2>
-				<input type="button" class="icon" value="closeModal">
+				<input type="button" class="icon" value="closeModal" id="whyModalClose">
 			</header>
-
 			<h3>What are frame animations?</h3>
-
 			<p>Frame animations are composed of individual pictures that, when played in sequence, give the illusion of movement.</p>
-
 			<p>For Animaticss, animations frames are precomposed into a horizontal strip — like film in an old movie.</p>
-
-			Insert image here
-
+			[#TODO]
 			<h3>Why use frame animations?</h3>
-
 			<p>Here's some reasons to use this method:</p>
-
 			<ul>
 				<li><p>It can be <b>achieved with simple HTML and CSS.</b> Zero dependencies.</p></li>
 				<li><p>You have <b>control over when the animation plays</b>. Trigger it when specific events occur, like on hover or a button press.</p></li>
 				<li><p>Only requires <b>one asset per animation</b>. That’s a lot easier than handling multiple assets.</p></li>
 				<li><p>With more code, <b>one asset can provide multiple animations</b>!</p></li>
 			</ul>
-
 			<p>Not a bad option for when you’re looking to add some quick and lightweight animations to your projects.</p>
-
 			<p>Check some examples of how I've used it <a href="https://sandro.design/stowify.html" target="_blank">here</a>.</p>
 	  	</div>
 	</div>
 
-	<div id="modalCredits" class="modal">
+	<div id="creditsModal" class="modal">
 	  	<div>
 	  		<header>
 				<h2>Credits</h2>
-				<input type="button" class="icon" value="closeModal">
+				<input type="button" class="icon" value="closeModal" id="creditsModalClose">
 			</header>
-
 			<p>CSS syntax highlighting by <a href="https://prismjs.com/" target="_blank">Prism</a>.</p>
-
 			<p><a href="https://ohnotype.co/fonts/blazeface" target="_blank">Ohno Blazeface</a> typeface by <a href="https://ohnotype.co/"target="_blank">Ohno Type</a></p>
-
 			<p><a href="https://fonts.adobe.com/fonts/erbaum" target="_blank">Erbaum</a> typeface by <a href="https://thenorthernblock.co.uk/"target="_blank">The Northern Block</a></p>
-
 			<p>Concept, planning, design, development, and animations by <a href="https://sandro.design" target="_blank">Sandro Pereira</a> (that’s me).</p>
-
 			<p>~</p>
-
 			<p>Thank you for visiting! ❤️</p>
-	    
     	</div>
 	</div>
 	
