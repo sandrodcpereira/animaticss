@@ -32,70 +32,10 @@ font-display:auto;font-style:italic;font-weight:200;font-stretch:normal;
 
 /* CODE HIGHLIGHT */
 
-/* PrismJS 1.29.0
-https://prismjs.com/download.html#themes=prism-twilight&languages=css */
-.token.block-comment,
-.token.cdata,
-.token.comment,
-.token.doctype,
-.token.prolog {
-    color: #999;
-}
-.token.punctuation {
-    color: #ccc;
-}
-.token.attr-name,
-.token.deleted,
-.token.namespace,
-.token.tag {
-    color: #e2777a;
-}
-.token.function-name {
-    color: #6196cc;
-}
-.token.boolean,
-.token.function,
-.token.number {
-    color: #f08d49;
-}
-.token.class-name,
-.token.constant,
-.token.property,
-.token.symbol {
-    color: #f8c555;
-}
-.token.atrule,
-.token.builtin,
-.token.important,
-.token.keyword,
-.token.selector {
-    color: #cc99cd;
-}
-.token.attr-value,
-.token.char,
-.token.regex,
-.token.string,
-.token.variable {
-    color: #7ec699;
-}
-.token.entity,
-.token.operator,
-.token.url {
-    color: #67cdcc;
-}
-.token.bold,
-.token.important {
-    font-weight: 700;
-}
-.token.italic {
-    font-style: italic;
-}
-.token.entity {
-    cursor: help;
-}
-.token.inserted {
-    color: green;
-}
+span.colorPurple {color: #cc99cd;}
+span.colorOrange {color: #f08d49;}
+span.colorYellow {color: #f8c555;}
+span.colorBlue {color: #67cdcc;}
 
 
 /* LAYOUT */
@@ -145,7 +85,7 @@ a, a:visited {
 a:hover {color: var(--accent)}
 
 
-input[type=button].link {
+button.link {
 	border: none;
 	background: none;
 	margin: 0;
@@ -154,7 +94,7 @@ input[type=button].link {
 	border-radius: 2px;
 }
 
-input[type=button].link:hover {
+button.link:hover {
 	color: var(--accent)
 }
 
@@ -434,6 +374,9 @@ input[type=range]::-webkit-slider-thumb {
   margin-top: -11px; 
 }
 
+input[type=range]::-webkit-slider-thumb:hover {transform: scale(1.1)}
+input[type=range]::-webkit-slider-thumb:active {transform: scale(0.95)}
+
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 2px;
@@ -491,18 +434,16 @@ input[type="radio"] {
 
 .frameControls {
 	position: absolute;
-	width: 40px;
-	height: 40px;
 	background: var(--light);
 	border-radius: 10px;
 	right: 16px;
 	top: 16px;
-	background-position: center center;
-	background-size: 24px;
-	background-repeat: no-repeat;
 	cursor: pointer;
 	user-select: none;
+	padding: 8px;
 }
+
+.frameControls > svg {display: block;}
 
 .frameControls:hover {
 	transform: scale(1.1);
@@ -514,11 +455,6 @@ input[type="radio"] {
 
 .frameControls#prevFrame {
 	right: 96px;
-	background-image: url(assets/icon-arrow-left.svg);
-}
-
-.frameControls#nextFrame {
-	background-image: url(assets/icon-arrow-right.svg);
 }
 
 #selectFrames label {
@@ -583,62 +519,6 @@ pre {
 	width: 100%;
 }
 
-/* MODAL STYLES */
-
-.modal {
-	display: flex;
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(7, 9, 41, 0.6);
-	align-items: center;
-	padding: 0 24px 24px 24px;
-	box-sizing: border-box;
-
-	pointer-events: none;
-	opacity: 0;
-
-	transition: padding .1s ease, opacity .1s ease;
-	display: none;
-}
-
-.modal.open {
-	display: flex;
-	padding: 24px;
-	pointer-events: initial;
-	opacity: 1;
-}
-
-.modal > div {
-	background: var(--light);
-	width: 100%;
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 32px;
-	border-radius: 8px;
-	box-sizing: border-box;
-	text-align: left;
-	overflow: scroll;
-	max-height: 100%;
-	font-size: 14px;
-	line-height: 24px;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.modal header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 8px;
-}
-
-
 
 /* MEDIA QUERIES */
 
@@ -649,19 +529,8 @@ pre {
 }
 
 
-/* dark mode */
+/* CODE SNIPPET */
 
-body.dark {
-	background: var(--dark);
-	color: var(--light);
-}
-
-body.dark a {color: var(--light);}
-body.dark a:hover {color: var(--accent)}
-body.dark section > div, body.dark section.output .container {background: var(--darker);}
-body.dark .helper p, body.dark label, body.dark .label {color: var(--light);}
-body.dark .modal > div {background: var(--dark)}
-body.dark button.icon > span {background: var(--darkest)}
 
 
 

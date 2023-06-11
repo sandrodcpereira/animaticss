@@ -1,0 +1,16 @@
+/* dark mode */
+
+body.dark {
+	background: var(--dark);
+	color: var(--light);
+}
+
+body.dark a {color: var(--light);}
+body.dark a:hover {color: var(--accent)}
+body.dark section > div, body.dark section.output .container {background: var(--darker);}
+body.dark .helper p, body.dark label, body.dark .label {color: var(--light);}
+body.dark .modal > div {background: var(--darkest)}
+body.dark button.icon > span {background: var(--darkest)}
+body.dark input[type=range]::-webkit-slider-runnable-track {background: var(--mid)}
+
+

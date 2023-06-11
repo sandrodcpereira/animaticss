@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 	<link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="prod/modal.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="prod/dark.css">
 
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
 
@@ -16,7 +18,7 @@
 		<div class="logo">&nbsp;</div>
 	</header>
 
-	<h1>Quicky preview and generate code for <input type="button" class="link whyModalTrigger" value="frame animations on the web">.</h1>
+	<h1>Quicky preview and generate code for <button class="link whyModalTrigger">frame animations on the web</button>.</h1>
 
 	<main>	
 		<section class="preview">
@@ -85,8 +87,17 @@
 					</div>
 
 				</div>
-				<div class="frameControls" id="nextFrame">&nbsp;</div>
-				<div class="frameControls" id="prevFrame">&nbsp;</div>
+				<div class="frameControls" id="nextFrame">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M13.5 4.5L12.4425 5.5575L18.1275 11.25L3 11.25L3 12.75L18.1275 12.75L12.4425 18.4425L13.5 19.5L21 12L13.5 4.5Z" fill="#1B1D44"/>
+					</svg>
+
+				</div>
+				<div class="frameControls" id="prevFrame">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10.5 19.5L11.5575 18.4425L5.8725 12.75H21V11.25H5.8725L11.5575 5.5575L10.5 4.5L3 12L10.5 19.5Z" fill="#1B1D44"/>
+					</svg>
+				</div>
 			</div>
 		</section>
 
@@ -112,17 +123,17 @@
 			</div>
 			
 				<div class="container">
-					<pre><code class="language-css">.animation-container {
-	width: [sourceWidth / noFrames];
-	height: [sourceHeight];
-	background-image: url('your-image.png');
-	background-size: cover;
-	animation: preview [animationSpeed] steps([noFrames]) infinite;
+					<pre><code class="language-css" id="codeSnippet"><span class="colorPurple">.animation-container {</span>
+	<span class="colorYellow">width</span>: <span id="replaceWidth">[sourceWidth / noFrames]</span>;
+	<span class="colorYellow">height</span>: <span id="replaceHeight">[sourceHeight]</span>;
+	<span class="colorYellow">background-image</span>: <span class="colorOrange">url</span>('your-image.png');
+	<span class="colorYellow">background-size</span>: cover;
+	<span class="colorYellow">animation</span>: preview <span id="replaceSpeed">[animationSpeed]</span> <span class="colorOrange">steps</span>(<span id="replaceFrames">[noFrames]</span>) infinite;
 }
 
-@keyframes preview {
-	from {background-position-x: 0}
-	to {background-position-x: [sourceWidth - frameWidth];}
+<span class="colorPurple">@keyframes preview {</span>
+	<span class="colorPurple">from</span> {<span class="colorYellow">background-position-x</span>: 0px;}
+	<span class="colorPurple">to</span> {<span class="colorYellow">background-position-x</span>: <span id="replaceBackgroundPosition">[sourceWidth - [sourceWidth / noFrames]]</span>;}
 }</code></pre>
 
 					<div class="toolbar">
@@ -138,14 +149,14 @@
 	</main>
 
 	<nav>
-		<button class="link whyModalTrigger" value="Why frame animation in CSS?">Why frame animation in CSS?<span>Hello</span></button>
+		<button class="link whyModalTrigger">Why frame animation in CSS?</button>
 
 		<p class="mobileHidden">•</p>
 
 		<p><a target="_blank" href="https://github.com/sandrodcpereira/animaticss">View on GitHub</a></p>
 		<p class="mobileHidden">•</p>
 
-		<input type="button" class="link" id="creditsModalTrigger" value="Credits">
+		<button class="link" id="creditsModalTrigger">Credits</button>
 
 		<p class="mobileHidden">•</p>
 
@@ -207,6 +218,5 @@
 	
 	<script src="prod/script.js"></script>
 	<script src="prod/modal.js"></script>
-	<script src="prod/prism.js"></script>
 </body>
 </html>

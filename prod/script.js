@@ -34,6 +34,7 @@ var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
 var frameInput = document.getElementById('frameInput');
+var codeContainer = document.querySelector('.language-css');
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -46,6 +47,7 @@ async function pickNewDemo() {
 	await noFramesUpdate();
 	await handleNewSource();
 	await animationSpeedUpdate();
+  await updateCodeSnippet()
 } 
 
 async function handleNewSource() {
@@ -103,6 +105,7 @@ function noFramesUpdate() {
   currentFrame.style.animation = animationFrameUpdate;											// updates current frame steps
 
   console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
+  updateCodeSnippet();
 }
 
 // Calculates the image source dimensions for use in all those functions down below.
@@ -141,7 +144,7 @@ function resizeAnimationPreview() {
 	animationPreview.style.width = previewWidth + "px"; 		// sets preview width
 	animationPreview.style.height = previewHeight + "px";		// sets preview height
 
-	console.log("5. Resized the animation preview window to match the number of steps.")
+	console.log("5. Resized the animation preview window to match the number of steps.");
 }
 
 function updateAnimationKeyframes() {
@@ -175,6 +178,7 @@ function animationSpeedUpdate() {
 
     animationPreview.style.animation = speedPreviewUpdate;
     currentFrame.style.animation = speedFrameUpdate;
+    updateCodeSnippet();
 }
 
 // Runs all the necessary functions when the value of the inputs change.
@@ -184,7 +188,7 @@ function handleSpeedChange(event) {
   var inputValue = event.target.value;
 
 	animationSpeed = inputValue;
-	animationSpeedAdjusted = inputValue * 0.1;
+	animationSpeedAdjusted = (inputValue * 0.1).toFixed(1);
 	console.log("animationSpeed changed. New value:", animationSpeed);
 	animationSpeedUpdate();
 }
@@ -383,3 +387,20 @@ function storeSelectedNoFrames() {
     noFrames = selectedRadioButton.value;
   }
 }
+
+// update css snippet
+
+
+function updateCodeSnippet() {
+  var sourceWidthPerFrame = sourceWidth / noFrames;
+  var backgroundPositionValue = sourceWidth - sourceWidthPerFrame;
+
+  document.getElementById("replaceWidth").textContent = sourceWidthPerFrame + "px";
+  document.getElementById("replaceHeight").textContent = sourceHeight + "px";
+  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted + "s";
+  document.getElementById("replaceFrames").textContent = noFrames;
+  document.getElementById("replaceBackgroundPosition").textContent = backgroundPositionValue + "px";
+}
+
+
+
