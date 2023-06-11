@@ -17,68 +17,93 @@ var animationDemo = [
 ];
 
 var noFrames;
+var possibleNoFrames;
 var animationSpeed;
 var animationSpeedAdjusted;
-
 var sourceImg;
-
+var sourceWidth;
+var sourceHeight;
 var previewWidth;
 var previewHeight;
 
 var animationPreview = document.getElementById("animationPreview");
-var noFramesInput = document.getElementById("noFrames");
+var currentFrame = document.getElementById("currentFrame");
+var selectFrames = document.getElementById("selectFrames");
 var animationSpeedInput = document.getElementById("animationSpeed");
-
 var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
+var frameInput = document.getElementById('frameInput');
 
-var sourceWidth;
-var sourceHeight;
-
-
-
-// Picks a random demo out of the array defined above
-
-function pickRandomDemo() {
-	var randomIndex = Math.floor(Math.random() * animationDemo.length);
-	var randomDemo = animationDemo[randomIndex];
-
-	noFrames = randomDemo.noFrames;
-	animationSpeed = randomDemo.animationSpeed;
-	sourceImg = randomDemo.sourceImg;
-	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
-
-	noFramesInput.value = noFrames;
-	animationSpeedInput.value = animationSpeed;
-}
-
-
-// Updates the images from the local available demos
-
-function updateSourceFromDemo() {
-	var sourceImgContainer = document.getElementById("sourceImg");
-	sourceImgContainer.src = sourceImg;
-
-	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
-}
 
 document.addEventListener("DOMContentLoaded", function() {
 	pickNewDemo();
 });
 
-
-function pickNewDemo() {
-	pickRandomDemo();				// fetch demo
-	updateSourceFromDemo();				// update image assets
-	calculateSourceDimensions();	// caculate image asset dimensions
-
-	noFramesUpdate();				// update number of frames from array
-	animationSpeedUpdate();			// update animation speed from array
-
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
+async function pickNewDemo() {
+	await pickRandomDemo();
+	await updateSourceFromDemo();
+	await noFramesUpdate();
+	await handleNewSource();
+	await animationSpeedUpdate();
 } 
+
+async function handleNewSource() {
+  await calculateSourceDimensions();
+  await new Promise((resolve) => setTimeout(resolve, 200));
+  await resizeAnimationPreview();
+	await updateAnimationKeyframes();
+  await findPossibleNoFrames();
+  await generateRadioButtons();
+  await noFramesScrollToSelection();
+}
+
+function pickRandomDemo() {
+	var randomIndex = Math.floor(Math.random() * animationDemo.length);
+	var randomDemo = animationDemo[randomIndex];
+	noFrames = randomDemo.noFrames;
+	animationSpeed = randomDemo.animationSpeed;
+	sourceImg = randomDemo.sourceImg;
+	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
+	animationSpeedInput.value = animationSpeed;
+	console.log("1. Picking a random demo...");
+}
+
+function updateSourceFromDemo() {
+	var sourceImgContainer = document.getElementById("sourceImg");
+	sourceImgContainer.src = sourceImg;
+	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
+	console.log("2. Demo picked. Now processing...");
+}
+
+// checks for new frames selected on radio button
+
+selectFrames.addEventListener("change", function(event) {
+  var selectedRadioButton = event.target;
+
+  if (selectedRadioButton.checked) {
+    noFrames = selectedRadioButton.value;
+    console.log(noFrames);
+    
+    resizeAnimationPreview();
+		noFramesUpdate();	
+		updateAnimationKeyframes();
+
+		noFramesScrollToSelection();
+  }
+});
+
+function noFramesUpdate() {
+	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	var animationFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	var frameWidthPercentage = 100 / noFrames;
+
+	animationPreview.style.animation = animationPreviewUpdate; 								// updates number of steps
+  currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)"; 	// updates current frame width
+  currentFrame.style.animation = animationFrameUpdate;											// updates current frame steps
+
+  console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
+}
 
 // Calculates the image source dimensions for use in all those functions down below.
 
@@ -92,28 +117,57 @@ function calculateSourceDimensions() {
 	  sourceHeight = this.naturalHeight;
 
 	  // Use the width and height variables as needed
-	  console.log("Image width: " + sourceWidth);
-	  console.log("Image height: " + sourceHeight);
+	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
 	};
 }
 
 // Makes all the changes and calls all the functions when the values are updated.
 
-var currentFrame = document.getElementById("currentFrame");
+function resizeAnimationPreview() {
+	previewWidth = sourceWidth / noFrames;
+	previewHeight = sourceHeight;
 
-function noFramesUpdate() {
-	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
-	var animationFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+	if (previewWidth > 320) {
+		var scaleFactor = 320 / previewWidth;
+		previewWidth *= scaleFactor;
+		previewHeight *= scaleFactor;
+	}
+	if (previewHeight > 320) {
+    	var scaleFactor = 320 / previewHeight;
+    	previewWidth *= scaleFactor;
+    	previewHeight *= scaleFactor;
+	}
 
-	var frameWidthPercentage = 100 / noFrames;
-    currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)";
-    
-    animationPreview.style.animation = animationPreviewUpdate;
-    currentFrame.style.animation = animationFrameUpdate;
+	animationPreview.style.width = previewWidth + "px"; 		// sets preview width
+	animationPreview.style.height = previewHeight + "px";		// sets preview height
 
-    resizeAnimationPreview();		// resizes the animation preview window
-    updateAnimationKeyframes();		// update the CSS keyframes to the correct value
+	console.log("5. Resized the animation preview window to match the number of steps.")
 }
+
+function updateAnimationKeyframes() {
+  var styleSheets = document.styleSheets;
+  for (var i = 0; i < styleSheets.length; i++) {
+    var styleSheet = styleSheets[i];
+    if (styleSheet instanceof CSSStyleSheet) {
+      var rules = styleSheet.cssRules || styleSheet.rules;
+      for (var j = 0; j < rules.length; j++) {
+        var rule = rules[j];
+        if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
+          var keyframes = rule.cssRules;
+          for (var k = 0; k < keyframes.length; k++) {
+            var keyframe = keyframes[k];
+            if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
+              keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  console.log("6. Updated the CSS keyframes to match the size of the preview.");
+}
+
 
 function animationSpeedUpdate() {
 	var speedPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
@@ -123,32 +177,19 @@ function animationSpeedUpdate() {
     currentFrame.style.animation = speedFrameUpdate;
 }
 
-
 // Runs all the necessary functions when the value of the inputs change.
 
-function handleInputChange(event) {
-    var inputId = event.target.id;
-    var inputValue = event.target.value;
+function handleSpeedChange(event) {
+	var inputId = event.target.id;
+  var inputValue = event.target.value;
 
-    if (inputId === "noFrames") {
-    	noFrames = inputValue;
-    	console.log("noFrames changed. New value:", noFrames);
-    	noFramesUpdate();
-
-
-    } else if (inputId === "animationSpeed") {
-    	animationSpeed = inputValue;
-    	animationSpeedAdjusted = inputValue * 0.1;
-    	console.log("animationSpeed changed. New value:", animationSpeed);
-    	animationSpeedUpdate();
-    	resizeAnimationPreview();
-    }
+	animationSpeed = inputValue;
+	animationSpeedAdjusted = inputValue * 0.1;
+	console.log("animationSpeed changed. New value:", animationSpeed);
+	animationSpeedUpdate();
 }
 
-noFramesInput.addEventListener("input", handleInputChange);
-animationSpeedInput.addEventListener("input", handleInputChange);
-
-
+animationSpeedInput.addEventListener("input", handleSpeedChange);
 
 // Handles the local image upload 
 
@@ -175,68 +216,21 @@ function updateSourceFromUpload(imageDataURL) {
 	animationPreview.style.backgroundImage = "url(" + imageDataURL + ")";  
 	sourceImg = imageDataURL;
 
-	calculateSourceDimensions();
-	setTimeout(resizeAnimationPreview, 50);
-	setTimeout(updateAnimationKeyframes, 50);
+	handleNewSource();
+	resetNoFrames();
 }
 
-
-// Resizes the animation preview window to match the size of each individual frame
-
-function resizeAnimationPreview() {
-
-	previewWidth = sourceWidth / noFrames;
-	previewHeight = sourceHeight;
-
-
-	if (previewWidth > 320) {
-
-		var scaleFactor = 320 / previewWidth;
-		previewWidth *= scaleFactor;
-		previewHeight *= scaleFactor;
-	}
-
-	if (previewHeight > 320) {
-    	var scaleFactor = 320 / previewHeight;
-    	previewWidth *= scaleFactor;
-    	previewHeight *= scaleFactor;
-	}
-
-	animationPreview.style.width = previewWidth + "px";
-	animationPreview.style.height = previewHeight + "px";
-}
-
-// Updates CSS keyframe logic to account for the preview window size
-
-function updateAnimationKeyframes() {
-  var styleSheets = document.styleSheets;
-
-  for (var i = 0; i < styleSheets.length; i++) {
-    var styleSheet = styleSheets[i];
-
-    if (styleSheet instanceof CSSStyleSheet) {
-      var rules = styleSheet.cssRules || styleSheet.rules;
-      for (var j = 0; j < rules.length; j++) {
-        var rule = rules[j];
-
-        if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
-          var keyframes = rule.cssRules;
-          for (var k = 0; k < keyframes.length; k++) {
-            var keyframe = keyframes[k];
-
-            if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
-              keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
-            }
-          }
-        }
-      }
-    }
+function resetNoFrames() {
+  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
+  
+  if (radioButtons.length > 0) {
+    var firstRadioButton = radioButtons[0];
+    firstRadioButton.checked = true;
+    noFrames = firstRadioButton.value;
   }
 }
 
-
-
-// Actions
+// toolbar
 
 refreshButton.addEventListener("click", pickNewDemo);
 
@@ -244,14 +238,210 @@ imageUploadAlias.addEventListener("click", function() {
   imageUpload.click();
 });
 
-
 var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
+
 });
 
 
+// calculate integer options for noFrames, generate radio button
 
+function findPossibleNoFrames() {
+  possibleNoFrames = [];
+  
+  for (var i = 2; i <= 64; i++) {
+    var result = sourceWidth / i;
+    
+  	if (Number.isInteger(result)) {
+    	possibleNoFrames.push(i);
+    }
+  }
+  
+  return possibleNoFrames;
+}
+
+function generateRadioButtons() {
+  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
+  var noFramesContainer = document.getElementById("noFramesContainer");
+
+  selectFrames.innerHTML = "";
+
+
+
+  if (possibleNoFrames.length === 0) {
+
+    var messageElement = document.createElement("p");
+    messageElement.textContent = "Oops, can't split this image into equal sized frames...";
+    noFramesContainer.appendChild(messageElement);
+
+  } else {
+    for (var i = 0; i < possibleNoFrames.length; i++) {
+      var radioButton = document.createElement("input");
+      radioButton.type = "radio";
+      radioButton.name = "noFrames";
+      radioButton.value = possibleNoFrames[i];
+      radioButton.id = possibleNoFrames[i];
+      var messageElement = noFramesContainer.querySelector("#noFramesContainer > p");
+
+      if (messageElement) {
+		    noFramesContainer.removeChild(messageElement);
+		  }
+
+      selectFrames.appendChild(radioButton);
+      
+      var label = document.createElement("label");
+      label.textContent = possibleNoFrames[i];
+      label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
+    
+      
+    	selectFrames.appendChild(label);
+
+    }
+
+    // Select the radio button with the value matching noFrames
+    var selectedRadioButton = selectFrames.querySelector("input[type='radio'][value='" + noFrames + "']");
+    if (selectedRadioButton) {
+      selectedRadioButton.checked = true;
+    }
+  }
+}
+
+// Frames input logic
+
+
+
+function noFramesScrollToSelection() {
+	//var element = document.getElementById('frameInput');
+	//element.scrollLeft += 100; // Scroll right by 100 pixels
+
+
+	var radioButtons = document.querySelectorAll('#selectFrames input[type="radio"]');
+	var radioButtonCount = radioButtons.length;
+
+	var checkedIndex = -1;
+	for (var i = 0; i < radioButtonCount; i++) {
+	  if (radioButtons[i].checked) {
+	    checkedIndex = i;
+	    break;
+	  }
+	}
+
+	var scrollOffset = checkedIndex * 40;
+	frameInput.scrollLeft = scrollOffset;
+}
+
+
+var nextFrameButton = document.getElementById('nextFrame');
+nextFrameButton.addEventListener('click', selectNextRadioButton);
+
+
+function selectNextRadioButton() {
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
+  
+  for (var i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      // Uncheck the current radio button
+      radioButtons[i].checked = false;
+      
+      // Select the next radio button (loop back to the beginning if reached the end)
+      var nextIndex = (i + 1) % radioButtons.length;
+      radioButtons[nextIndex].checked = true;
+            
+      break;
+    }
+  }
+  noFramesScrollToSelection();
+  storeSelectedNoFrames();
+  resizeAnimationPreview();
+	noFramesUpdate();	
+	updateAnimationKeyframes();
+}
+
+var prevFrameButton = document.getElementById('prevFrame');
+prevFrameButton.addEventListener('click', selectPreviousRadioButton);
+
+function selectPreviousRadioButton() {
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
+  
+  for (var i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      // Uncheck the current radio button
+      radioButtons[i].checked = false;
+      
+      // Select the previous radio button (loop back to the end if reached the beginning)
+      var prevIndex = (i - 1 + radioButtons.length) % radioButtons.length;
+      radioButtons[prevIndex].checked = true;
+      
+      break;
+    }
+  }
+  noFramesScrollToSelection();
+  storeSelectedNoFrames();
+  resizeAnimationPreview();
+	noFramesUpdate();	
+	updateAnimationKeyframes();
+}
+
+
+function storeSelectedNoFrames() {
+  var selectedRadioButton = selectFrames.querySelector('input[type="radio"]:checked');
+
+  if (selectedRadioButton) {
+    noFrames = selectedRadioButton.value;
+  }
+}
+
+// Modal behaviour
+
+
+
+
+var whyModal = document.getElementById("whyModal");
+var creditsModal = document.getElementById("creditsModal");
+
+var creditsModalTrigger = document.getElementById("creditsModalTrigger");
+var whyModalTrigger = document.querySelectorAll(".whyModalTrigger");
+
+var creditsModalClose = document.getElementById("creditsModalClose");
+var whyModalClose = document.getElementById("whyModalClose");
+
+
+
+creditsModalTrigger.addEventListener("click", function() {
+  creditsModal.classList.add("open");
+  document.body.style.overflow = 'hidden';
+});
+
+whyModalTrigger.forEach(function(trigger) {
+  trigger.addEventListener("click", function() {
+    whyModal.classList.add("open");
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+
+creditsModalClose.addEventListener("click", function() {
+  creditsModal.classList.remove("open");
+  document.body.style.overflow = 'initial';
+});
+
+
+whyModalClose.addEventListener("click", function() {
+  whyModal.classList.remove("open");
+  document.body.style.overflow = 'initial';
+});
+
+window.onclick = function(event) {
+  if (event.target == whyModal) {
+    whyModal.classList.remove("open");
+  	document.body.style.overflow = 'initial';
+  };
+  if (event.target == creditsModal) {
+    creditsModal.classList.remove("open");
+  	document.body.style.overflow = 'initial';
+  }
+}
 
 

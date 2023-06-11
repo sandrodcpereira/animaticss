@@ -106,6 +106,7 @@ https://prismjs.com/download.html#themes=prism-twilight&languages=css */
   --mid:		#C5C2B3;
   --dark:		#1B1D44;
   --accent: 	#F72E1C;
+  --focus:		#1C81F7;
 
   box-sizing: border-box;
 }
@@ -131,10 +132,28 @@ h1 {
 	margin: 0;
 }
 
-a, a:visited {color: var(--dark)}
+h2, h3, p {margin: 0;}
+
+a, a:visited {
+	color: var(--dark);
+	border-radius: 2px;
+}
 a:hover {color: var(--accent)}
 
-p {margin: 0;}
+
+input[type=button].link {
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+	border-radius: 2px;
+}
+
+input[type=button].link:hover {
+	color: var(--accent)
+}
+
 
 .logo {
 	width: 260px;
@@ -224,10 +243,6 @@ nav {
 }
 
 
-
-
-
-
 /* PREVIEW SECTION */
 
 
@@ -256,12 +271,12 @@ nav {
 	animation: preview 1s steps(10) infinite;
 	background-image: url('assets/demo-1.png');
 	background-position-x: 0%;
+	transition: height .2s ease, width .2s ease;
 }
 
 @keyframes preview {
   to {background-position-x: calc(100% - 240px);}
 }
-
 
 .toolbar {
 	display: flex;
@@ -274,7 +289,7 @@ nav {
 	width: 100%;
 }
 
-input[type=button] {
+input[type=button].icon {
 	border: none;
 	width: 40px;
 	height: 40px;
@@ -287,17 +302,19 @@ input[type=button] {
 	transition: transform .1s cubic-bezier(0.51, 1.66, 0.68, 0.97);
 }
 
-input[type=button]:hover {
+input[type=button].icon:hover {
 	transform: scale(1.1);
 }
 
-input[type=button]:active {
+input[type=button].icon:active {
 	transform: scale(0.95);
 }
 
-input[value=uploadSource]	{background-image: url(assets/icon-upload.svg)}
-input[value=refresh] 		{background-image: url(assets/icon-renew.svg)}
-input[value=darkBackground] {
+input[value=uploadSource].icon	{background-image: url(assets/icon-upload.svg)}
+input[value=refresh].icon 		{background-image: url(assets/icon-renew.svg)}
+input[value=copyCode].icon 		{background-image: url(assets/icon-copy.svg)}
+input[value=closeModal].icon 		{background-image: url(assets/icon-close.svg)}
+input[value=darkBackground].icon {
 	background-image: url(assets/icon-background.svg);
 	background-position: left center;
 	background-size: 80px;
@@ -311,7 +328,6 @@ input[value=darkBackground].dark {
 input[type=file] {
 	display: none;
 }
-
 
 .source {
 	background: var(--mid);
@@ -347,7 +363,7 @@ input[type=file] {
 
 /* INPUT SECTION */
 
-label {
+label, .label {
 	font-family: 'Erbaum';
 	font-style: normal;
 	font-weight: 400;
@@ -357,8 +373,157 @@ label {
 
 #animationSpeed {
 	direction: rtl;
+	-webkit-appearance: none;
+  	width: 120px;
+  	background: transparent;
+  	border-radius: 8px;
+  	cursor: pointer;
 }
 
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 16px;
+  background: var(--accent);
+  cursor: pointer;
+  margin-top: -11px; 
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--dark);
+  margin: 19px 8px;
+}
+
+/* frame selector */
+
+input[type="radio"] {
+	opacity: 0;
+	width: 0;
+}
+
+#frameInput {
+	display: flex;
+	flex-direction: row;
+	width: 40px;
+	height: 40px;
+	padding: 0 40px;
+	border-radius: 8px;
+	overflow: hidden;
+	position: relative;
+	scroll-behavior: smooth;
+	transition: margin .2s ease, width .2s ease;
+}
+
+/*
+#frameInput.open {
+	overflow: auto;
+	width: 256px;
+	background: var(--background);
+	padding: 0;
+}
+
+#frameInput.open #selectFrames label {
+	width: initial;
+	padding: 0 8px;
+}
+*/
+
+#frameInput:focus-within, *:focus {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}
+
+#selectFrames {
+	display: flex;
+}
+
+.input.frames > .container {
+	position: relative;
+}
+
+.frameControls {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background: var(--light);
+	border-radius: 10px;
+	right: 16px;
+	top: 16px;
+	background-position: center center;
+	background-size: 24px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	user-select: none;
+}
+
+.frameControls:hover {
+	transform: scale(1.1);
+}
+
+.frameControls:active {
+	transform: scale(0.95);
+}
+
+.frameControls#prevFrame {
+	right: 96px;
+	background-image: url(assets/icon-arrow-left.svg);
+}
+
+.frameControls#nextFrame {
+	background-image: url(assets/icon-arrow-right.svg);
+}
+
+#selectFrames label {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	cursor: pointer;
+	font-family: 'Erbaum', sans-serif;
+	font-style: normal;
+	line-height: 40px;
+	font-weight: 800;
+	font-size: 24px;
+	color: var(--dark);
+	scroll-snap-align: start;
+  	flex-shrink: 0;
+  	user-select: none;
+}
+
+#selectFrames input[type="radio"]:checked+label {
+  color: var(--accent);
+}
+
+#noFramesContainer > p {
+    position: absolute;
+    z-index: 20;
+    background: var(--light);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    padding: 16px;
+    font-size: 13px;
+    justify-content: center;
+}
 
 /* OUTPUT SECTION */
 
@@ -386,6 +551,61 @@ pre {
 	width: 100%;
 }
 
+/* MODAL STYLES */
+
+.modal {
+	display: flex;
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(27, 29, 68, 0.4);
+	align-items: center;
+	padding: 0 24px 24px 24px;
+	box-sizing: border-box;
+
+	pointer-events: none;
+	opacity: 0;
+
+	transition: padding .1s ease, opacity .1s ease;
+}
+
+.modal.open {
+	padding: 24px;
+	pointer-events: initial;
+	opacity: 1;
+}
+
+.modal > div {
+	background: var(--light);
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 32px;
+	border-radius: 8px;
+	box-sizing: border-box;
+	text-align: left;
+	overflow: scroll;
+	max-height: 100%;
+	font-size: 14px;
+	line-height: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.modal header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+
+
 
 
 
@@ -396,4 +616,8 @@ pre {
 	body {padding: 24px;}
 	.mobileHidden {display: none;}
 }
+
+
+
+
 
