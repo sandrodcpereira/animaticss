@@ -404,8 +404,8 @@ var creditsModal = document.getElementById("creditsModal");
 var creditsModalTrigger = document.getElementById("creditsModalTrigger");
 var whyModalTrigger = document.querySelectorAll(".whyModalTrigger");
 
-var creditsModalClose = document.getElementById("creditsModalClose");
-var whyModalClose = document.getElementById("whyModalClose");
+var creditsModalCloseTrigger = document.getElementById("creditsModalClose");
+var whyModalCloseTrigger = document.getElementById("whyModalClose");
 
 
 
@@ -422,26 +422,44 @@ whyModalTrigger.forEach(function(trigger) {
 });
 
 
-creditsModalClose.addEventListener("click", function() {
-  creditsModal.classList.remove("open");
-  document.body.style.overflow = 'initial';
+creditsModalCloseTrigger.addEventListener("click", function() {
+  creditsModalClose();
 });
 
 
-whyModalClose.addEventListener("click", function() {
-  whyModal.classList.remove("open");
-  document.body.style.overflow = 'initial';
+whyModalCloseTrigger.addEventListener("click", function() {
+  whyModalClose();
 });
 
 window.onclick = function(event) {
   if (event.target == whyModal) {
-    whyModal.classList.remove("open");
-  	document.body.style.overflow = 'initial';
+    whyModalClose();
   };
   if (event.target == creditsModal) {
-    creditsModal.classList.remove("open");
-  	document.body.style.overflow = 'initial';
+    creditsModalClose();
   }
 }
+
+function whyModalClose() {
+	whyModal.classList.remove("open");
+	document.body.style.overflow = 'initial';
+}
+
+function creditsModalClose() {
+	creditsModal.classList.remove("open");
+	document.body.style.overflow = 'initial';
+}
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape" && document.getElementById("whyModal").classList.contains("open")) {
+    whyModalClose();
+  }
+});
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape" && document.getElementById("creditsModal").classList.contains("open")) {
+    creditsModalClose();
+  }
+});
 
 
