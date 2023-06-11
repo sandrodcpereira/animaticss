@@ -210,7 +210,11 @@ section > .helper {
 	gap: 8px;
 	font-size: 11px;
 	align-items: flex-start;
-	justify-content: top;
+	justify-content: center;
+}
+
+section > .helper span {
+	color: var(--accent);
 }
 
 section > .container {
