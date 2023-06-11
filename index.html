@@ -33,7 +33,11 @@
 				</div>
 
 				<div class="toolbar">
-					<input type="button" class="icon" value="darkBackground" title="Toggle dark mode" id="darkBackground">
+					
+					<button class="icon" id="darkBackground">
+						<span>Dark mode</span>
+						Toggle dark mode
+					</button>
 
 					<div class="source">
 						<img id="sourceImg" src="assets/demo-1.png" alt="">
@@ -41,11 +45,22 @@
 						<div id="currentFrame">&nbsp;</div>
 					</div>
 
-					<input type="button" class="icon" id="imageUploadAlias" title="Upload animation strip" value="uploadSource">
+					<button class="icon" id="imageUploadAlias">
+						<span>Upload new</span>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3V6H3V3C3 2.60218 3.15804 2.22064 3.43934 1.93934C3.72064 1.65804 4.10218 1.5 4.5 1.5H19.5C19.8978 1.5 20.2794 1.65804 20.5607 1.93934C20.842 2.22064 21 2.60218 21 3V6H19.5V3H4.5ZM5.5575 14.5575L4.5 13.5L12 6L19.5 13.5L18.4425 14.5575L12.75 8.8725V22.5H11.25V8.8725L5.5575 14.5575Z" fill="#1B1D44"/>
+						</svg>
+					</button>
+
+					<button class="icon" id="refreshButton">
+						<span>New demo</span>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M5.085 7.50027H9V9.00027H3V3.00027H4.5V5.76027C5.7817 4.21728 7.50811 3.10716 9.44384 2.58128C11.3796 2.05539 13.4304 2.13934 15.3166 2.82168C17.2029 3.50401 18.8328 4.75152 19.9841 6.3941C21.1354 8.03669 21.7521 9.99439 21.75 12.0003H20.25C20.2501 10.2217 19.6755 8.49074 18.6117 7.06537C17.5479 5.64 16.052 4.59657 14.3469 4.09061C12.6418 3.58465 10.8189 3.64327 9.14986 4.25771C7.48081 4.87215 6.05501 6.00952 5.085 7.50027ZM18.915 16.5001H15V15.0001H21V21.0001H19.5V18.2401C18.2183 19.7831 16.4919 20.8932 14.5562 21.4191C12.6204 21.945 10.5696 21.8611 8.68337 21.1787C6.79711 20.4964 5.1672 19.2489 4.0159 17.6063C2.8646 15.9637 2.24794 14.006 2.25001 12.0001H3.75001C3.74989 13.7787 4.32455 15.5097 5.38832 16.935C6.45209 18.3604 7.948 19.4038 9.65308 19.9098C11.3582 20.4157 13.1811 20.3571 14.8501 19.7427C16.5192 19.1282 17.945 17.9909 18.915 16.5001Z" fill="#1B1D44"/>
+						</svg>
+					</button>
 
 					<input type="file" id="imageUpload" accept=".gif,.png,.jpg,.jpeg"  size="40" />
 
-					<input type="button" title="Select different demo" class="icon" id="refreshButton" value="refresh">
 				</div>
 			</div>
 
@@ -111,25 +126,29 @@
 }</code></pre>
 
 					<div class="toolbar">
-						<input type="button" class="icon" value="copyCode" title="Copy code">
+						
+						<button class="icon" id="copyCode">
+							<span>Copy code</span>
+							Copy code
+						</button>
+
 					</div>
 				</div>
 		</section>
 	</main>
 
 	<nav>
-		<!--p><a href="#TODO">Why frame animation in CSS?</a></p-->
-
-		<input type="button" class="link whyModalTrigger" value="Why frame animation in CSS?">
+		<button class="link whyModalTrigger" value="Why frame animation in CSS?">Why frame animation in CSS?<span>Hello</span></button>
 
 		<p class="mobileHidden">•</p>
+
 		<p><a target="_blank" href="https://github.com/sandrodcpereira/animaticss">View on GitHub</a></p>
 		<p class="mobileHidden">•</p>
-		<!--p><a href="#TODO">Credits</a></p-->
 
 		<input type="button" class="link" id="creditsModalTrigger" value="Credits">
 
 		<p class="mobileHidden">•</p>
+
 		<p><a target="_blank" href="https://www.buymeacoffee.com/sandro.design">Buy me a coffee</a></p>
 	</nav>
 
@@ -144,7 +163,11 @@
 	  	<div>
 		    <header>
 				<h2>Frame animations?</h2>
-				<input type="button" class="icon" value="closeModal" title="Close Modal" id="whyModalClose">
+				<button class="icon" id="whyModalClose">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z" fill="#1B1D44"/>
+					</svg>
+				</button>
 			</header>
 			<h3>What are frame animations?</h3>
 			<p>Frame animations are composed of individual pictures that, when played in sequence, give the illusion of movement.</p>
@@ -167,7 +190,11 @@
 	  	<div>
 	  		<header>
 				<h2>Credits</h2>
-				<input type="button" class="icon" value="closeModal" id="creditsModalClose">
+				<button class="icon" id="creditsModalClose">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z" fill="#1B1D44"/>
+					</svg>
+				</button>
 			</header>
 			<p>CSS syntax highlighting by <a href="https://prismjs.com/" target="_blank">Prism</a>.</p>
 			<p><a href="https://ohnotype.co/fonts/blazeface" target="_blank">Ohno Blazeface</a> typeface by <a href="https://ohnotype.co/"target="_blank">Ohno Type</a></p>
@@ -178,8 +205,8 @@
     	</div>
 	</div>
 	
-
-	<script src="script.js"></script>
+	<script src="prod/script.js"></script>
+	<script src="prod/modal.js"></script>
 	<script src="prod/prism.js"></script>
 </body>
 </html>

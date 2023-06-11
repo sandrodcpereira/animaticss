@@ -107,6 +107,8 @@ https://prismjs.com/download.html#themes=prism-twilight&languages=css */
   --dark:		#1B1D44;
   --accent: 	#F72E1C;
   --focus:		#1C81F7;
+  --darker:		#0C0E30;
+  --darkest:    #070929;
 
   box-sizing: border-box;
 }
@@ -125,6 +127,8 @@ body {
 	font-style: normal;
 	color: var(--dark);
 }
+
+
 
 h1 {
 	font-size: 16px;
@@ -293,39 +297,63 @@ nav {
 	width: 100%;
 }
 
-input[type=button].icon {
+button.icon {
+	display: block;
 	border: none;
 	width: 40px;
 	height: 40px;
 	border-radius: 8px;
 	background: var(--mid);
-	color: transparent;
 	background-position: center center;
 	background-size: 24px;
 	background-repeat: no-repeat;
 	transition: transform .1s cubic-bezier(0.51, 1.66, 0.68, 0.97);
+	position: relative;
+	padding: 8px;
+	color: transparent;
 }
 
-input[type=button].icon:hover {
+button.icon > span {
+	opacity: 0;
+	position: absolute;
+	display: block;
+	background: var(--dark);
+	color: var(--light);
+	font-family: erbaum, sans-serif;
+	font-size: 10px;
+    padding: 4px 8px;
+    width: 80px;
+    border-radius: 8px;
+    top: -22px;
+    left: -26px;
+    transition: opacity .1s ease, top .1s ease;
+    pointer-events: none;
+}
+
+button.icon:hover > span {
+	opacity: 1;
+	top: -32px;
+}
+
+
+
+button.icon:hover {
 	transform: scale(1.1);
 }
 
-input[type=button].icon:active {
+button.icon:active {
 	transform: scale(0.95);
 }
 
-input[value=uploadSource].icon	{background-image: url(assets/icon-upload.svg)}
-input[value=refresh].icon 		{background-image: url(assets/icon-renew.svg)}
-input[value=copyCode].icon 		{background-image: url(assets/icon-copy.svg)}
-input[value=closeModal].icon 		{background-image: url(assets/icon-close.svg)}
-input[value=darkBackground].icon {
+button#copyCode.icon 		{background-image: url(assets/icon-copy.svg)}
+button#darkBackground.icon {
 	background-image: url(assets/icon-background.svg);
 	background-position: left center;
 	background-size: 80px;
 	transition: background-position .2s cubic-bezier(0.51, 1.66, 0.68, 0.97);
 }
 
-input[value=darkBackground].dark {
+button#darkBackground.dark {
 	background-position: right center;
 }
 
@@ -565,7 +593,7 @@ pre {
 	top: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(27, 29, 68, 0.4);
+	background-color: rgba(7, 9, 41, 0.6);
 	align-items: center;
 	padding: 0 24px 24px 24px;
 	box-sizing: border-box;
@@ -574,9 +602,11 @@ pre {
 	opacity: 0;
 
 	transition: padding .1s ease, opacity .1s ease;
+	display: none;
 }
 
 .modal.open {
+	display: flex;
 	padding: 24px;
 	pointer-events: initial;
 	opacity: 1;
@@ -610,9 +640,6 @@ pre {
 
 
 
-
-
-
 /* MEDIA QUERIES */
 
 @media (max-width: 700px) {
@@ -620,6 +647,21 @@ pre {
 	body {padding: 24px;}
 	.mobileHidden {display: none;}
 }
+
+
+/* dark mode */
+
+body.dark {
+	background: var(--dark);
+	color: var(--light);
+}
+
+body.dark a {color: var(--light);}
+body.dark a:hover {color: var(--accent)}
+body.dark section > div, body.dark section.output .container {background: var(--darker);}
+body.dark .helper p, body.dark label, body.dark .label {color: var(--light);}
+body.dark .modal > div {background: var(--dark)}
+body.dark button.icon > span {background: var(--darkest)}
 
 
 

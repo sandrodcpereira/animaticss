@@ -242,6 +242,7 @@ var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
+  document.body.classList.toggle("dark");
 
 });
 
@@ -310,13 +311,7 @@ function generateRadioButtons() {
 
 // Frames input logic
 
-
-
 function noFramesScrollToSelection() {
-	//var element = document.getElementById('frameInput');
-	//element.scrollLeft += 100; // Scroll right by 100 pixels
-
-
 	var radioButtons = document.querySelectorAll('#selectFrames input[type="radio"]');
 	var radioButtonCount = radioButtons.length;
 
@@ -327,15 +322,12 @@ function noFramesScrollToSelection() {
 	    break;
 	  }
 	}
-
 	var scrollOffset = checkedIndex * 40;
 	frameInput.scrollLeft = scrollOffset;
 }
 
-
 var nextFrameButton = document.getElementById('nextFrame');
 nextFrameButton.addEventListener('click', selectNextRadioButton);
-
 
 function selectNextRadioButton() {
   var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
@@ -384,7 +376,6 @@ function selectPreviousRadioButton() {
 	updateAnimationKeyframes();
 }
 
-
 function storeSelectedNoFrames() {
   var selectedRadioButton = selectFrames.querySelector('input[type="radio"]:checked');
 
@@ -392,74 +383,3 @@ function storeSelectedNoFrames() {
     noFrames = selectedRadioButton.value;
   }
 }
-
-// Modal behaviour
-
-
-
-
-var whyModal = document.getElementById("whyModal");
-var creditsModal = document.getElementById("creditsModal");
-
-var creditsModalTrigger = document.getElementById("creditsModalTrigger");
-var whyModalTrigger = document.querySelectorAll(".whyModalTrigger");
-
-var creditsModalCloseTrigger = document.getElementById("creditsModalClose");
-var whyModalCloseTrigger = document.getElementById("whyModalClose");
-
-
-
-creditsModalTrigger.addEventListener("click", function() {
-  creditsModal.classList.add("open");
-  document.body.style.overflow = 'hidden';
-});
-
-whyModalTrigger.forEach(function(trigger) {
-  trigger.addEventListener("click", function() {
-    whyModal.classList.add("open");
-    document.body.style.overflow = 'hidden';
-  });
-});
-
-
-creditsModalCloseTrigger.addEventListener("click", function() {
-  creditsModalClose();
-});
-
-
-whyModalCloseTrigger.addEventListener("click", function() {
-  whyModalClose();
-});
-
-window.onclick = function(event) {
-  if (event.target == whyModal) {
-    whyModalClose();
-  };
-  if (event.target == creditsModal) {
-    creditsModalClose();
-  }
-}
-
-function whyModalClose() {
-	whyModal.classList.remove("open");
-	document.body.style.overflow = 'initial';
-}
-
-function creditsModalClose() {
-	creditsModal.classList.remove("open");
-	document.body.style.overflow = 'initial';
-}
-
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape" && document.getElementById("whyModal").classList.contains("open")) {
-    whyModalClose();
-  }
-});
-
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape" && document.getElementById("creditsModal").classList.contains("open")) {
-    creditsModalClose();
-  }
-});
-
-
