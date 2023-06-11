@@ -285,7 +285,12 @@ button.icon:active {
 	transform: scale(0.95);
 }
 
-button#copyCode.icon 		{background-image: url(assets/icon-copy.svg)}
+button#copyCode.icon 		{
+	background-image: url(assets/icon-copy.svg);
+	background-position: left center;
+	background-size: 80px;
+	transition: background-position .2s cubic-bezier(0.51, 1.66, 0.68, 0.97);
+}
 button#darkBackground.icon {
 	background-image: url(assets/icon-background.svg);
 	background-position: left center;
@@ -293,9 +298,8 @@ button#darkBackground.icon {
 	transition: background-position .2s cubic-bezier(0.51, 1.66, 0.68, 0.97);
 }
 
-button#darkBackground.dark {
-	background-position: right center;
-}
+button#darkBackground.dark {background-position: right center;}
+button#copyCode.copied {background-position: right center;}
 
 input[type=file] {
 	display: none;

@@ -420,6 +420,11 @@ function copyCodeSnippet() {
 
   // Remove the temporary textarea
   document.body.removeChild(textarea);
+
+  copyCodeButton.classList.add("copied");
+  setTimeout(() => {
+    copyCodeButton.classList.remove("copied");
+  }, 1000);
 }
 
 // Add click event listener to the "Copy Code" button
