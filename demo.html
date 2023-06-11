@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+	<link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="prod/modal.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="prod/dark.css">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
+
+	<title>Demo for animatics</title>
+</head>
+<body>
+
+	<div class="animation-container">
+		
+	</div>
+
+	<style>
+.animation-container {
+	width: 300px;
+	height: 300px;
+	background-image: url('assets/demo-1.png');
+	background-size: cover;
+	animation: preview 0.9s steps(10) infinite;
+}
+
+@keyframes preview {
+	from {background-position-x: 0px;}
+	to {background-position-x: -3000px;}
+}
+	</style>
+
+</body>
+</html>
