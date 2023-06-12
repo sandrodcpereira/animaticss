@@ -76,7 +76,24 @@ h1 {
 	margin: 0;
 }
 
-h2, h3, p {margin: 0;}
+h2 {
+	font-size: 15px;
+	font-weight: 400;
+	margin: 0;
+}
+
+h3 {
+	font-size: 14px;
+	font-weight: 800;
+	margin: 0;
+}
+
+p {
+	font-size: 12px;
+	margin: 0;
+	line-height: 18px;
+}
+
 
 a, a:visited {
 	color: var(--dark);
@@ -542,7 +559,21 @@ pre {
 }
 
 
-/* CODE SNIPPET */
+/* Why section */
+
+.explainer {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	padding: 0px;
+	gap: 16px;
+	margin: 0 auto;
+	max-width: 832px;
+	background: var(--light);
+	border-radius: 8px;
+	padding: 32px;
+	text-align: left;
+}
 
 
 

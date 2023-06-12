@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 	<link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="prod/modal.css">
 	<link rel="stylesheet" type="text/css" media="screen" href="prod/dark.css">
 
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
@@ -18,7 +17,7 @@
 		<div class="logo">&nbsp;</div>
 	</header>
 
-	<h1>Quicky preview and generate code for <button class="link whyModalTrigger">frame animations on the web</button>.</h1>
+	<h1>Quicky preview and generate code for <a href="#why">frame animations on the web</a>.</h1>
 
 	<main>	
 		<section class="preview">
@@ -151,12 +150,29 @@
 		</section>
 	</main>
 
+	<h2 id="why">Why use frame animations on the web?</h2>
+
+	<div class="explainer">
+		<h3>What are frame animations?</h3>
+		<p>Frame animations are composed of individual pictures that, when played in sequence, give the illusion of movement.</p>
+		<p>For Animaticss, animations frames are precomposed into a horizontal strip — like film in an old movie.</p>
+		<img src="assets/guide-xl.svg" alt="">
+		<h3>Why use frame animations?</h3>
+		<p>Here's some reasons to use this method:</p>
+		<ul>
+			<li><p>It can be <b>achieved with simple HTML and CSS.</b> Zero dependencies.</p></li>
+			<li><p>You have <b>control over when the animation plays</b>. Trigger it when specific events occur, like on hover or a button press.</p></li>
+			<li><p>Only requires <b>one asset per animation</b>. That’s a lot easier than handling multiple assets.</p></li>
+			<li><p>With more code, <b>one asset can provide multiple animations</b>!</p></li>
+		</ul>
+		<p>Not a bad option for when you’re looking to add some quick and lightweight animations to your projects.</p>
+		<p>Check some examples of how I've used it <a href="https://sandro.design/stowify.html" target="_blank">here</a>.</p>
+	</div>
+		
+	
+
 	<nav>
-		<button class="link whyModalTrigger">Why frame animation in CSS?</button>
-
-		<p class="mobileHidden">•</p>
-
-		<p><a target="_blank" href="https://github.com/sandrodcpereira/animaticss">View on GitHub</a></p>
+		<p><a target="_blank" href="https://github.com/sandrodcpereira/animaticss">View project on GitHub</a></p>
 		<p class="mobileHidden">•</p>
 
 		<p><a target="_blank" href="https://www.buymeacoffee.com/sandro.design">Buy me a coffee</a></p>
@@ -168,35 +184,7 @@
 	<footer>
 		<p>Designed and built by <a href="https://sandro.design" target="_blank">Sandro Pereira</a></p>
 	</footer>
-
-	<div id="whyModal" class="modal">
-	  	<div>
-		    <header>
-				<h2>Frame animations?</h2>
-				<button class="icon" id="whyModalClose">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z" fill="#1B1D44"/>
-					</svg>
-				</button>
-			</header>
-			<h3>What are frame animations?</h3>
-			<p>Frame animations are composed of individual pictures that, when played in sequence, give the illusion of movement.</p>
-			<p>For Animaticss, animations frames are precomposed into a horizontal strip — like film in an old movie.</p>
-			[#TODO]
-			<h3>Why use frame animations?</h3>
-			<p>Here's some reasons to use this method:</p>
-			<ul>
-				<li><p>It can be <b>achieved with simple HTML and CSS.</b> Zero dependencies.</p></li>
-				<li><p>You have <b>control over when the animation plays</b>. Trigger it when specific events occur, like on hover or a button press.</p></li>
-				<li><p>Only requires <b>one asset per animation</b>. That’s a lot easier than handling multiple assets.</p></li>
-				<li><p>With more code, <b>one asset can provide multiple animations</b>!</p></li>
-			</ul>
-			<p>Not a bad option for when you’re looking to add some quick and lightweight animations to your projects.</p>
-			<p>Check some examples of how I've used it <a href="https://sandro.design/stowify.html" target="_blank">here</a>.</p>
-	  	</div>
-	</div>
 	
 	<script src="prod/script.js"></script>
-	<script src="prod/modal.js"></script>
 </body>
 </html>
