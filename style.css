@@ -162,6 +162,10 @@ section.preview > .helper {
 	justify-content: space-between;
 }
 
+section.preview > .helper img {
+	margin: 0 -16px;
+}
+
 section > .helper span {
 	color: var(--accent);
 }
