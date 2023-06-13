@@ -18,13 +18,14 @@ span.colorBlue {color: #67cdcc;}
   --darker:		#0C0E30;
   --darkest:    #070929;
 
+  --previewEnd: none;
+
   box-sizing: border-box;
 }
 
-
+html {background: var(--background)}
 
 body {
-	background: var(--background);
 	text-align: center;
 	padding: 48px;
 	display: flex;
@@ -217,7 +218,7 @@ nav {
 
 @keyframes preview {
 	from {background-position-x: 0%;}
-  	to {background-position-x: calc(100% - 240px);}
+  	to {background-position-x: var(--previewEnd);}
 }
 
 .toolbar {
@@ -229,6 +230,7 @@ nav {
 	gap: 8px;
 	isolation: isolate;
 	width: 100%;
+	user-select: none;
 }
 
 button.icon {
@@ -339,6 +341,7 @@ label, .label {
 	font-weight: 400;
 	font-size: 13px;
 	text-transform: uppercase;
+	user-select: none;
 }
 
 #animationSpeed {

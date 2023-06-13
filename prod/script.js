@@ -148,27 +148,11 @@ function resizeAnimationPreview() {
 }
 
 function updateAnimationKeyframes() {
-  /*var styleSheets = document.styleSheets;
-  for (var i = 0; i < styleSheets.length; i++) {
-    var styleSheet = styleSheets[i];
-    if (styleSheet instanceof CSSStyleSheet) {
-      var rules = styleSheet.cssRules || styleSheet.rules;
-      for (var j = 0; j < rules.length; j++) {
-        var rule = rules[j];
-        if (rule instanceof CSSKeyframesRule && rule.name === "preview") {
-          var keyframes = rule.cssRules;
-          for (var k = 0; k < keyframes.length; k++) {
-            var keyframe = keyframes[k];
-            if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
-              keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
-              // keyframe.style.backgroundPositionX = "-" + previewWidth * (noFrames - 1) + "px)";
-            }
-          }
-        }
-      }
-    }
-  }*/
 
+  let root = document.documentElement;
+
+  root.style.setProperty('--previewEnd', "-" + (previewWidth * noFrames) + "px");
+  console.log( root.style.getPropertyValue('--previewEnd') );
   console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }
 
