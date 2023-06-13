@@ -25,10 +25,8 @@ var sourceWidth;
 var sourceHeight;
 var previewWidth;
 var previewHeight;
-
 var lastPickedDemo = -1;
 var randomDemo;
-
 var animationPreview = document.getElementById("animationPreview");
 var currentFrame = document.getElementById("currentFrame");
 var selectFrames = document.getElementById("selectFrames");
@@ -55,7 +53,7 @@ async function pickNewDemo() {
 
 async function handleNewSource() {
   await calculateSourceDimensions();
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  await new Promise((resolve) => setTimeout(resolve, 300));
   await resizeAnimationPreview();
 	await updateAnimationKeyframes();
   await findPossibleNoFrames();
@@ -64,24 +62,16 @@ async function handleNewSource() {
   await noFramesUpdate();
 }
 
-function pickRandomDemo() {
-	
+// step 1, pick a random demo
+// inputs: --
+// outputs: noFrames, animationSpeed, sourceImg, animationSpeedAdjusted
 
+function pickRandomDemo() {
   do {
     randomDemo = Math.floor(Math.random() * animationDemo.length);
   } while (randomDemo === lastPickedDemo);
 
   lastPickedDemo = randomDemo;
-
-  /*var lastPickedIndex = 0;
-  var randomIndex;
-  
-  
-  
-  lastPickedIndex = randomIndex;
-  return randomIndex;*/
-	
-
   var randomDemo = animationDemo[randomDemo];
 	noFrames = randomDemo.noFrames;
 	animationSpeed = randomDemo.animationSpeed;
@@ -91,6 +81,10 @@ function pickRandomDemo() {
 	console.log("1. Picking a random demo...");
 }
 
+// step 2, use image source from demo selected
+// inputs: sourceImg
+// outputs: --
+
 function updateSourceFromDemo() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
@@ -98,22 +92,9 @@ function updateSourceFromDemo() {
 	console.log("2. Demo picked. Now processing...");
 }
 
-// checks for new frames selected on radio button
-
-selectFrames.addEventListener("change", function(event) {
-  var selectedRadioButton = event.target;
-
-  if (selectedRadioButton.checked) {
-    noFrames = selectedRadioButton.value;
-    console.log(noFrames);
-    
-    resizeAnimationPreview();
-		noFramesUpdate();	
-		updateAnimationKeyframes();
-
-		noFramesScrollToSelection();
-  }
-});
+// step 3, updates animation based on number of frames selected
+// inputs: animationSpeedAdjusted, noFrames
+// outputs: --
 
 function noFramesUpdate() {
 	var animationPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
@@ -128,23 +109,25 @@ function noFramesUpdate() {
   updateCodeSnippet();
 }
 
-// Calculates the image source dimensions for use in all those functions down below.
+// step 4, lifts and stores dimensions of the image source
+// inputs: sourceImg
+// outputs: sourceWidth, sourceHeight
 
 function calculateSourceDimensions() {
 	var img = new Image();
 	img.src = sourceImg;
 
 	img.onload = function() {
-	  // Store the width and height in variables
 	  sourceWidth = this.naturalWidth;
 	  sourceHeight = this.naturalHeight;
 
-	  // Use the width and height variables as needed
 	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
 	};
 }
 
-// Makes all the changes and calls all the functions when the values are updated.
+// step 5, resizes the preview according to number of frames selected
+// inputs: sourceWidth, noFrames, sourceHeight
+// outputs: previewWidth, previewHeight
 
 function resizeAnimationPreview() {
 	previewWidth = sourceWidth / noFrames;
@@ -167,12 +150,12 @@ function resizeAnimationPreview() {
 	console.log("5. Resized the animation preview window to match the number of steps.");
 }
 
+// step 6, updates the animation keyframes to match the preview window
+// inputs: previewWidth
+// outputs: --
+
 function updateAnimationKeyframes() {
-
   let root = document.documentElement;
-
-  //root.style.setProperty('--previewEnd', "-" + (previewWidth * noFrames) + "px");
-
   root.style.setProperty('--previewEnd', "calc(100% - " + (previewWidth) + "px)");
 
   console.log( root.style.getPropertyValue('--previewEnd') );
@@ -180,16 +163,30 @@ function updateAnimationKeyframes() {
 }
 
 
-function animationSpeedUpdate() {
-	var speedPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
-	var speedFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
 
-    animationPreview.style.animation = speedPreviewUpdate;
-    currentFrame.style.animation = speedFrameUpdate;
-    updateCodeSnippet();
-}
 
-// Runs all the necessary functions when the value of the inputs change.
+
+// updates frames on change to radio button selection
+
+selectFrames.addEventListener("change", function(event) {
+  var selectedRadioButton = event.target;
+
+  if (selectedRadioButton.checked) {
+    noFrames = selectedRadioButton.value;
+    resizeAnimationPreview();
+    noFramesUpdate(); 
+    updateAnimationKeyframes();
+    noFramesScrollToSelection();
+  }
+});
+
+
+
+
+
+
+
+// updates speed on changes to the slider
 
 function handleSpeedChange(event) {
 	var inputId = event.target.id;
@@ -203,7 +200,23 @@ function handleSpeedChange(event) {
 
 animationSpeedInput.addEventListener("input", handleSpeedChange);
 
-// Handles the local image upload 
+// updates animation speed in the code
+
+function animationSpeedUpdate() {
+  var speedPreviewUpdate = `preview ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+  var speedFrameUpdate = `currentFrame ${animationSpeedAdjusted}s steps(${noFrames}) infinite`;
+
+    animationPreview.style.animation = speedPreviewUpdate;
+    currentFrame.style.animation = speedFrameUpdate;
+    updateCodeSnippet();
+}
+
+
+
+
+
+
+// handles the local image upload 
 
 imageUpload.addEventListener("change", handleImageUpload);
 
@@ -222,6 +235,8 @@ function processImage(file) {
   reader.readAsDataURL(file);
 }
 
+// updates the image sources from an uploaded asset
+
 function updateSourceFromUpload(imageDataURL) {
   	var imgElement = document.getElementById("sourceImg");
   	imgElement.src = imageDataURL;
@@ -231,6 +246,8 @@ function updateSourceFromUpload(imageDataURL) {
 	handleNewSource();
 	resetNoFrames();
 }
+
+// resets the number of frames when a new image is uploaded
 
 function resetNoFrames() {
   var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
@@ -244,7 +261,7 @@ function resetNoFrames() {
   }
 }
 
-// toolbar
+// codes for toolbar buttons
 
 refreshButton.addEventListener("click", pickNewDemo);
 
@@ -261,7 +278,7 @@ darkBackground.addEventListener("click", function() {
 });
 
 
-// calculate integer options for noFrames, generate radio button
+// calculate integer options for number of frames
 
 function findPossibleNoFrames() {
   possibleNoFrames = [];
@@ -277,13 +294,13 @@ function findPossibleNoFrames() {
   return possibleNoFrames;
 }
 
+// generates radio buttons based on the function above
+
 function generateRadioButtons() {
   var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
   var noFramesContainer = document.getElementById("noFramesContainer");
 
   selectFrames.innerHTML = "";
-
-
 
   if (possibleNoFrames.length === 0) {
 
@@ -309,13 +326,10 @@ function generateRadioButtons() {
       var label = document.createElement("label");
       label.textContent = possibleNoFrames[i];
       label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
-    
       
     	selectFrames.appendChild(label);
-
     }
 
-    // Select the radio button with the value matching noFrames
     var selectedRadioButton = selectFrames.querySelector("input[type='radio'][value='" + noFrames + "']");
     if (selectedRadioButton) {
       selectedRadioButton.checked = true;
@@ -323,7 +337,7 @@ function generateRadioButtons() {
   }
 }
 
-// Frames input logic
+// scrolls the number of frames input to show the selected value
 
 function noFramesScrollToSelection() {
 	var radioButtons = document.querySelectorAll('#selectFrames input[type="radio"]');
@@ -348,10 +362,7 @@ function selectNextRadioButton() {
   
   for (var i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
-      // Uncheck the current radio button
       radioButtons[i].checked = false;
-      
-      // Select the next radio button (loop back to the beginning if reached the end)
       var nextIndex = (i + 1) % radioButtons.length;
       radioButtons[nextIndex].checked = true;
             
@@ -368,15 +379,15 @@ function selectNextRadioButton() {
 var prevFrameButton = document.getElementById('prevFrame');
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
 
+// selects the previous value in number of frames
+
 function selectPreviousRadioButton() {
   var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
   
   for (var i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
-      // Uncheck the current radio button
       radioButtons[i].checked = false;
       
-      // Select the previous radio button (loop back to the end if reached the beginning)
       var prevIndex = (i - 1 + radioButtons.length) % radioButtons.length;
       radioButtons[prevIndex].checked = true;
       
@@ -390,6 +401,8 @@ function selectPreviousRadioButton() {
 	updateAnimationKeyframes();
 }
 
+// saves the current selected number of frames (not sure what this is for)
+
 function storeSelectedNoFrames() {
   var selectedRadioButton = selectFrames.querySelector('input[type="radio"]:checked');
 
@@ -400,11 +413,8 @@ function storeSelectedNoFrames() {
 
 // update css snippet
 
-
 function updateCodeSnippet() {
   var sourceWidthPerFrame = sourceWidth / noFrames;
-  //var backgroundPositionValue = sourceWidth - sourceWidthPerFrame;
-
   document.getElementById("replaceWidth").textContent = sourceWidthPerFrame + "px";
   document.getElementById("replaceHeight").textContent = sourceHeight + "px";
   document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted.toFixed(1) + "s";
@@ -412,21 +422,18 @@ function updateCodeSnippet() {
   document.getElementById("replaceBackgroundPosition").textContent = "-" + sourceWidth + "px";
 }
 
+// copy code snippet button
 
 function copyCodeSnippet() {
   var codeSnippetContainer = document.getElementById("codeSnippet");
   var codeSnippetText = codeSnippetContainer.textContent || codeSnippetContainer.innerText;
 
-  // Create a temporary textarea element
   var textarea = document.createElement("textarea");
   textarea.value = codeSnippetText;
   document.body.appendChild(textarea);
 
-  // Select and copy the text from the textarea
   textarea.select();
   document.execCommand("copy");
-
-  // Remove the temporary textarea
   document.body.removeChild(textarea);
 
   copyCodeButton.classList.add("copied");
@@ -435,11 +442,8 @@ function copyCodeSnippet() {
   }, 1000);
 }
 
-// Add click event listener to the "Copy Code" button
 var copyCodeButton = document.getElementById("copyCode");
 copyCodeButton.addEventListener("click", copyCodeSnippet);
-
-
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
