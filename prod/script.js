@@ -161,6 +161,7 @@ function updateAnimationKeyframes() {
             var keyframe = keyframes[k];
             if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
               keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
+              // keyframe.style.backgroundPositionX = "-" + previewWidth * (noFrames - 1) + "px)";
             }
           }
         }
