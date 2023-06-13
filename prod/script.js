@@ -61,6 +61,7 @@ async function handleNewSource() {
   await findPossibleNoFrames();
   await generateRadioButtons();
   await noFramesScrollToSelection();
+  await noFramesUpdate();
 }
 
 function pickRandomDemo() {
