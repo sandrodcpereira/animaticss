@@ -151,7 +151,10 @@ function updateAnimationKeyframes() {
 
   let root = document.documentElement;
 
-  root.style.setProperty('--previewEnd', "-" + (previewWidth * noFrames) + "px");
+  //root.style.setProperty('--previewEnd', "-" + (previewWidth * noFrames) + "px");
+
+  root.style.setProperty('--previewEnd', "calc(100% - " + (previewWidth) + "px)");
+
   console.log( root.style.getPropertyValue('--previewEnd') );
   console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }
