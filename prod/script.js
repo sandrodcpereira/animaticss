@@ -43,19 +43,19 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function pickNewDemo() {
-	await pickRandomDemo();
-	await updateSourceFromDemo();
-	await noFramesUpdate();
+	await pickRandomDemo();          // step 1
+	await updateSourceFromDemo();    // step 2
+	await noFramesUpdate();          // step 3
 	await handleNewSource();
 	await animationSpeedUpdate();
   await updateCodeSnippet()
 } 
 
 async function handleNewSource() {
-  await calculateSourceDimensions();
+  await calculateSourceDimensions();    // step 4
   await new Promise((resolve) => setTimeout(resolve, 300));
-  await resizeAnimationPreview();
-	await updateAnimationKeyframes();
+  await resizeAnimationPreview();       // step 5
+	await updateAnimationKeyframes();     // step 6
   await findPossibleNoFrames();
   await generateRadioButtons();
   await noFramesScrollToSelection();
@@ -114,15 +114,15 @@ function noFramesUpdate() {
 // outputs: sourceWidth, sourceHeight
 
 function calculateSourceDimensions() {
-	var img = new Image();
-	img.src = sourceImg;
+  	var img = new Image();
+  	img.src = sourceImg;
 
-	img.onload = function() {
-	  sourceWidth = this.naturalWidth;
-	  sourceHeight = this.naturalHeight;
+  	img.onload = function() {
+  	  sourceWidth = this.naturalWidth;
+  	  sourceHeight = this.naturalHeight;
 
-	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
-	};
+  	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
+  	};
 }
 
 // step 5, resizes the preview according to number of frames selected
