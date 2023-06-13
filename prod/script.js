@@ -148,7 +148,7 @@ function resizeAnimationPreview() {
 }
 
 function updateAnimationKeyframes() {
-  var styleSheets = document.styleSheets;
+  /*var styleSheets = document.styleSheets;
   for (var i = 0; i < styleSheets.length; i++) {
     var styleSheet = styleSheets[i];
     if (styleSheet instanceof CSSStyleSheet) {
@@ -161,12 +161,13 @@ function updateAnimationKeyframes() {
             var keyframe = keyframes[k];
             if (keyframe.style.hasOwnProperty("backgroundPositionX")) {
               keyframe.style.backgroundPositionX = "calc(100% - " + previewWidth + "px)";
+              // keyframe.style.backgroundPositionX = "-" + previewWidth * (noFrames - 1) + "px)";
             }
           }
         }
       }
     }
-  }
+  }*/
 
   console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }
@@ -432,4 +433,17 @@ var copyCodeButton = document.getElementById("copyCode");
 copyCodeButton.addEventListener("click", copyCodeSnippet);
 
 
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
