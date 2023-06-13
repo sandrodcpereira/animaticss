@@ -232,7 +232,8 @@ nav {
 }
 
 @keyframes preview {
-  to {background-position-x: calc(100% - 240px);}
+	from {background-position-x: 0%;}
+  	to {background-position-x: calc(100% - 240px);}
 }
 
 .toolbar {
