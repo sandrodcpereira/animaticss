@@ -26,6 +26,9 @@ var sourceHeight;
 var previewWidth;
 var previewHeight;
 
+var lastPickedDemo = -1;
+var randomDemo;
+
 var animationPreview = document.getElementById("animationPreview");
 var currentFrame = document.getElementById("currentFrame");
 var selectFrames = document.getElementById("selectFrames");
@@ -61,8 +64,24 @@ async function handleNewSource() {
 }
 
 function pickRandomDemo() {
-	var randomIndex = Math.floor(Math.random() * animationDemo.length);
-	var randomDemo = animationDemo[randomIndex];
+	
+
+  do {
+    randomDemo = Math.floor(Math.random() * animationDemo.length);
+  } while (randomDemo === lastPickedDemo);
+
+  lastPickedDemo = randomDemo;
+
+  /*var lastPickedIndex = 0;
+  var randomIndex;
+  
+  
+  
+  lastPickedIndex = randomIndex;
+  return randomIndex;*/
+	
+
+  var randomDemo = animationDemo[randomDemo];
 	noFrames = randomDemo.noFrames;
 	animationSpeed = randomDemo.animationSpeed;
 	sourceImg = randomDemo.sourceImg;
@@ -385,9 +404,9 @@ function updateCodeSnippet() {
   var sourceWidthPerFrame = sourceWidth / noFrames;
   //var backgroundPositionValue = sourceWidth - sourceWidthPerFrame;
 
-  document.getElementById("replaceWidth").textContent = sourceWidthPerFrame.toFixed(0) + "px";
+  document.getElementById("replaceWidth").textContent = sourceWidthPerFrame + "px";
   document.getElementById("replaceHeight").textContent = sourceHeight + "px";
-  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted.toFixed(1) + "s";
+  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted + "s";
   document.getElementById("replaceFrames").textContent = noFrames;
   document.getElementById("replaceBackgroundPosition").textContent = "-" + sourceWidth + "px";
 }
