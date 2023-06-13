@@ -184,10 +184,32 @@ nav {
 	margin: 0 auto;
 }
 
+.footerLogo {
+	display: inline-block;
+	width: 32px;
+	margin: 0 auto;
+}
+
+.animation-container {
+	width: 32px;
+	height: 32px;
+	background-image: url('assets/s-logo.png');
+	background-size: cover;
+	background-position-y: 0px;
+	background-position-x: 0px;
+}
+
+.animation-container:hover {
+	animation: footerLogo .4s steps(11) 1;
+
+}
+
+@keyframes footerLogo {
+	from {background-position-x: 0px;}
+	to {background-position-x: -352px;}
+}
 
 /* PREVIEW SECTION */
-
-
 
 .preview .container {
 	display: flex;
@@ -536,15 +558,13 @@ pre {
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
-	padding: 0px;
 	gap: 4px;
 	margin: 0 auto;
-	width: 100%;
 	max-width: 832px;
 	background: #1CF774;
 	color: var--(dark);
 	border-radius: 8px;
-	padding: 16px;
+	padding: 12px 16px;
 	text-align: left;
 }
 
