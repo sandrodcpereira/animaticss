@@ -127,7 +127,7 @@ section {
 
 section > div, section > pre {
 	background: var(--light);
-	padding: 16px;
+	padding: 17px 16px;
 	border-radius: 8px;
 	display: flex;
 	align-items: center;
@@ -140,7 +140,7 @@ section > .helper {
 	gap: 8px;
 	font-size: 11px;
 	align-items: flex-start;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 section.preview > .helper {
