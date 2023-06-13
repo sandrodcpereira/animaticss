@@ -1,4 +1,4 @@
-/* dark mode */
+/* dark mode
 
 body.dark {
 	background: var(--dark);
@@ -14,3 +14,8 @@ body.dark button.icon > span {background: var(--darkest)}
 body.dark input[type=range]::-webkit-slider-runnable-track {background: var(--mid)}
 
 
+*/ 
+
+body.dark #animationContainer {
+	background: var(--darker);
+}
