@@ -407,7 +407,7 @@ function updateCodeSnippet() {
 
   document.getElementById("replaceWidth").textContent = sourceWidthPerFrame + "px";
   document.getElementById("replaceHeight").textContent = sourceHeight + "px";
-  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted + "s";
+  document.getElementById("replaceSpeed").textContent = animationSpeedAdjusted.toFixed(1) + "s";
   document.getElementById("replaceFrames").textContent = noFrames;
   document.getElementById("replaceBackgroundPosition").textContent = "-" + sourceWidth + "px";
 }
