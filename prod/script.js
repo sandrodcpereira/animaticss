@@ -148,7 +148,7 @@ function resizeAnimationPreview() {
 }
 
 function updateAnimationKeyframes() {
-  var styleSheets = document.styleSheets;
+  /*var styleSheets = document.styleSheets;
   for (var i = 0; i < styleSheets.length; i++) {
     var styleSheet = styleSheets[i];
     if (styleSheet instanceof CSSStyleSheet) {
@@ -167,7 +167,7 @@ function updateAnimationKeyframes() {
         }
       }
     }
-  }
+  }*/
 
   console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }

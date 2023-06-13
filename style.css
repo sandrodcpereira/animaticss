@@ -143,13 +143,11 @@ section > .helper {
 }
 
 section.preview > .helper {
-	padding: 20px 16px;
 	justify-content: space-between;
 }
 
 section.preview > .helper img {
 	margin: 0 -16px;
-	flex-basis: 100%;
 }
 
 section > .helper span {
@@ -196,7 +194,6 @@ nav {
 	align-items: center;
 	padding: 16px;
 	gap: 16px;
-	height: 424px;
 }
 
 #animationContainer {
@@ -207,18 +204,20 @@ nav {
 	display: flex;
 	align-items: center;
     justify-content: center;
+    height: 360px;
+    border-radius: 8px;
 }
 
 #animationPreview {
 	background-size: cover;
 	animation: preview 1s steps(10) infinite;
 	background-image: url('assets/demo-1.png');
-	background-position-x: 0%;
 	transition: height .2s ease, width .2s ease;
 }
 
 @keyframes preview {
-  to {background-position-x: calc(100% - 240px);}
+	from {background-position-x: 0%;}
+  	to {background-position-x: calc(100% - 240px);}
 }
 
 .toolbar {
