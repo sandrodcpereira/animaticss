@@ -181,6 +181,7 @@ section.preview > .helper {
 
 section.preview > .helper img {
 	margin: 0 -16px;
+	flex-basis: 100%;
 }
 
 section > .helper span {
@@ -561,19 +562,22 @@ pre {
 
 /* Why section */
 
-.explainer {
+.banner {
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
 	padding: 0px;
-	gap: 16px;
+	gap: 4px;
 	margin: 0 auto;
+	width: 100%;
 	max-width: 832px;
-	background: var(--light);
+	background: #1CF774;
+	color: var--(dark);
 	border-radius: 8px;
-	padding: 32px;
+	padding: 16px;
 	text-align: left;
 }
+
 
 
 
