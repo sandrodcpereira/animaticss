@@ -31,7 +31,10 @@ var imageUploadAlias = document.getElementById("imageUploadAlias");
 var refreshButton = document.getElementById("refreshButton");
 var imageUpload = document.getElementById("imageUpload");
 var frameInput = document.getElementById('frameInput');
-var codeContainer = document.querySelector('.language-css');
+var nextFrameButton = document.getElementById('nextFrame');
+var prevFrameButton = document.getElementById('prevFrame');
+var copyCodeButton = document.getElementById("copyCode");
+var darkBackground = document.getElementById("darkBackground");
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -209,11 +212,6 @@ function animationSpeedUpdate() {
     updateCodeSnippet();
 }
 
-
-
-
-
-
 // handles the local image upload 
 
 imageUpload.addEventListener("change", handleImageUpload);
@@ -266,8 +264,6 @@ refreshButton.addEventListener("click", pickNewDemo);
 imageUploadAlias.addEventListener("click", function() {
   imageUpload.click();
 });
-
-var darkBackground = document.getElementById("darkBackground");
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
@@ -352,7 +348,8 @@ function noFramesScrollToSelection() {
 	frameInput.scrollLeft = scrollOffset;
 }
 
-var nextFrameButton = document.getElementById('nextFrame');
+
+
 nextFrameButton.addEventListener('click', selectNextRadioButton);
 
 function selectNextRadioButton() {
@@ -374,7 +371,6 @@ function selectNextRadioButton() {
 	updateAnimationKeyframes();
 }
 
-var prevFrameButton = document.getElementById('prevFrame');
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
 
 // selects the previous value in number of frames
@@ -440,7 +436,6 @@ function copyCodeSnippet() {
   }, 1000);
 }
 
-var copyCodeButton = document.getElementById("copyCode");
 copyCodeButton.addEventListener("click", copyCodeSnippet);
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
