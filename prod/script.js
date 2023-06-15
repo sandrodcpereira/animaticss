@@ -246,7 +246,7 @@ function updateSourceFromUpload(imageDataURL) {
 // resets the number of frames when a new image is uploaded
 
 function resetNoFrames() {
-  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
   
   if (radioButtons.length > 0) {
     var firstRadioButton = radioButtons[0];
@@ -291,7 +291,7 @@ function findPossibleNoFrames() {
 // generates radio buttons based on the function above
 
 function generateRadioButtons() {
-  var radioButtons = selectFrames.querySelectorAll("input[type='radio']");
+  var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
   var noFramesContainer = document.getElementById("noFramesContainer");
 
   selectFrames.innerHTML = "";
@@ -334,7 +334,7 @@ function generateRadioButtons() {
 // scrolls the number of frames input to show the selected value
 
 function noFramesScrollToSelection() {
-	var radioButtons = document.querySelectorAll('#selectFrames input[type="radio"]');
+	var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
 	var radioButtonCount = radioButtons.length;
 
 	var checkedIndex = -1;
