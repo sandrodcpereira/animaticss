@@ -5,15 +5,11 @@ var animationDemo = [
    		sourceImg: "assets/demo-1.png"
 	},
 	{
-    	noFrames: 24,
-    	animationSpeed: 20,
-    	sourceImg: "assets/demo-2.png"
+    	noFrames: 10,
+    	animationSpeed: 8,
+    	sourceImg: "assets/demo-jump.png"
 	},
-	{
-    	noFrames: 22,
-    	animationSpeed: 19,
-    	sourceImg: "assets/demo-3.png"
-	},
+	
 ];
 
 var noFrames;
@@ -79,6 +75,8 @@ function pickRandomDemo() {
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 	animationSpeedInput.value = animationSpeed;
 	console.log("1. Picking a random demo...");
+
+  imageUpload.value = ""; 
 }
 
 // step 2, use image source from demo selected
