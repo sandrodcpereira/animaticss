@@ -9,7 +9,6 @@ var animationDemo = [
     	animationSpeed: 8,
     	sourceImg: "assets/demo-jump.png"
 	},
-	
 ];
 
 var noFrames;
@@ -35,7 +34,6 @@ var nextFrameButton = document.getElementById('nextFrame');
 var prevFrameButton = document.getElementById('prevFrame');
 var copyCodeButton = document.getElementById("copyCode");
 var darkBackground = document.getElementById("darkBackground");
-
 
 document.addEventListener("DOMContentLoaded", function() {
 	pickNewDemo();
@@ -163,10 +161,6 @@ function updateAnimationKeyframes() {
   console.log("6. Updated the CSS keyframes to match the size of the preview.");
 }
 
-
-
-
-
 // updates frames on change to radio button selection
 
 selectFrames.addEventListener("change", function(event) {
@@ -180,12 +174,6 @@ selectFrames.addEventListener("change", function(event) {
     noFramesScrollToSelection();
   }
 });
-
-
-
-
-
-
 
 // updates speed on changes to the slider
 
@@ -268,9 +256,7 @@ imageUploadAlias.addEventListener("click", function() {
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
   document.body.classList.toggle("dark");
-
 });
-
 
 // calculate integer options for number of frames
 
@@ -284,7 +270,6 @@ function findPossibleNoFrames() {
     	possibleNoFrames.push(i);
     }
   }
-  
   return possibleNoFrames;
 }
 
@@ -324,9 +309,9 @@ function generateRadioButtons() {
     	selectFrames.appendChild(label);
     }
 
-    var selectedRadioButton = selectFrames.querySelector("input[type='radio'][value='" + noFrames + "']");
-    if (selectedRadioButton) {
-      selectedRadioButton.checked = true;
+    var currentRadioButton = selectFrames.querySelector("input[type='radio'][value='" + noFrames + "']");
+    if (currentRadioButton) {
+      currentRadioButton.checked = true;
     }
   }
 }
@@ -347,8 +332,6 @@ function noFramesScrollToSelection() {
 	var scrollOffset = checkedIndex * 40;
 	frameInput.scrollLeft = scrollOffset;
 }
-
-
 
 nextFrameButton.addEventListener('click', selectNextRadioButton);
 
@@ -450,4 +433,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
-
