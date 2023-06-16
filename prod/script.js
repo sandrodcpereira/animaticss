@@ -6,7 +6,7 @@ var animationDemo = [
 	},
 	{
     	noFrames: 10,
-    	animationSpeed: 8,
+    	animationSpeed: 9,
     	sourceImg: "assets/demo-jump.png"
 	},
 ];
