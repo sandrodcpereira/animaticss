@@ -1,8 +1,8 @@
 var animationDemo = [
 	{
-    	noFrames: 10,
-    	animationSpeed: 9,
-   		sourceImg: "assets/demo-1.png"
+    	noFrames: 16,
+    	animationSpeed: 14,
+   		sourceImg: "assets/demo-roll.png"
 	},
 	{
     	noFrames: 10,
