@@ -253,9 +253,27 @@ imageUploadAlias.addEventListener("click", function() {
   imageUpload.click();
 });
 
+
+var canvasToggleText = document.querySelector("#darkBackground > span");
+var canvasToggleState1 = "Dark canvas";
+var canvasToggleState2 = "Light canvas";
+var canvasToggleCurrent = canvasToggleState1;
+
+
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
   document.body.classList.toggle("dark");
+
+
+  if (canvasToggleCurrent === canvasToggleState1) {
+    canvasToggleCurrent = canvasToggleState2;
+  } else {
+    canvasToggleCurrent = canvasToggleState1;
+  }
+
+  canvasToggleText.textContent = canvasToggleCurrent;
+
+
 });
 
 // calculate integer options for number of frames
