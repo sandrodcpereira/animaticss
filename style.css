@@ -234,7 +234,7 @@ nav {
 #animationPreview {
 	background-size: cover;
 	animation: preview 1s steps(10) infinite;
-	background-image: url('assets/demo-1.png');
+	background-image: url('assets/demo-jump.png');
 	transition: height .2s ease, width .2s ease;
 }
 
