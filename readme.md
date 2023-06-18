@@ -11,7 +11,7 @@ Finally, I wanted to bring this method to people’s attention. In a time when a
 
 ## Sprite animations in Animaticss
 
-To preview and generate code for animations in Animaticcs, you’ll need one single image file containing all your animation frames displayed horizontally. I might look into adding the functionality to create these strips from individual images later, but for now you’ll have to do it via image editing software. (I think there’s some ways to do it via command line, too.)
+To preview and generate code for animations in Animaticcs, you’ll need one single image file containing all your animation sprites displayed horizontally. I might look into adding the functionality to create these strips from individual images later, but for now you’ll have to do it via image editing software. (I think there’s some ways to do it via command line, too.)
 
 
 ## Why use sprite animations?
