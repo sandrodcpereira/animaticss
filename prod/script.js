@@ -61,9 +61,6 @@ function handleNewSource() {
       });
     });
   }); 
-	
-  
-  
   
   //noFramesUpdate();
 }
@@ -351,6 +348,7 @@ function generateRadioButtons() {
   }
   
   noFramesScrollToSelection();
+  updateCodeSnippet();
 }
 
 // scrolls the number of frames input to show the selected value
