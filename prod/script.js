@@ -53,15 +53,19 @@ async function pickNewDemo() {
   await updateCodeSnippet()
 } 
 
-async function handleNewSource() {
-  await calculateSourceDimensions();    // step 4
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  await resizeAnimationPreview();       // step 5
-	await updateAnimationKeyframes();     // step 6
-  await findPossibleNoFrames();
-  await generateRadioButtons();
-  await noFramesScrollToSelection();
-  await noFramesUpdate();
+function handleNewSource() {
+  calculateSourceDimensions(function(){
+    resizeAnimationPreview(function(){
+      updateAnimationKeyframes(function(){
+        findPossibleNoFrames();
+      });
+    });
+  }); 
+	
+  
+  
+  
+  //noFramesUpdate();
 }
 
 // step 1, pick a random demo
@@ -80,7 +84,7 @@ function pickRandomDemo() {
 	sourceImg = randomDemo.sourceImg;
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 	animationSpeedInput.value = animationSpeed;
-	console.log("1. Picking a random demo...");
+	//console.log("1. Picking a random demo...");
 
   imageUpload.value = ""; 
 }
@@ -93,7 +97,7 @@ function updateSourceFromDemo() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
 	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
-	console.log("2. Demo picked. Now processing...");
+	//console.log("2. Demo picked. Now processing...");
 }
 
 // step 3, updates animation based on number of frames selected
@@ -109,7 +113,7 @@ function noFramesUpdate() {
   currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)"; 	// updates current frame width
   currentFrame.style.animation = animationFrameUpdate;											// updates current frame steps
 
-  console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
+  //console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
   updateCodeSnippet();
 }
 
@@ -117,7 +121,7 @@ function noFramesUpdate() {
 // inputs: sourceImg
 // outputs: sourceWidth, sourceHeight
 
-function calculateSourceDimensions() {
+function calculateSourceDimensions(callback) {
   	var img = new Image();
   	img.src = sourceImg;
 
@@ -125,7 +129,8 @@ function calculateSourceDimensions() {
   	  sourceWidth = this.naturalWidth;
   	  sourceHeight = this.naturalHeight;
 
-  	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
+  	  //console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
+      callback();
   	};
 }
 
@@ -133,7 +138,7 @@ function calculateSourceDimensions() {
 // inputs: sourceWidth, noFrames, sourceHeight
 // outputs: previewWidth, previewHeight
 
-function resizeAnimationPreview() {
+function resizeAnimationPreview(callback) {
 	previewWidth = sourceWidth / noFrames;
 	previewHeight = sourceHeight;
 
@@ -151,19 +156,21 @@ function resizeAnimationPreview() {
 	animationPreview.style.width = previewWidth + "px"; 		// sets preview width
 	animationPreview.style.height = previewHeight + "px";		// sets preview height
 
-	console.log("5. Resized the animation preview window to match the number of steps.");
+	//console.log("5. Resized the animation preview window to match the number of steps.");
+  callback();
 }
 
 // step 6, updates the animation keyframes to match the preview window
 // inputs: previewWidth
 // outputs: --
 
-function updateAnimationKeyframes() {
+function updateAnimationKeyframes(callback) {
   let root = document.documentElement;
   root.style.setProperty('--previewEnd', "calc(100% - " + (previewWidth) + "px)");
 
-  console.log( root.style.getPropertyValue('--previewEnd') );
-  console.log("6. Updated the CSS keyframes to match the size of the preview.");
+  //console.log( root.style.getPropertyValue('--previewEnd') );
+  //console.log("6. Updated the CSS keyframes to match the size of the preview.");
+  callback();
 }
 
 // updates frames on change to radio button selection
@@ -173,9 +180,12 @@ selectFrames.addEventListener("change", function(event) {
 
   if (selectedRadioButton.checked) {
     noFrames = selectedRadioButton.value;
-    resizeAnimationPreview();
-    noFramesUpdate(); 
-    updateAnimationKeyframes();
+    resizeAnimationPreview(function(){
+      updateAnimationKeyframes(function(){
+        noFramesUpdate();
+      });
+    });
+ 
     noFramesScrollToSelection();
   }
 });
@@ -188,7 +198,7 @@ function handleSpeedChange(event) {
 
 	animationSpeed = inputValue;
 	animationSpeedAdjusted = inputValue * 0.1;
-	console.log("animationSpeed changed. New value:", animationSpeed);
+	//console.log("animationSpeed changed. New value:", animationSpeed);
 	animationSpeedUpdate();
 }
 
@@ -291,6 +301,7 @@ function findPossibleNoFrames() {
     
   	if (Number.isInteger(result)) {
     	possibleNoFrames.push(i);
+      generateRadioButtons();
     }
   }
   return possibleNoFrames;
@@ -337,6 +348,8 @@ function generateRadioButtons() {
       currentRadioButton.checked = true;
     }
   }
+  
+  noFramesScrollToSelection();
 }
 
 // scrolls the number of frames input to show the selected value
@@ -354,6 +367,8 @@ function noFramesScrollToSelection() {
 	}
 	var scrollOffset = checkedIndex * 40;
 	frameInput.scrollLeft = scrollOffset;
+
+  //console.log("9. Scroll buttons to selection")
 }
 
 nextFrameButton.addEventListener('click', selectNextRadioButton);
@@ -370,11 +385,15 @@ function selectNextRadioButton() {
       break;
     }
   }
+
   noFramesScrollToSelection();
   storeSelectedNoFrames();
-  resizeAnimationPreview();
-	noFramesUpdate();	
-	updateAnimationKeyframes();
+
+  resizeAnimationPreview(function(){
+    updateAnimationKeyframes(function(){
+      noFramesUpdate();
+    });
+  });
 }
 
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
@@ -396,9 +415,12 @@ function selectPreviousRadioButton() {
   }
   noFramesScrollToSelection();
   storeSelectedNoFrames();
-  resizeAnimationPreview();
-	noFramesUpdate();	
-	updateAnimationKeyframes();
+
+  resizeAnimationPreview(function(){
+    updateAnimationKeyframes(function(){
+      noFramesUpdate();
+    });
+  });
 }
 
 // saves the current selected number of frames (not sure what this is for)
