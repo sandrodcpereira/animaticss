@@ -84,7 +84,7 @@ function pickRandomDemo() {
 	sourceImg = randomDemo.sourceImg;
 	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
 	animationSpeedInput.value = animationSpeed;
-	console.log("1. Picking a random demo...");
+	//console.log("1. Picking a random demo...");
 
   imageUpload.value = ""; 
 }
@@ -97,7 +97,7 @@ function updateSourceFromDemo() {
 	var sourceImgContainer = document.getElementById("sourceImg");
 	sourceImgContainer.src = sourceImg;
 	animationPreview.style.backgroundImage = "url(" + sourceImg + ")";
-	console.log("2. Demo picked. Now processing...");
+	//console.log("2. Demo picked. Now processing...");
 }
 
 // step 3, updates animation based on number of frames selected
@@ -113,7 +113,7 @@ function noFramesUpdate() {
   currentFrame.style.width = "calc(" + frameWidthPercentage + "% - 4px)"; 	// updates current frame width
   currentFrame.style.animation = animationFrameUpdate;											// updates current frame steps
 
-  console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
+  //console.log("3. Updated the number of steps to the ones defined (in the array or by input).")
   updateCodeSnippet();
 }
 
@@ -129,7 +129,7 @@ function calculateSourceDimensions(callback) {
   	  sourceWidth = this.naturalWidth;
   	  sourceHeight = this.naturalHeight;
 
-  	  console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
+  	  //console.log("4. New demo size is: " + sourceWidth + " by " + sourceHeight + ".");
       callback();
   	};
 }
@@ -156,7 +156,7 @@ function resizeAnimationPreview(callback) {
 	animationPreview.style.width = previewWidth + "px"; 		// sets preview width
 	animationPreview.style.height = previewHeight + "px";		// sets preview height
 
-	console.log("5. Resized the animation preview window to match the number of steps.");
+	//console.log("5. Resized the animation preview window to match the number of steps.");
   callback();
 }
 
@@ -168,8 +168,8 @@ function updateAnimationKeyframes(callback) {
   let root = document.documentElement;
   root.style.setProperty('--previewEnd', "calc(100% - " + (previewWidth) + "px)");
 
-  console.log( root.style.getPropertyValue('--previewEnd') );
-  console.log("6. Updated the CSS keyframes to match the size of the preview.");
+  //console.log( root.style.getPropertyValue('--previewEnd') );
+  //console.log("6. Updated the CSS keyframes to match the size of the preview.");
   callback();
 }
 
@@ -198,7 +198,7 @@ function handleSpeedChange(event) {
 
 	animationSpeed = inputValue;
 	animationSpeedAdjusted = inputValue * 0.1;
-	console.log("animationSpeed changed. New value:", animationSpeed);
+	//console.log("animationSpeed changed. New value:", animationSpeed);
 	animationSpeedUpdate();
 }
 
@@ -368,7 +368,7 @@ function noFramesScrollToSelection() {
 	var scrollOffset = checkedIndex * 40;
 	frameInput.scrollLeft = scrollOffset;
 
-  console.log("9. Scroll buttons to selection")
+  //console.log("9. Scroll buttons to selection")
 }
 
 nextFrameButton.addEventListener('click', selectNextRadioButton);
