@@ -257,10 +257,11 @@ function resetNoFrames() {
     noFrames = firstRadioButton.value;
 
     updateCodeSnippet();
+    noFramesUpdate();
   }
 }
 
-// codes for toolbar buttons
+// functions for toolbar buttons
 
 refreshButton.addEventListener("click", pickNewDemo);
 
@@ -268,12 +269,13 @@ imageUploadAlias.addEventListener("click", function() {
   imageUpload.click();
 });
 
-
 var canvasToggleText = document.querySelector("#darkBackground > span");
 var canvasToggleState1 = "Dark canvas";
 var canvasToggleState2 = "Light canvas";
 var canvasToggleCurrent = canvasToggleState1;
 
+
+// canvas toggle
 
 darkBackground.addEventListener("click", function() {
   darkBackground.classList.toggle("dark");
@@ -287,7 +289,6 @@ darkBackground.addEventListener("click", function() {
   }
 
   canvasToggleText.textContent = canvasToggleCurrent;
-
 
 });
 
@@ -338,7 +339,7 @@ function generateRadioButtons() {
       
       var label = document.createElement("label");
       label.textContent = possibleNoFrames[i];
-      label.setAttribute("for", possibleNoFrames[i]); // Set the "for" attribute
+      label.setAttribute("for", possibleNoFrames[i]); // set the "for" attribute
       
     	selectFrames.appendChild(label);
     }
@@ -371,6 +372,8 @@ function noFramesScrollToSelection() {
   //console.log("9. Scroll buttons to selection")
 }
 
+// selects the next value in noFrames selector
+
 nextFrameButton.addEventListener('click', selectNextRadioButton);
 
 function selectNextRadioButton() {
@@ -398,7 +401,7 @@ function selectNextRadioButton() {
 
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
 
-// selects the previous value in number of frames
+// selects the previous value in noFrames selector
 
 function selectPreviousRadioButton() {
   var radioButtons = selectFrames.querySelectorAll('input[type="radio"]');
