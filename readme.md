@@ -21,7 +21,7 @@ Here are a few benefits of using sprite animations on the web:
 - Compared to animation libraries, it has zero dependencies. It can be accomplished with simple HTML and CSS, even for things like hover animations. Some more complex interactions will require a few lines of JavaScript, but that’s still way better than having to load libraries.
 - Compared to GIFs, it’s much lighter in size and it gives you complete control over when the animation plays, like on hover or a button press.
 - Compared to loading individual frame files, it requires no preloading and only needs one file.
-- With some more complex code, you can even have multiple animations stored in a single PNG file. See an example here.
+- With some more complex code, you can even have multiple animations stored in a single PNG file. See an example [here](https://sandro.design/stowify.html).
 
 Things to keep in mind:
 
