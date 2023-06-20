@@ -180,9 +180,12 @@ selectFrames.addEventListener("change", function(event) {
 
   if (selectedRadioButton.checked) {
     noFrames = selectedRadioButton.value;
-    resizeAnimationPreview();
-    noFramesUpdate(); 
-    updateAnimationKeyframes();
+    resizeAnimationPreview(function(){
+      updateAnimationKeyframes(function(){
+        noFramesUpdate();
+      });
+    });
+ 
     noFramesScrollToSelection();
   }
 });
@@ -382,11 +385,15 @@ function selectNextRadioButton() {
       break;
     }
   }
+
   noFramesScrollToSelection();
   storeSelectedNoFrames();
-  resizeAnimationPreview();
-	noFramesUpdate();	
-	updateAnimationKeyframes();
+
+  resizeAnimationPreview(function(){
+    updateAnimationKeyframes(function(){
+      noFramesUpdate();
+    });
+  });
 }
 
 prevFrameButton.addEventListener('click', selectPreviousRadioButton);
@@ -408,9 +415,12 @@ function selectPreviousRadioButton() {
   }
   noFramesScrollToSelection();
   storeSelectedNoFrames();
-  resizeAnimationPreview();
-	noFramesUpdate();	
-	updateAnimationKeyframes();
+
+  resizeAnimationPreview(function(){
+    updateAnimationKeyframes(function(){
+      noFramesUpdate();
+    });
+  });
 }
 
 // saves the current selected number of frames (not sure what this is for)
