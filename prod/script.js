@@ -19,6 +19,11 @@ var animationDemo = [
       animationSpeed: 24,
       sourceImg: "assets/demo-balloon.png"
   },
+  {
+      noFrames: 20,
+      animationSpeed: 18,
+      sourceImg: "assets/demo-float.png"
+  },
 ];
 
 var noFrames;
