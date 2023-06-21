@@ -14,6 +14,11 @@ var animationDemo = [
       animationSpeed: 11,
       sourceImg: "assets/demo-wink.png"
   },
+  {
+      noFrames: 22,
+      animationSpeed: 22,
+      sourceImg: "assets/demo-balloon.png"
+  },
 ];
 
 var noFrames;
