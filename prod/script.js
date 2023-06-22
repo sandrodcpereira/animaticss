@@ -85,19 +85,25 @@ function handleNewSource() {
 // outputs: noFrames, animationSpeed, sourceImg, animationSpeedAdjusted
 
 function pickRandomDemo() {
-  do {
-    randomDemo = Math.floor(Math.random() * animationDemo.length);
-  } while (randomDemo === lastPickedDemo);
+  var urlParams = new URLSearchParams(window.location.search);
+  var demoParam = urlParams.get("demo");
+  
+  if (demoParam && demoParam >= 0 && demoParam < animationDemo.length) {
+    randomDemo = demoParam;
+  } else {
+    do {
+      randomDemo = Math.floor(Math.random() * animationDemo.length);
+    } while (randomDemo === lastPickedDemo);
+  }
 
   lastPickedDemo = randomDemo;
-  var randomDemo = animationDemo[randomDemo];
-	noFrames = randomDemo.noFrames;
-	animationSpeed = randomDemo.animationSpeed;
-	sourceImg = randomDemo.sourceImg;
-	animationSpeedAdjusted = randomDemo.animationSpeed * 0.1;
-	animationSpeedInput.value = animationSpeed;
-	//console.log("1. Picking a random demo...");
-
+  var selectedDemo = animationDemo[randomDemo];
+  noFrames = selectedDemo.noFrames;
+  animationSpeed = selectedDemo.animationSpeed;
+  sourceImg = selectedDemo.sourceImg;
+  animationSpeedAdjusted = selectedDemo.animationSpeed * 0.1;
+  animationSpeedInput.value = animationSpeed;
+  
   imageUpload.value = ""; 
 }
 
