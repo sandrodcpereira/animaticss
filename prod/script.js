@@ -24,6 +24,11 @@ var animationDemo = [
       animationSpeed: 18,
       sourceImg: "assets/demo-float.png"
   },
+  {
+      noFrames: 6,
+      animationSpeed: 4,
+      sourceImg: "assets/demo-spin.png"
+  },
 ];
 
 var noFrames;
