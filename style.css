@@ -3,7 +3,11 @@
 span.colorPurple {color: #cc99cd;}
 span.colorOrange {color: #f08d49;}
 span.colorYellow {color: #f8c555;}
-span.colorBlue {color: #67cdcc;}
+span.colorBlue 		{color: #67cdcc;}
+
+code {
+	tab-size: 32px;
+}
 
 
 /* LAYOUT */
@@ -141,6 +145,10 @@ section > .helper {
 	font-size: 11px;
 	align-items: flex-start;
 	justify-content: center;
+}
+
+section > .helper svg {
+	vertical-align: middle;
 }
 
 section.preview > .helper {
